@@ -10,7 +10,7 @@ export class RoleGuard implements CanActivate {
   constructor(public auth: AuthService, public router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    const expectedRoles: string =  'ADMIN'; //TODO srediti route.data.expectedRoles;
+    const expectedRoles: string =  route.data["expectedRoles"]; 
     const token = localStorage.getItem("user");
     const jwt: JwtHelperService = new JwtHelperService();
 
@@ -22,8 +22,9 @@ export class RoleGuard implements CanActivate {
     const info = jwt.decodeToken(token);
     const roles: string[] = expectedRoles.split("|", 2);
 
-    if (roles.indexOf(info.role[0].authority) === -1) {
-      //this.router.navigate(["/wine/list"]);
+    if (roles.indexOf(info.role) === -1) {
+      //this.router.navigate(["/wine/list"]); oni su stavili redirect mi cemo samo ostati na stranici ako
+      // nije validan role
       return false;
     }
     return true;

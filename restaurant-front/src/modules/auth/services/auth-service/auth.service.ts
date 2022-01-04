@@ -19,12 +19,8 @@ export class AuthService {
     });
   }
 
-  logout(): Observable<string> {
-    //TODO na backu
-    return this.http.get("restaurant/api/users/logout", {
-      headers: this.headers,
-      responseType: "text",
-    });
+  logout(): void {
+    localStorage.removeItem("user");
   }
 
   isLoggedIn(): boolean {

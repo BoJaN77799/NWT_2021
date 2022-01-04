@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
+import { JwtHelperService } from "@auth0/angular-jwt";
 import { ToastrService } from "ngx-toastr";
 import { Login } from "src/modules/shared/models/login";
 import { AuthService } from "../../services/auth-service/auth.service";
@@ -12,8 +13,6 @@ import { AuthService } from "../../services/auth-service/auth.service";
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-
-  //TODO INTERCEPTORS
 
   constructor(
     private fb: FormBuilder,
@@ -38,8 +37,18 @@ export class LoginComponent implements OnInit {
     this.authService.login(auth).subscribe(
       (result) => {
         this.toastr.success("Successful login!");
-        localStorage.setItem("user", JSON.stringify(result));
-        //TODO this.router.navigate(["/wine/list"]);
+
+        const token = JSON.stringify(result);
+        localStorage.setItem("user", token);
+
+        const jwt: JwtHelperService = new JwtHelperService();
+        const info = jwt.decodeToken(token);
+        const role = info.role;
+        if (role === "ADMINISTRATOR"){
+          console.log("adminko");
+        }
+        //TODO ovde dodati if za svakog korisnika, i poslati ga na home page sa 
+        //         this.router.navigate(["putanja_do_home_page"]);
       },
       (error) => {
         this.toastr.error(error.error);
