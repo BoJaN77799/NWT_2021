@@ -14,6 +14,7 @@ import { RootLayoutPageComponent } from './pages/root-layout-page/root-layout-pa
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
+import { TablesModule } from '../tables/tables.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MatIconModule} from '@angular/material/icon';
     ToastrModule.forRoot(),
     MatSidenavModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    TablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

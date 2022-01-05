@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         const info = jwt.decodeToken(token);
         const role = info.role;
         if (role === "ADMINISTRATOR"){
-          console.log("adminko");
+          this.router.navigate(["rest-app/tables/tables-admin"]);
         }
         //TODO ovde dodati if za svakog korisnika, i poslati ga na home page sa 
         //         this.router.navigate(["putanja_do_home_page"]);

@@ -9,11 +9,11 @@ const routes: Routes = [
     path: "rest-app",
     component: RootLayoutPageComponent,
     children: [
-      // {
-      //   path: "tables",
-      //   loadChildren: () =>
-      //     import("./../wine/wine.module").then((m) => m.WineModule),
-      // },
+      {
+        path: "tables",
+        loadChildren: () =>
+          import("./../tables/tables.module").then((m) => m.TablesModule),
+      },
       {
         path: "auth",
         loadChildren: () =>
