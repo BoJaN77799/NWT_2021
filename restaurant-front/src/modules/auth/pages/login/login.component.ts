@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["rest-app/tables/tables-admin"]);
         }
         else if (role === "MANAGER") {
-          this.router.navigate(["rest-app/manager"]);
+          this.router.navigate(["rest-app/reports/reports-manager"]);
         }
         //TODO ovde dodati if za svakog korisnika, i poslati ga na home page sa 
         //         this.router.navigate(["putanja_do_home_page"]);

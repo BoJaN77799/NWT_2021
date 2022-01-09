@@ -6,5 +6,7 @@ import { Component } from "@angular/core";
   styleUrls: ["./not-found-page.component.scss"],
 })
 export class NotFoundPageComponent {
-  constructor() {}
+  constructor() {
+    //localStorage.removeItem("user");
+  }
 }
