@@ -1,6 +1,34 @@
-<p>tables-admin works!</p>
-<ul>
-<li *ngFor="let table of tables">
-    <p>{{table.id}}</p>
-</li>
-</ul>
+
+<div class="svg-container" appDroppable [tablesList]="tables">
+    <svg id="dropzone" height="100%" width="100%">
+        <circle 
+            *ngFor="let table of tables" 
+            id="{{table.id}}" 
+            [attr.cx]="table.x" 
+            [attr.cy]="table.y" 
+            r="40" 
+            stroke="black" 
+            fill="red" 
+            appDraggable/>
+    </svg>
+</div>
+
+<div>
+    <p *ngFor="let table of tables">
+        x: {{table.x}}; y: {{table.y}}
+    </p>
+</div>
+
+<!-- <div class="example-boundary">
+    <div 
+        *ngFor="let table of tables" 
+        class="example-box" 
+        cdkDragBoundary=".example-boundary" 
+        cdkDrag 
+        (cdkDragEnded)="dragEnd($event)"
+        [cdkDragData]="table"
+        [cdkDragFreeDragPosition]="table.position"
+    >
+        {{table.id}}
+    </div>
+</div> -->
