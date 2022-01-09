@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavbarManagerComponent } from './navbar-manager.component';
+import { HeaderCommonComponent } from './header-common.component';
 
-describe('NavbarManagerComponent', () => {
-  let component: NavbarManagerComponent;
-  let fixture: ComponentFixture<NavbarManagerComponent>;
+describe('HeaderCommonComponent', () => {
+  let component: HeaderCommonComponent;
+  let fixture: ComponentFixture<HeaderCommonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NavbarManagerComponent ]
+      declarations: [ HeaderCommonComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NavbarManagerComponent);
+    fixture = TestBed.createComponent(HeaderCommonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

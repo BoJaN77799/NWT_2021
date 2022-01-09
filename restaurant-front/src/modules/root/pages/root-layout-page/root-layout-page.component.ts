@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-root-layout-page',
@@ -9,10 +10,21 @@ export class RootLayoutPageComponent implements OnInit {
 
   public showFiller : boolean = false;
 
+  public role: string;
+
   constructor() {
+    this.role = "";
   }
- 
-  ngOnInit(): void {
+
+  ngOnInit() {}
+
+  checkRole() {
+    const item = localStorage.getItem("user");
+
+    if (item) {
+      const jwt: JwtHelperService = new JwtHelperService();
+      this.role = jwt.decodeToken(item).role;
+    }
   }
 
 }

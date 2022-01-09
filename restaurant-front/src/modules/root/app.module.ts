@@ -15,15 +15,15 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { TablesModule } from '../tables/tables.module';
-import { HeaderComponent } from './components/header/header.component';
-import { NavbarManagerComponent } from './components/navbar-manager/navbar-manager.component';
+import { HeaderCommonComponent } from './components/headers/header-common/header-common.component';
+import { HeaderManagerComponent } from './components/headers/header-manager/header-manager.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RootLayoutPageComponent,
-    HeaderComponent,
-    NavbarManagerComponent  
+    HeaderCommonComponent,
+    HeaderManagerComponent  
   ],
   imports: [
     CommonModule,
