@@ -9,8 +9,9 @@ export class RootLayoutPageComponent implements OnInit {
 
   public showFiller : boolean = false;
 
-  constructor() { }
-
+  constructor() {
+  }
+ 
   ngOnInit(): void {
   }
 
