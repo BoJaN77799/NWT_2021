@@ -13,11 +13,13 @@ import { MatTableModule } from '@angular/material/table';
 import { SalesTableComponent } from './pages/sales-table/sales-table.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSortModule} from '@angular/material/sort';
+import { IncomeExpensesChartComponent } from './pages/income-expenses-chart/income-expenses-chart.component';
 
 @NgModule({
   declarations: [
     ReportsManagerComponent,
-    SalesTableComponent
+    SalesTableComponent,
+    IncomeExpensesChartComponent
   ],
   imports: [
     CommonModule,
