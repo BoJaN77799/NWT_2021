@@ -11,14 +11,13 @@ export class DraggableDirective {
   }
 
   @HostListener('dragstart', ['$event'])
-  onDragStart(event: any) {
+  onDragStart(event : any) {
     const elementToBeDragged = event.target.getElementsByTagName('circle')[0];
     event.dataTransfer.setData('text', elementToBeDragged.id);
-    console.log("ddd");
   }
 
   @HostListener('document:dragover', ['$event'])
-  onDragOver(event: any) {
+  onDragOver(event : any) {
       event.preventDefault();
   }
 }

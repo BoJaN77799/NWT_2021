@@ -1,17 +1,87 @@
+<!-- <div class="items-container">
+    <div appDraggable>
+        <svg height="100" width="100">
+            <circle id="-1" class="tableAdd" cx="50" cy="50" r="40" stroke="black" fill="red"/>
+        </svg>
+    </div>
+    <div appDraggable>
+        <svg height="100" width="100">
+            <circle id="circle-blue" cx="50" cy="50" r="40" stroke="black" fill="blue" />
+        </svg>
+    </div>
+    <div appDraggable>
+        <svg height="100" width="100">
+            <circle id="circle-green" cx="50" cy="50" r="40" stroke="black" fill="green" />
+        </svg>
+    </div>
+</div> -->
 
 <div class="svg-container" appDroppable [tablesList]="tables">
     <svg id="dropzone" height="100%" width="100%">
-        <circle 
-            *ngFor="let table of tables" 
-            id="{{table.id}}" 
-            [attr.cx]="table.x" 
-            [attr.cy]="table.y" 
+         
+        <line
+            x1="100"
+            y1="0"
+            x2="100"
+            y2="400"
+            style="stroke:rgb(255,0,0);stroke-width:5"/>
+
+        <g *ngFor="let table of tables">
+            <circle 
+                tableType="old"
+                [attr.tableId]="table.id" 
+                [attr.cx]="table.x" 
+                [attr.cy]="table.y" 
+                r="40" 
+                stroke="black" 
+                fill="red" 
+                draggable="true"
+                style="cursor: move;"/>
+            <text 
+                [attr.tableId]="table.id" 
+                draggable="true" 
+                [attr.x]="table.x" 
+                [attr.y]="table.y" 
+                text-anchor="middle" 
+                style="cursor: move; user-select: none;" 
+                stroke="#000000" 
+                stroke-width="1px" 
+                dy=".3em"
+            >{{table.id}}</text>
+        </g>
+        
+        <circle
+            tableType="new"
+            id="-1" 
+            cx="50" 
+            cy="50" 
             r="40" 
             stroke="black" 
-            fill="red" 
-            appDraggable/>
+            fill="blue"
+            draggable="true"/>
     </svg>
 </div>
+<!-- <div class="items-container">
+    <div appDraggable>
+        <svg height="100" width="100">
+            <circle id="circle-red" cx="50" cy="50" r="40" stroke="black" fill="red" />
+        </svg>
+    </div>
+    <div appDraggable>
+        <svg height="100" width="100">
+            <circle id="circle-blue" cx="50" cy="50" r="40" stroke="black" fill="blue" />
+        </svg>
+    </div>
+    <div appDraggable>
+        <svg height="100" width="100">
+            <circle id="circle-green" cx="50" cy="50" r="40" stroke="black" fill="green" />
+        </svg>
+    </div>
+</div>
+<div class="svg-container" appDroppable>
+    <svg id="dropzone" height="100%" width="100%">
+    </svg>
+</div> -->
 
 <div>
     <p *ngFor="let table of tables">

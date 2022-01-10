@@ -9,8 +9,8 @@ import { TablesService } from '../../services/tables.service';
 })
 export class TablesAdminComponent implements OnInit {
   public tables: TableAdminDTO[] = [
-    {"active":true, "floor":0, "id":1, "x":50, "y":60, position: {x:40, y:60}},
-    {"active":true, "floor":0, "id":2, "x":80, "y":80, position: {x:70, y:70}}];
+    {"active":true, "floor":0, "id":1, "x":170, "y":100},
+    {"active":true, "floor":0, "id":2, "x":350, "y":150}];
 
   constructor(private tablesService: TablesService) { }
 
