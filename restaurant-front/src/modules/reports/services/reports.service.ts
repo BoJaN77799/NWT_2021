@@ -27,7 +27,7 @@ export class ReportsService {
         ("restaurant/api/reports/getReportsSales/11.08.2021.-11.12.2021.", queryParams);
   }
 
-  getIncomeExpenses(): Observable<HttpResponse <IncomeExpenses>> {
+  getIncomeExpensesTest(): Observable<HttpResponse <IncomeExpenses>> {
     let queryParams = {};
 
     queryParams = {
@@ -37,5 +37,17 @@ export class ReportsService {
 
     return this.http.get<HttpResponse <IncomeExpenses>>
         ("restaurant/api/reports/getIncomeExpenses/11.08.2021.-11.12.2021.", queryParams);
+  }
+
+  getIncomeExspenses(dateFrom: string, dateTo: string): Observable<HttpResponse <IncomeExpenses>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: 'response'
+    };
+   
+    return this.http.get<HttpResponse <IncomeExpenses>>
+        (`restaurant/api/reports/getIncomeExpenses/${dateFrom}-${dateTo}`, queryParams);
   }
 }

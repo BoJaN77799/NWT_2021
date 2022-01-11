@@ -25,7 +25,7 @@ export class IncomeExpensesChartComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.reportsService
-        .getIncomeExpenses()
+        .getIncomeExpensesTest()
         .subscribe((response) => {
             this.incomeExpenses = response.body as IncomeExpenses;
             this.doughnutChartData = {
@@ -38,8 +38,21 @@ export class IncomeExpensesChartComponent implements AfterViewInit {
   }
 
   public getIncomeExpenses() {
-    console.log(this.range);
-    console.log(this.range.value.start);
-    console.log(this.range.value.end);
+    let dateFrom : string = this.sharedDatePickerService.checkDate(this.range.value.start);
+    let dateTo : string = this.sharedDatePickerService.checkDate(this.range.value.end);
+    console.log(this.sharedDatePickerService.checkDate(this.range.value.start));
+    console.log(this.sharedDatePickerService.checkDate(this.range.value.end));
+  
+    this.reportsService
+        .getIncomeExspenses(dateFrom, dateTo)
+        .subscribe((response) => {
+          this.incomeExpenses = response.body as IncomeExpenses;
+          this.doughnutChartData = {
+            labels: this.doughnutChartLabels,
+            datasets: [
+              { data: [ this.incomeExpenses.expenses, this.incomeExpenses.income ] },
+            ]
+          };
+        });
   }
 }
