@@ -12,15 +12,14 @@ export class DroppableDirective {
   
   
   
-  //granica izmedju objekata
+  
   //highlight sto koji se pomera
-
-
   //potencijalno error greska kad treba undo
   
-
+  
   //done (srediti pri resize) - todo dodati marginu sa svih strana
   //donzo -promeniti z index da bude iznad drugih sto koji se pomera
+  //donzo - granica izmedju objekata
   
   @Input()
   tablesList: TableAdminDTO[] = [];
@@ -82,8 +81,8 @@ export class DroppableDirective {
       if (tableType === "new"){  //dodaje se novi sto
         this.selectedTable = {
           draggingElement: event.target, 
-          tableDTO: {active: true, floor: 0, id: this.generateID(),x:50, y:50}, //damo mu x i y starting pos 
-          startingPosition: {x: 50, y: 50}, //todo napraviti neku konstantu da se zna starting pos za nove
+          tableDTO: {active: true, floor: 0, id: this.generateID(),x:640, y:50}, //damo mu x i y starting pos 
+          startingPosition: {x: 640, y: 50}, //todo napraviti neku konstantu da se zna starting pos za nove
           isNew: true 
         };  
         event.target.setAttribute('tableId', this.selectedTable.tableDTO.id);
@@ -113,7 +112,8 @@ export class DroppableDirective {
   checkForOverlapTables(tableDTO : TableAdminDTO) : boolean {
     for (let table of this.tablesList){
       if (table.id !== tableDTO.id){
-        if (Math.abs(table.x - tableDTO.x) < 30 && Math.abs(table.y - tableDTO.y) < 30){
+        //SQRT((x0 - x1)^2 + (y0 - y1)^2) <= (R0 + R1)
+        if (Math.sqrt(Math.pow((table.x - tableDTO.x), 2) + Math.pow((table.y - tableDTO.y), 2)) < 80){  //hardkodovan polupr, todo srediti
           return true;
         }
       }
@@ -159,7 +159,7 @@ export class DroppableDirective {
     if (!this.selectedTable)
       return false;
     
-    if (coord.x > 140 && coord.x <= 650){ 
+    if (coord.x > 20 && coord.x <= 520){ 
       this.selectedTable.draggingElement.setAttribute('cx', coord.x);
       this.selectedTable.tableDTO.x = coord.x;
     }else{
@@ -178,7 +178,7 @@ export class DroppableDirective {
     if (!this.selectedTable)
       return;
     
-    if ((coord.x > 140 || this.selectedTable.isNew) && coord.x <= 650){ 
+    if (coord.x > 50 && (coord.x <= 520 || this.selectedTable.isNew)){ 
       this.selectedTable.draggingElement.setAttribute('cx', coord.x);
       this.selectedTable.tableDTO.x = coord.x;
     }

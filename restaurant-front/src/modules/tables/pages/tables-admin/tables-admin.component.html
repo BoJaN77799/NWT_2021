@@ -1,104 +1,210 @@
-<!-- <div class="items-container">
-    <div appDraggable>
-        <svg height="100" width="100">
-            <circle id="-1" class="tableAdd" cx="50" cy="50" r="40" stroke="black" fill="red"/>
-        </svg>
-    </div>
-    <div appDraggable>
-        <svg height="100" width="100">
-            <circle id="circle-blue" cx="50" cy="50" r="40" stroke="black" fill="blue" />
-        </svg>
-    </div>
-    <div appDraggable>
-        <svg height="100" width="100">
-            <circle id="circle-green" cx="50" cy="50" r="40" stroke="black" fill="green" />
-        </svg>
-    </div>
-</div> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="row p-5 align-items-center"> 
+    <!-- <div class=""
+        [colspan] = "1"
+        [rowspan] = "2">
+        <div>
+            <p *ngFor="let table of tables">
+                x: {{table.x}}; y: {{table.y}}
+            </p>
+        </div>
+    </div> -->
+    <div class="col-8">
+        <div class="svg-container" appDroppable [tablesList]="tables" height="100%" width="100%">
+            <svg id="dropzone" height="100%" width="100%" viewBox="0 0 700 400">
+                <defs>
+                    <pattern id="star" viewBox="0,0,10,10" width="10%" height="10%">
+                      <polygon points="0,0 2,5 0,10 5,8 10,10 8,5 10,0 5,2"/>
+                    </pattern>
+                  </defs>
 
-<div class="svg-container" appDroppable [tablesList]="tables">
-    <svg id="dropzone" height="100%" width="100%">
-         
-        <line
-            x1="100"
-            y1="0"
-            x2="100"
-            y2="400"
-            style="stroke:rgb(255,0,0);stroke-width:5"/>
+                <rect
+                    height="400"
+                    width="150"
+                    x="580"
+                    y="0" 
+                    opacity="0.4"/> 
 
-        <g *ngFor="let table of tables">
-            <circle 
-                tableType="old"
-                [attr.tableId]="table.id" 
-                [attr.cx]="table.x" 
-                [attr.cy]="table.y" 
-                r="40" 
-                stroke="black" 
-                fill="red" 
-                draggable="true"
-                style="cursor: move;"/>
-            <text 
-                [attr.tableId]="table.id" 
-                draggable="true" 
-                [attr.x]="table.x" 
-                [attr.y]="table.y" 
-                text-anchor="middle" 
-                style="cursor: move; user-select: none;" 
-                stroke="#000000" 
-                stroke-width="1px" 
-                dy=".3em"
-            >{{table.id}}</text>
-        </g>
-        
-        <circle
-            tableType="new"
-            id="-1" 
-            cx="50" 
-            cy="50" 
-            r="40" 
-            stroke="black" 
-            fill="blue"
-            draggable="true"/>
-    </svg>
+                <line
+                    x1="580"
+                    y1="0"
+                    x2="580"
+                    y2="400"
+                    style="stroke:rgb(0, 0, 0);stroke-width:5"/>
+
+                <g *ngFor="let table of tables">
+                    <circle 
+                        tableType="old"
+                        [attr.tableId]="table.id" 
+                        [attr.cx]="table.x" 
+                        [attr.cy]="table.y" 
+                        r="40" 
+                        stroke="black" 
+                        fill="red" 
+                        draggable="true"
+                        style="cursor: move;"/>
+                    <text 
+                        [attr.tableId]="table.id" 
+                        draggable="true" 
+                        [attr.x]="table.x" 
+                        [attr.y]="table.y" 
+                        text-anchor="middle" 
+                        style="cursor: move; user-select: none;" 
+                        stroke="#000000" 
+                        stroke-width="1px" 
+                        dy=".3em"
+                    >{{table.id}}</text>
+                </g>
+
+                
+                
+                <circle
+                    tableType="new"
+                    id="-1" 
+                    cx="640" 
+                    cy="200" 
+                    r="40"
+                    fill="blue"
+                    stroke="black"
+                    draggable="true"
+                    style="cursor: move;"/>
+            </svg>
+        </div>
+    </div>
+    <div class="col-4 justify-content-center p-4">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title  text-center">Raspored stolova</h1>
+                <p class="card-text">Broj postavljenih stolova: 2</p>
+                <p class="card-text">Broj dostupnih stolova za dodavanje: 2</p>
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-2">
+                        <p class="card-text text-right"><a href="#" class="btn btn-primary"><i class="fa fa-backward"></i></a></p>
+                    </div>
+                    <div class="col-2">
+                        <p class="card-text text-center">Sprat: 0</p>
+                    </div>
+                    <div class="col-2">
+                        <p class="card-text text-left"><a href="#" class="btn btn-primary"><i class="fa fa-forward"></i></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <mat-grid-tile [colspan]="1" [rowspan]="2">
+        <mat-card class="example-card" style="padding:20%">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Raspored stolova</mat-card-title>
+              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+              <p>
+                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                bred for hunting.
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button>LIKE</button>
+              <button mat-button>SHARE</button>
+            </mat-card-actions>
+          </mat-card>
+    </mat-grid-tile> -->
 </div>
-<!-- <div class="items-container">
-    <div appDraggable>
-        <svg height="100" width="100">
-            <circle id="circle-red" cx="50" cy="50" r="40" stroke="black" fill="red" />
-        </svg>
-    </div>
-    <div appDraggable>
-        <svg height="100" width="100">
-            <circle id="circle-blue" cx="50" cy="50" r="40" stroke="black" fill="blue" />
-        </svg>
-    </div>
-    <div appDraggable>
-        <svg height="100" width="100">
-            <circle id="circle-green" cx="50" cy="50" r="40" stroke="black" fill="green" />
-        </svg>
-    </div>
-</div>
-<div class="svg-container" appDroppable>
-    <svg id="dropzone" height="100%" width="100%">
-    </svg>
-</div> -->
 
-<div>
-    <p *ngFor="let table of tables">
-        x: {{table.x}}; y: {{table.y}}
-    </p>
-</div>
+<!-- <mat-grid-list cols="5"> 
+    <mat-grid-tile 
+        [colspan] = "1"
+        [rowspan] = "2">
+        <div>
+            <p *ngFor="let table of tables">
+                x: {{table.x}}; y: {{table.y}}
+            </p>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="3" [rowspan]="2">
+        <div class="svg-container" appDroppable [tablesList]="tables" height="100%" width="100%">
+            <svg id="dropzone" height="100%" width="100%" viewBox="0 0 700 400">
+                <defs>
+                    <pattern id="star" viewBox="0,0,10,10" width="10%" height="10%">
+                      <polygon points="0,0 2,5 0,10 5,8 10,10 8,5 10,0 5,2"/>
+                    </pattern>
+                  </defs>
 
-<!-- <div class="example-boundary">
-    <div 
-        *ngFor="let table of tables" 
-        class="example-box" 
-        cdkDragBoundary=".example-boundary" 
-        cdkDrag 
-        (cdkDragEnded)="dragEnd($event)"
-        [cdkDragData]="table"
-        [cdkDragFreeDragPosition]="table.position"
-    >
-        {{table.id}}
-    </div>
-</div> -->
+                <rect
+                    height="400"
+                    width="150"
+                    x="580"
+                    y="0" 
+                    opacity="0.4"/> 
+
+                <line
+                    x1="580"
+                    y1="0"
+                    x2="580"
+                    y2="400"
+                    style="stroke:rgb(0, 0, 0);stroke-width:5"/>
+
+                <g *ngFor="let table of tables">
+                    <circle 
+                        tableType="old"
+                        [attr.tableId]="table.id" 
+                        [attr.cx]="table.x" 
+                        [attr.cy]="table.y" 
+                        r="40" 
+                        stroke="black" 
+                        fill="red" 
+                        draggable="true"
+                        style="cursor: move;"/>
+                    <text 
+                        [attr.tableId]="table.id" 
+                        draggable="true" 
+                        [attr.x]="table.x" 
+                        [attr.y]="table.y" 
+                        text-anchor="middle" 
+                        style="cursor: move; user-select: none;" 
+                        stroke="#000000" 
+                        stroke-width="1px" 
+                        dy=".3em"
+                    >{{table.id}}</text>
+                </g>
+
+                
+                
+                <circle
+                    tableType="new"
+                    id="-1" 
+                    cx="640" 
+                    cy="200" 
+                    r="40"
+                    fill="blue"
+                    stroke="black"
+                    draggable="true"
+                    style="cursor: move;"/>
+            </svg>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="2">
+        <mat-card class="example-card" style="padding:20%">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Raspored stolova</mat-card-title>
+              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+              <p>
+                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                bred for hunting.
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button>LIKE</button>
+              <button mat-button>SHARE</button>
+            </mat-card-actions>
+          </mat-card>
+    </mat-grid-tile>
+</mat-grid-list> -->

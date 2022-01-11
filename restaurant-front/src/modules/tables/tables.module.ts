@@ -7,6 +7,8 @@ import { TablesAdminComponent } from './pages/tables-admin/tables-admin.componen
 import { DraggableDirective } from './directives/draggable/draggable.directive';
 import { DroppableDirective } from './directives/droppable/droppable.directive';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -20,7 +22,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DragDropModule,
     CommonModule,
     SharedModule,
-    RouterModule.forChild(TablesRoutes)
+    RouterModule.forChild(TablesRoutes),
+    MatGridListModule,
+    MatCardModule
   ]
 })
 export class TablesModule { }
