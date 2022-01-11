@@ -1,1 +1,15 @@
-<p>income-expenses-chart works!</p>
+<div>
+    <div style="height: 400px; width: 400px; float: left;">
+      <div style="display: block">
+        <canvas baseChart
+          [data]="doughnutChartData"
+  
+          [type]="doughnutChartType">
+        </canvas>
+      </div>
+    </div>
+    <div>
+      <p style="color:red; font-weight: bold;">Expenses:  {{incomeExpenses?.expenses}} RSD</p>
+      <p style="color:blue; font-weight: bold;">Income: {{incomeExpenses?.income}} RSD</p>
+    </div>
+  </div>

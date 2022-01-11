@@ -15,6 +15,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSortModule} from '@angular/material/sort';
 import { IncomeExpensesChartComponent } from './pages/income-expenses-chart/income-expenses-chart.component';
 
+import { NgChartsModule } from 'ng2-charts';
+
 @NgModule({
   declarations: [
     ReportsManagerComponent,
@@ -32,7 +34,8 @@ import { IncomeExpensesChartComponent } from './pages/income-expenses-chart/inco
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
-    MatSortModule
+    MatSortModule,
+    NgChartsModule
   ],
   exports: [
     RouterModule

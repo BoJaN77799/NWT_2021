@@ -20,6 +20,9 @@ import { HeaderManagerComponent } from './components/headers/header-manager/head
 import { MatRippleModule } from '@angular/material/core';
 import { ReportsModule } from '../reports/reports.module';
 
+import { NgChartsModule } from 'ng2-charts';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +44,9 @@ import { ReportsModule } from '../reports/reports.module';
     MatIconModule,
     MatRippleModule, 
     TablesModule,
-    ReportsModule
+    ReportsModule,
+    NgChartsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
