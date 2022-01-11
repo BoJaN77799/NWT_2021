@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {AfterViewInit, ViewChild} from '@angular/core';
 import {MatSort, Sort} from '@angular/material/sort';
@@ -19,7 +19,6 @@ export class SalesTableComponent implements AfterViewInit{
   // dataSource = ELEMENT_DATA;
   salesList: Sales[]  = [] ;
   dataSource = new MatTableDataSource(this.salesList);
-
 
   constructor(private _liveAnnouncer: LiveAnnouncer, private reportsService: ReportsService) {}
 

@@ -11,11 +11,14 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { SalesTableComponent } from './pages/sales-table/sales-table.component';
-import {DragDropModule} from '@angular/cdk/drag-drop';
-import {MatSortModule} from '@angular/material/sort';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatSortModule } from '@angular/material/sort';
 import { IncomeExpensesChartComponent } from './pages/income-expenses-chart/income-expenses-chart.component';
 
 import { NgChartsModule } from 'ng2-charts';
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { NgChartsModule } from 'ng2-charts';
     ReactiveFormsModule,
     DragDropModule,
     MatSortModule,
-    NgChartsModule
+    NgChartsModule,
+    MatDatepickerModule,
+    MatFormFieldModule
   ],
   exports: [
     RouterModule

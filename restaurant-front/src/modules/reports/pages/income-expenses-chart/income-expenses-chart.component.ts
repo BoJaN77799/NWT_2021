@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ChartData, ChartType } from 'chart.js';
 import { IncomeExpenses } from '../../models/income-expenses';
 import { ReportsService } from '../../services/reports.service';
+import { SharedDatePickerService } from '../../services/shared-date-picker.service';
 
 @Component({
   selector: 'app-income-expenses-chart',
@@ -14,14 +16,18 @@ export class IncomeExpensesChartComponent implements AfterViewInit {
   public doughnutChartType: ChartType = 'doughnut';
   public incomeExpenses: IncomeExpenses | undefined;
 
-  constructor(private reportsService: ReportsService) {}
+  public range = new FormGroup({});
+  
+  constructor(private reportsService: ReportsService, private sharedDatePickerService: SharedDatePickerService) {
+    this.sharedDatePickerService.getData()
+        .subscribe(res => this.range = res);
+  }
 
   ngAfterViewInit(): void {
     this.reportsService
         .getIncomeExpenses()
         .subscribe((response) => {
             this.incomeExpenses = response.body as IncomeExpenses;
-            console.log(this.incomeExpenses);
             this.doughnutChartData = {
               labels: this.doughnutChartLabels,
               datasets: [
@@ -31,14 +37,9 @@ export class IncomeExpensesChartComponent implements AfterViewInit {
         });
   }
 
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+  public getIncomeExpenses() {
+    console.log(this.range);
+    console.log(this.range.value.start);
+    console.log(this.range.value.end);
   }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-  
-
 }

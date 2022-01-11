@@ -1,15 +1,20 @@
 <div>
-    <div style="height: 400px; width: 400px; float: left;">
-      <div style="display: block">
-        <canvas baseChart
-          [data]="doughnutChartData"
+  <div class="example-button-container" style="float: left; padding-top: 5px; padding-left: 40px; padding-right: 100px;">
+    <button mat-mini-fab color="warn" aria-label="Pie chart." (click)="getIncomeExpenses()">
+      <mat-icon>pie_chart</mat-icon>
+    </button>
+  </div>
+  <div style="height: 600px; width: 600px; float: left;">
+    <div style="display: block">
+      <canvas baseChart
+        [data]="doughnutChartData"
   
-          [type]="doughnutChartType">
-        </canvas>
-      </div>
-    </div>
-    <div>
-      <p style="color:red; font-weight: bold;">Expenses:  {{incomeExpenses?.expenses}} RSD</p>
-      <p style="color:blue; font-weight: bold;">Income: {{incomeExpenses?.income}} RSD</p>
+        [type]="doughnutChartType">
+      </canvas>
     </div>
   </div>
+  <div>
+    <p style="color:red; font-weight: bold;">Expenses:  {{incomeExpenses?.expenses}} RSD</p>
+    <p style="color:blue; font-weight: bold;">Income: {{incomeExpenses?.income}} RSD</p>
+  </div>
+</div>
