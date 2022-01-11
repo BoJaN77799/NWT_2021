@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from '../auth/pages/login/login.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { RootLayoutPageComponent } from './pages/root-layout-page/root-layout-page.component';
 
@@ -18,6 +17,11 @@ const routes: Routes = [
         path: "auth",
         loadChildren: () =>
           import("./../auth/auth.module").then((m) => m.AuthModule),
+      },
+      {
+        path: "reports",
+        loadChildren: () => 
+          import("./../reports/reports.module").then((m) => m.ReportsModule),
       },
     ],
   },

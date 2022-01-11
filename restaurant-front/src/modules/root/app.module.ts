@@ -11,15 +11,21 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { RootLayoutPageComponent } from './pages/root-layout-page/root-layout-page.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
 import { TablesModule } from '../tables/tables.module';
+import { HeaderCommonComponent } from './components/headers/header-common/header-common.component';
+import { HeaderManagerComponent } from './components/headers/header-manager/header-manager.component';
+import { MatRippleModule } from '@angular/material/core';
+import { ReportsModule } from '../reports/reports.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RootLayoutPageComponent  
+    RootLayoutPageComponent,
+    HeaderCommonComponent,
+    HeaderManagerComponent,
   ],
   imports: [
     CommonModule,
@@ -33,7 +39,9 @@ import { TablesModule } from '../tables/tables.module';
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
-    TablesModule
+    MatRippleModule, 
+    TablesModule,
+    ReportsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
