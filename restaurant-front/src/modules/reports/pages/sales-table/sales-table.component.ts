@@ -44,6 +44,7 @@ export class SalesTableComponent implements AfterViewInit{
         .getSalesTest()
         .subscribe((response) => {
           this.salesList = response.body as Sales[];
+          console.log(this.salesList);
           this.dataSource = new MatTableDataSource(this.salesList);
           this.dataSource.sort = this.sort;
           this.fillDoughnut();
