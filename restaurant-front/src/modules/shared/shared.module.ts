@@ -11,10 +11,13 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { UtilService } from './services/util/util.service';
 
 @NgModule({
   declarations: [
-    DateRangePickerComponent
+    DateRangePickerComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
@@ -28,9 +31,11 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     MatFormFieldModule,
     MatRippleModule,
-    DateRangePickerComponent
+    DateRangePickerComponent,
+    PaginationComponent
   ],
   providers: [
+    UtilService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
   ],
 })

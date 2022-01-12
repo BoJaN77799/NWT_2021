@@ -19,6 +19,8 @@ import { HeaderCommonComponent } from './components/headers/header-common/header
 import { HeaderManagerComponent } from './components/headers/header-manager/header-manager.component';
 import { MatRippleModule } from '@angular/material/core';
 import { ReportsModule } from '../reports/reports.module';
+import { OrdersModule } from '../orders/orders.module';
+import { HeaderCookComponent } from './components/headers/header-cook/header-cook.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { ReportsModule } from '../reports/reports.module';
     RootLayoutPageComponent,
     HeaderCommonComponent,
     HeaderManagerComponent,
+    HeaderCookComponent,
   ],
   imports: [
     CommonModule,
@@ -41,7 +44,8 @@ import { ReportsModule } from '../reports/reports.module';
     MatIconModule,
     MatRippleModule, 
     TablesModule,
-    ReportsModule
+    ReportsModule,
+    OrdersModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -50,6 +50,12 @@ export class LoginComponent implements OnInit {
         else if (role === "MANAGER") {
           this.router.navigate(["rest-app/reports/reports-manager"]);
         }
+        else if (role === "COOK") {
+          this.router.navigate(["rest-app/orders/orders-page"]);
+        }
+        else if (role === "BARMAN") {
+          this.router.navigate(["rest-app/orders/orders-page"]); // mozda nece biti redirektovan ovdje... Ako bude spojicu
+        }
         //TODO ovde dodati if za svakog korisnika, i poslati ga na home page sa 
         //         this.router.navigate(["putanja_do_home_page"]);
       },
