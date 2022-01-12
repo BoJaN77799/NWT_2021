@@ -1,6 +1,6 @@
 <div>
   <div class="example-button-container" style="float: left; padding-top: 5px; padding-left: 40px; padding-right: 100px;">
-    <button mat-mini-fab color="warn" aria-label="Table icon.">
+    <button mat-mini-fab color="warn" aria-label="Table icon." (click)="getSales()">
       <mat-icon>table</mat-icon>
     </button>
   </div>
@@ -35,5 +35,9 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+  </div>
+  <div style="height: 300px; width: 300px;">
+    <app-doughnut-chart [doughnutChartLabels]="doughnutChartLabels" 
+    [doughnutChartData]="doughnutChartData"></app-doughnut-chart>
   </div>
 </div>

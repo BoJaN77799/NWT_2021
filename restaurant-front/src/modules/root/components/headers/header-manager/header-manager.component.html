@@ -16,11 +16,16 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" [routerLink]="'/rest-app/reports/reports-manager/sales-table'" 
               routerLinkActive="active" 
-              >Sales</a></li>
+              >Sales (Table)</a></li>
+            <li><a class="dropdown-item" [routerLink]="'/rest-app/reports/reports-manager/sales-chart'" 
+              routerLinkActive="active">Sales (Chart)</a></li>
             <li><a class="dropdown-item" 
               [routerLink]="'/rest-app/reports/reports-manager/income-expenses-chart'" 
-              routerLinkActive="active" >Income and Expenses</a></li>
-            <li><a class="dropdown-item" href="#">Acitvity</a></li>
+              routerLinkActive="active" >Income and Expenses (Chart)</a></li>
+            <li><a class="dropdown-item" [routerLink]="'/rest-app/reports/reports-manager/activity-table'" 
+              routerLinkActive="active">Acitvity (Table)</a></li>
+            <li><a class="dropdown-item" [routerLink]="'/rest-app/reports/reports-manager/activity-chart'" 
+              routerLinkActive="active">Acitvity (Chart)</a></li>
           </ul>
         </li>
       </ul>

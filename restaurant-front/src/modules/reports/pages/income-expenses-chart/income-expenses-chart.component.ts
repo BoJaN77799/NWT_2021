@@ -11,9 +11,13 @@ import { SharedDatePickerService } from '../../services/shared-date-picker.servi
   styleUrls: ['./income-expenses-chart.component.scss']
 })
 export class IncomeExpensesChartComponent implements AfterViewInit {
-  private doughnutChartLabels: string[] = [ 'Expenses', 'Income' ];
-  public doughnutChartData: ChartData<'doughnut'> | undefined;
-  public doughnutChartType: ChartType = 'doughnut';
+  doughnutChartLabels: string[] = [ 'Expenses', 'Income' ];
+  doughnutChartData: ChartData<'doughnut'> = {
+    labels: this.doughnutChartLabels,
+    datasets: [ {data:[]} ]
+  }
+  doughnutChartType: ChartType = 'doughnut';
+
   public incomeExpenses: IncomeExpenses | undefined;
 
   public range = new FormGroup({});
@@ -29,11 +33,9 @@ export class IncomeExpensesChartComponent implements AfterViewInit {
         .subscribe((response) => {
             this.incomeExpenses = response.body as IncomeExpenses;
             this.doughnutChartData = {
-              labels: this.doughnutChartLabels,
-              datasets: [
-                { data: [ this.incomeExpenses.expenses, this.incomeExpenses.income ] },
-              ]
+              datasets: [ {data:[]} ]
             };
+            this.doughnutChartData.datasets[0].data = [this.incomeExpenses.expenses, this.incomeExpenses.income];
         });
   }
 
@@ -48,11 +50,11 @@ export class IncomeExpensesChartComponent implements AfterViewInit {
         .subscribe((response) => {
           this.incomeExpenses = response.body as IncomeExpenses;
           this.doughnutChartData = {
-            labels: this.doughnutChartLabels,
-            datasets: [
-              { data: [ this.incomeExpenses.expenses, this.incomeExpenses.income ] },
-            ]
+            datasets: [ {data:[]} ]
           };
+          this.doughnutChartData.datasets[0].data = [this.incomeExpenses.expenses, this.incomeExpenses.income];
         });
   }
+
+
 }

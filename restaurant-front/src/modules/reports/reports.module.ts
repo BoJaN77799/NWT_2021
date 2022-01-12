@@ -19,12 +19,22 @@ import { NgChartsModule } from 'ng2-charts';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { SalesChartComponent } from './pages/sales-chart/sales-chart.component';
+import { ActivityTableComponent } from './pages/activity-table/activity-table.component';
+import { ActivityChartComponent } from './pages/activity-chart/activity-chart.component';
+import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 
 @NgModule({
   declarations: [
     ReportsManagerComponent,
     SalesTableComponent,
-    IncomeExpensesChartComponent
+    IncomeExpensesChartComponent,
+    SalesChartComponent,
+    ActivityTableComponent,
+    ActivityChartComponent,
+    DoughnutChartComponent,
+    BarChartComponent
   ],
   imports: [
     CommonModule,

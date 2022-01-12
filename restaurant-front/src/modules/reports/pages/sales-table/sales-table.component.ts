@@ -5,6 +5,9 @@ import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Sales } from '../../models/sales';
 import { ReportsService } from '../../services/reports.service';
+import { FormGroup } from '@angular/forms';
+import { SharedDatePickerService } from '../../services/shared-date-picker.service';
+import { ChartData } from 'chart.js';
 
 
 @Component({
@@ -15,24 +18,35 @@ import { ReportsService } from '../../services/reports.service';
 export class SalesTableComponent implements AfterViewInit{
 
   displayedColumns: string[] = ['itemId', 'name', 'priceCount', 'itemCount'];
- // dataSource = ELEMENT_DATA;
-  // dataSource = ELEMENT_DATA;
   salesList: Sales[]  = [] ;
   dataSource = new MatTableDataSource(this.salesList);
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private reportsService: ReportsService) {}
+  doughnutChartLabels: string[] =  [];
+  doughnutChartData: ChartData<'doughnut'> = {
+    labels: this.doughnutChartLabels,
+    datasets: [
+    ]
+  }
+
+  public range = new FormGroup({});
+  
+  constructor(private _liveAnnouncer: LiveAnnouncer, private reportsService: ReportsService,
+    private sharedDatePickerService: SharedDatePickerService) {
+    this.sharedDatePickerService.getData()
+      .subscribe(res => this.range = res);
+  }
 
   @ViewChild(MatSort)
   sort: MatSort = new MatSort;
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
     this.reportsService
         .getSalesTest()
         .subscribe((response) => {
           this.salesList = response.body as Sales[];
           this.dataSource = new MatTableDataSource(this.salesList);
           this.dataSource.sort = this.sort;
+          this.fillDoughnut();
         });
   }
 
@@ -42,5 +56,35 @@ export class SalesTableComponent implements AfterViewInit{
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  getSales() {
+    let dateFrom : string = this.sharedDatePickerService.checkDate(this.range.value.start);
+    let dateTo : string = this.sharedDatePickerService.checkDate(this.range.value.end);
+    console.log(this.sharedDatePickerService.checkDate(this.range.value.start));
+    console.log(this.sharedDatePickerService.checkDate(this.range.value.end));
+
+
+    this.reportsService
+        .getSales(dateFrom, dateTo)
+        .subscribe((response) => {
+          this.salesList = response.body as Sales[];
+          this.dataSource = new MatTableDataSource(this.salesList);
+          this.dataSource.sort = this.sort;
+          this.fillDoughnut();
+        });
+  }
+
+  private fillDoughnut() : void {
+    this.doughnutChartLabels = [];
+    this.doughnutChartData = {
+      labels: this.doughnutChartLabels,
+      datasets: [ {data:[]}, {data:[]}]
+    };
+    this.salesList.forEach(value => {
+      this.doughnutChartData.datasets[0].data.push(value.priceCount);
+      this.doughnutChartData.datasets[1].data.push(value.itemCount);
+      this.doughnutChartLabels.push(value.name);
+    })
   }
 }
