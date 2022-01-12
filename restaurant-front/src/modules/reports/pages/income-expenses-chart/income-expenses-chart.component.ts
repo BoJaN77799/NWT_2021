@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ChartData, ChartType } from 'chart.js';
+import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { IncomeExpenses } from '../../models/income-expenses';
 import { ReportsService } from '../../services/reports.service';
 import { SharedDatePickerService } from '../../services/shared-date-picker.service';
@@ -22,7 +23,8 @@ export class IncomeExpensesChartComponent implements AfterViewInit {
 
   public range = new FormGroup({});
   
-  constructor(private reportsService: ReportsService, private sharedDatePickerService: SharedDatePickerService) {
+  constructor(private reportsService: ReportsService, private sharedDatePickerService: SharedDatePickerService,
+    private snackBarService: SnackBarService) {
     this.sharedDatePickerService.getData()
         .subscribe(res => this.range = res);
   }
@@ -48,11 +50,18 @@ export class IncomeExpensesChartComponent implements AfterViewInit {
     this.reportsService
         .getIncomeExspenses(dateFrom, dateTo)
         .subscribe((response) => {
-          this.incomeExpenses = response.body as IncomeExpenses;
-          this.doughnutChartData = {
-            datasets: [ {data:[]} ]
-          };
-          this.doughnutChartData.datasets[0].data = [this.incomeExpenses.expenses, this.incomeExpenses.income];
+          if (response.status === 200) {
+            this.incomeExpenses = response.body as IncomeExpenses;
+            this.doughnutChartData = {
+              datasets: [ {data:[]} ]
+            };
+            this.doughnutChartData.datasets[0].data = [this.incomeExpenses.expenses, this.incomeExpenses.income];
+          }
+        },
+        (err) => {
+          this.snackBarService.openSnackBar(
+            'Empty list!',
+            'Okey', 'center', 'top', 'snack-style');
         });
   }
 

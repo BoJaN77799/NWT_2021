@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ChartData } from 'chart.js';
+import { ChartConfiguration, ChartData } from 'chart.js';
+import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
+import { PriceItemDTO } from '../../models/price-item-dto';
 import { Sales } from '../../models/sales';
 import { ReportsService } from '../../services/reports.service';
 import { SharedDatePickerService } from '../../services/shared-date-picker.service';
@@ -10,25 +12,29 @@ import { SharedDatePickerService } from '../../services/shared-date-picker.servi
   templateUrl: './sales-chart.component.html',
   styleUrls: ['./sales-chart.component.scss']
 })
-export class SalesChartComponent implements OnInit {
+export class SalesChartComponent implements AfterViewInit {
   
   barChartData: ChartData<'bar'> = {
     datasets: [] 
   };
   salesList: Sales[]  = [] ;
   
+  barChartOptions: ChartConfiguration['options'] = {};
+  
   public range = new FormGroup({});
   
-  constructor(private reportsService: ReportsService, private sharedDatePickerService: SharedDatePickerService) { 
+  constructor(private reportsService: ReportsService, private sharedDatePickerService: SharedDatePickerService,
+    private snackBarService: SnackBarService) { 
     this.sharedDatePickerService.getData()
       .subscribe(res => this.range = res);
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.reportsService.getSalesTest()
         .subscribe(response => {
           this.salesList = response.body as Sales[];
-          this.fillBar()
+          this.fillBar();
+          this.renderComponent();
         });
   }
 
@@ -37,26 +43,60 @@ export class SalesChartComponent implements OnInit {
       return;
     }
 
+    console.log(this.salesList);
+    
     this.barChartData.datasets = [];
     this.barChartData.labels = [];
     
     for (let i = 0; i < this.salesList.length; i++ ) {
       this.barChartData.datasets.push({data:[]});
-      let counter = 0;
-      
-      for (const [key, value] of this.salesList[i].salesPerMonth.entries()) {
-        console.log(key, value);
+      const map = new Map(Object.entries(this.salesList[i].salesPerMonth));
+      for (let [key, value] of map) {
         if (i === 0) {
           this.barChartData.labels.push(key);
         }
-        this.barChartData.datasets[counter].data.push(value.priceCount);
-        ++counter;
-      }
-    
-      
+        this.barChartData.datasets[i].data.push(value.priceCount);
+      } 
+      this.barChartData.datasets[i].label = this.salesList[i].name;
     }
-    
-    
+  }
 
+  getSales() {
+    let dateFrom : string = this.sharedDatePickerService.checkDate(this.range.value.start);
+    let dateTo : string = this.sharedDatePickerService.checkDate(this.range.value.end);
+
+    this.reportsService.getSales(dateFrom, dateTo)
+        .subscribe((response) => {
+          this.salesList = response.body as Sales[];
+          this.fillBar();
+          this.renderComponent();
+        },
+        (err) => {
+          this.snackBarService.openSnackBar(
+            'Empty list!',
+            'Okey', 'center', 'top', 'snack-style');
+        });
+
+  }
+
+  private renderComponent(): void {
+    this.barChartOptions = {
+      responsive: true,
+      scales: {
+        x: {},
+        y: {
+          min: 10
+        }
+      },
+      plugins: {
+        legend: {
+          display: true,
+        },
+        datalabels: {
+          anchor: 'end',
+          align: 'end'
+        }
+      }
+    }
   }
 }

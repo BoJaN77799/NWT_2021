@@ -24,6 +24,9 @@ import { ActivityTableComponent } from './pages/activity-table/activity-table.co
 import { ActivityChartComponent } from './pages/activity-chart/activity-chart.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+
+
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
     ActivityTableComponent,
     ActivityChartComponent,
     DoughnutChartComponent,
-    BarChartComponent
+    BarChartComponent,
+    PieChartComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +54,8 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
     MatSortModule,
     NgChartsModule,
     MatDatepickerModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+   
   ],
   exports: [
     RouterModule

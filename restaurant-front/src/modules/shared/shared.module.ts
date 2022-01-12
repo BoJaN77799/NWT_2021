@@ -9,6 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { SnackBarService } from './services/snack-bar.service';
 
 @NgModule({
   declarations: [
@@ -21,15 +24,18 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MatSnackBarModule,
+    MatIconModule
   ],
   exports: [
     MatButtonModule,
     MatFormFieldModule,
     MatRippleModule,
-    DateRangePickerComponent
+    DateRangePickerComponent,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }
+    SnackBarService,
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
   ],
 })
 export class SharedModule { }

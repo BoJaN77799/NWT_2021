@@ -8,6 +8,7 @@ import { ReportsService } from '../../services/reports.service';
 import { FormGroup } from '@angular/forms';
 import { SharedDatePickerService } from '../../services/shared-date-picker.service';
 import { ChartData } from 'chart.js';
+import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class SalesTableComponent implements AfterViewInit{
   public range = new FormGroup({});
   
   constructor(private _liveAnnouncer: LiveAnnouncer, private reportsService: ReportsService,
-    private sharedDatePickerService: SharedDatePickerService) {
+    private sharedDatePickerService: SharedDatePickerService, private snackBarService: SnackBarService) {
     this.sharedDatePickerService.getData()
       .subscribe(res => this.range = res);
   }
@@ -62,18 +63,21 @@ export class SalesTableComponent implements AfterViewInit{
   getSales() {
     let dateFrom : string = this.sharedDatePickerService.checkDate(this.range.value.start);
     let dateTo : string = this.sharedDatePickerService.checkDate(this.range.value.end);
-    console.log(this.sharedDatePickerService.checkDate(this.range.value.start));
-    console.log(this.sharedDatePickerService.checkDate(this.range.value.end));
-
-
+ 
     this.reportsService
         .getSales(dateFrom, dateTo)
         .subscribe((response) => {
-          this.salesList = response.body as Sales[];
-          this.dataSource = new MatTableDataSource(this.salesList);
-          this.dataSource.sort = this.sort;
-          this.fillDoughnut();
-        });
+            this.salesList = response.body as Sales[];
+            this.dataSource = new MatTableDataSource(this.salesList);
+            this.dataSource.sort = this.sort;
+            this.fillDoughnut();
+        },
+        (err) => {
+          this.snackBarService.openSnackBar(
+            'Empty list!',
+            'Okey', 'center', 'top', 'snack-style');
+        })
+        ;
   }
 
   private fillDoughnut() : void {

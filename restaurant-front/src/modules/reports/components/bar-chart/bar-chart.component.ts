@@ -12,25 +12,7 @@ import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 export class BarChartComponent {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  public barChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
-    scales: {
-      x: {},
-      y: {
-        min: 10
-      }
-    },
-    plugins: {
-      legend: {
-        display: true,
-      },
-      datalabels: {
-        anchor: 'end',
-        align: 'end'
-      }
-    }
-  };
+  @Input() barChartOptions: ChartConfiguration['options'] = {};
   public barChartType: ChartType = 'bar';
   public barChartPlugins = [
      DataLabelsPlugin
@@ -40,13 +22,9 @@ export class BarChartComponent {
     datasets: []
   };
 
-  // events
-  public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
-  }
+  constructor() {}
 
   public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    this.chart?.update();
   }
-
 }
