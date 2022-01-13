@@ -21,6 +21,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { ReportsModule } from '../reports/reports.module';
 import { OrdersModule } from '../orders/orders.module';
 import { HeaderCookComponent } from './components/headers/header-cook/header-cook.component';
+import { ItemsModule } from '../items/items.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { HeaderCookComponent } from './components/headers/header-cook/header-coo
     MatRippleModule, 
     TablesModule,
     ReportsModule,
-    OrdersModule
+    OrdersModule,
+    ItemsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
