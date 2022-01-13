@@ -12,10 +12,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { SnackBarService } from './services/snack-bar.service';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { UtilService } from './services/util/util.service';
 
 @NgModule({
   declarations: [
-    DateRangePickerComponent
+    DateRangePickerComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
@@ -32,9 +35,11 @@ import { SnackBarService } from './services/snack-bar.service';
     MatFormFieldModule,
     MatRippleModule,
     DateRangePickerComponent,
+    PaginationComponent
   ],
   providers: [
     SnackBarService,
+    UtilService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
   ],
 })

@@ -19,6 +19,8 @@ import { HeaderCommonComponent } from './components/headers/header-common/header
 import { HeaderManagerComponent } from './components/headers/header-manager/header-manager.component';
 import { MatRippleModule } from '@angular/material/core';
 import { ReportsModule } from '../reports/reports.module';
+import { OrdersModule } from '../orders/orders.module';
+import { HeaderCookComponent } from './components/headers/header-cook/header-cook.component';
 
 import { NgChartsModule } from 'ng2-charts';
 
@@ -29,6 +31,7 @@ import { NgChartsModule } from 'ng2-charts';
     RootLayoutPageComponent,
     HeaderCommonComponent,
     HeaderManagerComponent,
+    HeaderCookComponent,
   ],
   imports: [
     CommonModule,
@@ -46,7 +49,7 @@ import { NgChartsModule } from 'ng2-charts';
     TablesModule,
     ReportsModule,
     NgChartsModule,
-
+    OrdersModule
   ],
   providers: [],
   bootstrap: [AppComponent]
