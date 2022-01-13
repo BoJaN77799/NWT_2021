@@ -35,6 +35,7 @@ export class SalesChartComponent implements AfterViewInit {
           this.salesList = response.body as Sales[];
           this.fillBar();
           this.renderComponent();
+          console.log(this.salesList);
         });
   }
 
@@ -47,6 +48,7 @@ export class SalesChartComponent implements AfterViewInit {
           this.salesList = response.body as Sales[];
           this.fillBar();
           this.renderComponent();
+          console.log(this.salesList);
         },
         (err) => {
           this.snackBarService.openSnackBar('Empty list!');

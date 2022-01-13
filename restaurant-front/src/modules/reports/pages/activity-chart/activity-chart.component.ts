@@ -78,7 +78,7 @@ export class ActivityChartComponent implements AfterViewInit {
       scales: {
         x: {},
         y: {
-          min: 2
+          min: 0
         }
       },
       plugins: {
