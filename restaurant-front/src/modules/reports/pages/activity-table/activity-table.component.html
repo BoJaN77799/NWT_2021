@@ -1,1 +1,49 @@
-<app-pie-chart></app-pie-chart>
+<div>
+    <div class="example-button-container" style="float: left; padding-top: 5px; padding-left: 40px; padding-right: 100px;">
+        <button mat-mini-fab color="warn" aria-label="Table icon." (click)="getActivity()">
+          <mat-icon>table</mat-icon>
+        </button>
+    </div>
+    <div class="example-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"
+        matSort (matSortChange)="announceSortChange($event)">
+      
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef
+                mat-sort-header sortActionDescription="Sort by id"> id </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef
+                mat-sort-header sortActionDescription="Sort by firstName"> firstName </th>
+                <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef
+                mat-sort-header sortActionDescription="Sort by lastName"> lastName </th>
+                <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="userType">
+                <th mat-header-cell *matHeaderCellDef
+                mat-sort-header sortActionDescription="Sort by userType"> userType </th>
+                <td mat-cell *matCellDef="let element"> {{element.userType}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="ordersAccomplished">
+                <th mat-header-cell *matHeaderCellDef
+                mat-sort-header sortActionDescription="Sort by ordersAccomplished"> ordersAccomplished </th>
+                <td mat-cell *matCellDef="let element"> {{element.ordersAccomplished}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <div style="height: 400px; width: 400px;">
+        <app-pie-chart [pieChartOptions]="pieChartOptions"
+        [pieChartData]="pieChartData"></app-pie-chart>
+    </div>
+</div>

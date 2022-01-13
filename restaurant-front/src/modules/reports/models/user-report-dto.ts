@@ -4,4 +4,5 @@ export interface UserReportDTO {
     lastName : string;
     userType : string;
     ordersAccomplished: number;
+    ordersPerMonth: Map<string, number>;
 }

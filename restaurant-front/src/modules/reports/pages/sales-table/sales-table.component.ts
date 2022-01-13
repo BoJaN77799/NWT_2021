@@ -45,7 +45,6 @@ export class SalesTableComponent implements AfterViewInit{
         .getSalesTest()
         .subscribe((response) => {
           this.salesList = response.body as Sales[];
-          console.log(this.salesList);
           this.dataSource = new MatTableDataSource(this.salesList);
           this.dataSource.sort = this.sort;
           this.fillDoughnut();
@@ -73,9 +72,7 @@ export class SalesTableComponent implements AfterViewInit{
             this.fillDoughnut();
         },
         (err) => {
-          this.snackBarService.openSnackBar(
-            'Empty list!',
-            'Okey', 'center', 'top', 'snack-style');
+          this.snackBarService.openSnackBar('Empty list!');
         })
         ;
   }

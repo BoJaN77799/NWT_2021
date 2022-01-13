@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Sales } from '../models/sales';
 import { IncomeExpenses } from '../models/income-expenses';
+import { UserReportDTO } from '../models/user-report-dto';
 
 
 @Injectable({
@@ -61,5 +62,29 @@ export class ReportsService {
    
     return this.http.get<HttpResponse <IncomeExpenses>>
         (`restaurant/api/reports/getIncomeExpenses/${dateFrom}-${dateTo}`, queryParams);
+  }
+
+  getActivityTest(): Observable<HttpResponse <UserReportDTO []>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: 'response'
+    };
+
+    return this.http.get<HttpResponse <UserReportDTO []>>
+        ("restaurant/api/reports/activity/29.09.2021.-29.12.2021.", queryParams);
+  }
+
+  getActivity(dateFrom: string, dateTo: string): Observable<HttpResponse <UserReportDTO []>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: 'response'
+    };
+
+    return this.http.get<HttpResponse <UserReportDTO []>>
+        (`restaurant/api/reports/activity/${dateFrom}-${dateTo}`, queryParams);
   }
 }

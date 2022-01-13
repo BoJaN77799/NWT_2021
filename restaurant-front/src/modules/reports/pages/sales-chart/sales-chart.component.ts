@@ -38,13 +38,23 @@ export class SalesChartComponent implements AfterViewInit {
         });
   }
 
-  private fillBar(): void {
-    if (this.salesList.length  === 0) {
-      return;
-    }
+  getSales() {
+    let dateFrom : string = this.sharedDatePickerService.checkDate(this.range.value.start);
+    let dateTo : string = this.sharedDatePickerService.checkDate(this.range.value.end);
 
-    console.log(this.salesList);
-    
+    this.reportsService.getSales(dateFrom, dateTo)
+        .subscribe((response) => {
+          this.salesList = response.body as Sales[];
+          this.fillBar();
+          this.renderComponent();
+        },
+        (err) => {
+          this.snackBarService.openSnackBar('Empty list!');
+        });
+
+  }
+
+  private fillBar(): void {
     this.barChartData.datasets = [];
     this.barChartData.labels = [];
     
@@ -59,24 +69,6 @@ export class SalesChartComponent implements AfterViewInit {
       } 
       this.barChartData.datasets[i].label = this.salesList[i].name;
     }
-  }
-
-  getSales() {
-    let dateFrom : string = this.sharedDatePickerService.checkDate(this.range.value.start);
-    let dateTo : string = this.sharedDatePickerService.checkDate(this.range.value.end);
-
-    this.reportsService.getSales(dateFrom, dateTo)
-        .subscribe((response) => {
-          this.salesList = response.body as Sales[];
-          this.fillBar();
-          this.renderComponent();
-        },
-        (err) => {
-          this.snackBarService.openSnackBar(
-            'Empty list!',
-            'Okey', 'center', 'top', 'snack-style');
-        });
-
   }
 
   private renderComponent(): void {

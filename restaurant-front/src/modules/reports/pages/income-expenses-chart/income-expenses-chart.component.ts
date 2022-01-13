@@ -59,9 +59,7 @@ export class IncomeExpensesChartComponent implements AfterViewInit {
           }
         },
         (err) => {
-          this.snackBarService.openSnackBar(
-            'Empty list!',
-            'Okey', 'center', 'top', 'snack-style');
+          this.snackBarService.openSnackBar('Empty list!',);
         });
   }
 
