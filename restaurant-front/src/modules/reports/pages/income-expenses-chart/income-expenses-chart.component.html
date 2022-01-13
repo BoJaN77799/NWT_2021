@@ -1,0 +1,15 @@
+<div>
+  <div class="example-button-container" style="float: left; padding-top: 5px; padding-left: 40px; padding-right: 100px;">
+    <button mat-mini-fab color="warn" aria-label="Pie chart." (click)="getIncomeExpenses()">
+      <mat-icon>pie_chart</mat-icon>
+    </button>
+  </div>
+  <div style="height: 600px; width: 600px; float: left;">
+    <app-doughnut-chart [doughnutChartLabels]="doughnutChartLabels" 
+    [doughnutChartData]="doughnutChartData"></app-doughnut-chart>
+  </div>
+  <div>
+    <p style="color:red; font-weight: bold;">Expenses:  {{incomeExpenses?.expenses}} RSD</p>
+    <p style="color:blue; font-weight: bold;">Income: {{incomeExpenses?.income}} RSD</p>
+  </div>
+</div>

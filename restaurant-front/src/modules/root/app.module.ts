@@ -22,6 +22,9 @@ import { ReportsModule } from '../reports/reports.module';
 import { OrdersModule } from '../orders/orders.module';
 import { HeaderCookComponent } from './components/headers/header-cook/header-cook.component';
 
+import { NgChartsModule } from 'ng2-charts';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +48,7 @@ import { HeaderCookComponent } from './components/headers/header-cook/header-coo
     MatRippleModule, 
     TablesModule,
     ReportsModule,
+    NgChartsModule,
     OrdersModule
   ],
   providers: [],
