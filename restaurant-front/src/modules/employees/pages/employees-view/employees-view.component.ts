@@ -16,7 +16,7 @@ export class EmployeesViewComponent implements AfterViewInit {
 
   constructor(private employeesService: EmployeesService) { 
     this.employees = [];
-    this.pageSize = 3;
+    this.pageSize = 4;
     this.currentPage = 1;
     this.totalSize = 1;
   }

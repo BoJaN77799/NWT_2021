@@ -7,6 +7,6 @@ export interface EmployeeDTO {
     telephone: string;
     adress: string;
     userType: string;
+    profilePhoto: string;
     salary: number;
-    
 }

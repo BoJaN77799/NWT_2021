@@ -1,3 +1,10 @@
-<app-pagination [totalItems]="totalSize" [pageSize]="pageSize"
-    (pageSelected)="changePage($event)">
-</app-pagination>
+<div class="row" style="margin-top: 50px; margin-left: 40px;">
+    <div *ngFor="let employee of employees" class="col">
+        <app-employee-card [employee]="employee"></app-employee-card>
+    </div>
+</div>
+<div class="row" style="margin-top: 50px;">
+    <app-pagination [totalItems]="totalSize" [pageSize]="pageSize"
+        (pageSelected)="changePage($event)">
+    </app-pagination>
+</div>
