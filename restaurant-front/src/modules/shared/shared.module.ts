@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './interceptors/interceptor.interceptor';
-import { DateRangePickerComponent } from './components/date-range-picker/date-range-picker.component';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,7 +16,6 @@ import { UtilService } from './services/util/util.service';
 
 @NgModule({
   declarations: [
-    DateRangePickerComponent,
     PaginationComponent
   ],
   imports: [
@@ -34,7 +32,6 @@ import { UtilService } from './services/util/util.service';
     MatButtonModule,
     MatFormFieldModule,
     MatRippleModule,
-    DateRangePickerComponent,
     PaginationComponent
   ],
   providers: [
