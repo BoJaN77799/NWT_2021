@@ -23,6 +23,7 @@ import { OrdersModule } from '../orders/orders.module';
 import { HeaderCookComponent } from './components/headers/header-cook/header-cook.component';
 
 import { NgChartsModule } from 'ng2-charts';
+import { HeaderWaiterComponent } from './components/headers/header-waiter/header-waiter.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { NgChartsModule } from 'ng2-charts';
     HeaderCommonComponent,
     HeaderManagerComponent,
     HeaderCookComponent,
+    HeaderWaiterComponent,
   ],
   imports: [
     CommonModule,
