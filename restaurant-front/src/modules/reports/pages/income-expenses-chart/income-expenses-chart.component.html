@@ -1,10 +1,10 @@
 <div>
-  <div class="example-button-container" style="float: left; padding-top: 5px; padding-left: 40px; padding-right: 100px;">
+  <div class="example-button-container" style="float: left; padding-bottom: 25px; padding-left: 100px; padding-right: 250px;">
     <button mat-mini-fab color="warn" aria-label="Pie chart." (click)="getIncomeExpenses()">
       <mat-icon>pie_chart</mat-icon>
     </button>
   </div>
-  <div style="height: 600px; width: 600px; float: left;">
+  <div style="height: 500px; width: 500px; float: left;">
     <app-doughnut-chart [doughnutChartLabels]="doughnutChartLabels" 
     [doughnutChartData]="doughnutChartData"></app-doughnut-chart>
   </div>

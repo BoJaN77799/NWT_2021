@@ -26,7 +26,7 @@ import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-cha
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
-
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
     NgChartsModule,
     MatDatepickerModule,
     MatFormFieldModule,
-   
+    MatGridListModule
   ],
   exports: [
     RouterModule
