@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ChartConfiguration, ChartData } from 'chart.js';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
-import { PriceItemDTO } from '../../models/price-item-dto';
 import { Sales } from '../../models/sales';
 import { ReportsService } from '../../services/reports.service';
 import { SharedDatePickerService } from '../../services/shared-date-picker.service';

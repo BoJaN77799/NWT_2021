@@ -7,7 +7,7 @@ import { SharedDatePickerService } from '../../services/shared-date-picker.servi
   templateUrl: './reports-manager.component.html',
   styleUrls: ['./reports-manager.component.scss']
 })
-export class ReportsManagerComponent implements OnInit {
+export class ReportsManagerComponent {
 
   public range = new FormGroup({
     start: new FormControl(),
@@ -17,9 +17,6 @@ export class ReportsManagerComponent implements OnInit {
   constructor(private sharedDatePickerService: SharedDatePickerService) {
     this.sharedDatePickerService.getData()
         .subscribe(res => this.range = res);
-  }
-
-  ngOnInit(): void {
   }
 
   public changeDate(): void {

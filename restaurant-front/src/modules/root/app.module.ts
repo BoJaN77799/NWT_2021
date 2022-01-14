@@ -6,18 +6,17 @@ import { AuthModule } from '../auth/auth.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { MaterialExampleModule } from 'src/material.module';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { RootLayoutPageComponent } from './pages/root-layout-page/root-layout-page.component';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
 import { TablesModule } from '../tables/tables.module';
 import { HeaderCommonComponent } from './components/headers/header-common/header-common.component';
 import { HeaderManagerComponent } from './components/headers/header-manager/header-manager.component';
-import { MatRippleModule } from '@angular/material/core';
+
 import { ReportsModule } from '../reports/reports.module';
 import { OrdersModule } from '../orders/orders.module';
 import { HeaderCookComponent } from './components/headers/header-cook/header-cook.component';
@@ -42,10 +41,7 @@ import { NgChartsModule } from 'ng2-charts';
     FormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    MatSidenavModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatRippleModule, 
+    MaterialExampleModule, 
     TablesModule,
     ReportsModule,
     NgChartsModule,

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ChartData, ChartType } from 'chart.js';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
