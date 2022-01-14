@@ -9,7 +9,6 @@ import { MaterialExampleModule } from 'src/material.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
 import { NgChartsModule } from 'ng2-charts';
 
 import { IncomeExpensesChartComponent } from './pages/income-expenses-chart/income-expenses-chart.component';

@@ -23,6 +23,7 @@ import { HeaderCookComponent } from './components/headers/header-cook/header-coo
 
 import { NgChartsModule } from 'ng2-charts';
 
+import { EmployeesModule } from '../employees/employees.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { NgChartsModule } from 'ng2-charts';
     TablesModule,
     ReportsModule,
     NgChartsModule,
-    OrdersModule
+    OrdersModule,
+    EmployeesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

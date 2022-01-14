@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["rest-app/tables/tables-admin"]);
         }
         else if (role === "MANAGER") {
-          this.router.navigate(["rest-app/reports/reports-manager"]);
+          this.router.navigate(["rest-app/employees/employees-manager"]);
         }
         else if (role === "COOK") {
           this.router.navigate(["rest-app/orders/orders-page"]);
