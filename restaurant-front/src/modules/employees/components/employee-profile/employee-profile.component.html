@@ -1,1 +1,99 @@
-<p>employee-profile works!</p>
+<h1 style="text-align: center">{{employee.firstName}} {{employee.lastName}}</h1>
+<div>
+    <div>
+        <div> 
+            <span class="accounts">Profile Information</span>
+            <div class="d-flex justify-content-between p-2 outline"> 
+                <img src="{{employee.profilePhoto}}" class="rounded" width="100">
+                <div>
+                    <div> 
+                        <button class="btn btn-primary" style="margin-right: 20px;">Salaries</button> 
+                        <button class="btn btn-danger">Bonuses</button> 
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="inputbox mt-3"> 
+                        <label>Name: 
+                            <label  style="font-weight: bold;">
+                                {{employee.firstName}}
+                            </label>
+                        </label> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="inputbox mt-3"> 
+                        <label>Last Name: 
+                            <label  style="font-weight: bold;">
+                                {{employee.lastName}}
+                            </label>
+                        </label> 
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="inputbox mt-3">  
+                        <label>E-mail: 
+                            <label  style="font-weight: bold;">
+                                {{employee.email}}
+                            </label>
+                        </label>  
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="inputbox mt-3"> 
+                        <label>Telephone: 
+                            <label  style="font-weight: bold;">
+                                {{employee.telephone}}
+                            </label>
+                        </label> 
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="inputbox mt-3"> 
+                        <label>Adress: 
+                            <label  style="font-weight: bold;">
+                                {{employee.adress}}
+                            </label>
+                        </label> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="inputbox mt-3">
+                        <label>Salary: 
+                            <label  style="font-weight: bold;">
+                                {{employee.salary}}
+                            </label> RSD
+                        </label> 
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="inputbox mt-3"> 
+                        <label>Role: 
+                            <label  style="font-weight: bold;">
+                                {{employee.userType}}
+                            </label>
+                        </label> 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="inputbox mt-3"> 
+                        <label>Gender: 
+                            <label  style="font-weight: bold;">
+                                {{employee.gender}}
+                            </label>
+                        </label> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

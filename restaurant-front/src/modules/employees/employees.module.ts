@@ -10,6 +10,7 @@ import { EmployeesViewComponent } from './pages/employees-view/employees-view.co
 import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
 import { EmployeeProfileComponent } from './components/employee-profile/employee-profile.component';
 
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { EmployeeProfileComponent } from './components/employee-profile/employee
     SharedModule,
     RouterModule.forChild(EmployeesRoutes),
     MaterialExampleModule,
+    FormsModule,
   ]
 })
 export class EmployeesModule { }

@@ -26,7 +26,6 @@ export class EmployeesViewComponent implements AfterViewInit {
         .subscribe((response) => {
           this.employees = response.body as EmployeeDTO[];
           this.totalSize = Number(response.headers.get("total-elements"));
-          console.log(this.employees);
         });
   }
 
@@ -35,7 +34,6 @@ export class EmployeesViewComponent implements AfterViewInit {
         .subscribe((response) => {
           this.employees = response.body as EmployeeDTO[];
           this.totalSize = Number(response.headers.get("total-elements"));
-          console.log(this.employees);
         });
   }
 

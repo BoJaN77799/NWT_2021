@@ -1,12 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { EmployeeDTO } from '../../models/EmployeeDTO';
+import { EmployeeProfileComponent } from '../employee-profile/employee-profile.component';
 
 @Component({
   selector: 'app-employee-card',
   templateUrl: './employee-card.component.html',
   styleUrls: ['./employee-card.component.scss']
 })
-export class EmployeeCardComponent implements OnInit {
+export class EmployeeCardComponent  {
 
   @Input() employee: EmployeeDTO = {
     id: 0,
@@ -21,10 +23,19 @@ export class EmployeeCardComponent implements OnInit {
     salary: 0
   };
   
-  constructor() { }
+  constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    console.log('');
+  openDialog(): void {
+    const dialogRef = this.dialog.open(EmployeeProfileComponent, {
+      data: this.employee,
+      width: '700px',
+    });
+
+    // sta uraditi 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      //this.employee = result;
+    });
   }
 
 }
