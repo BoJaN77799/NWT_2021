@@ -15,8 +15,10 @@ import { CreateOrderPageComponent } from './pages/create-order-page/create-order
 import { ItemCardComponent } from './components/item-card/item-card.component';
 import { NumberDialogComponent } from './components/number-dialog/number-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { SnackBarService } from '../shared/services/snack-bar.service';
+import { CardsContainerComponent } from './components/cards-container/cards-container.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 
@@ -25,7 +27,8 @@ import { SnackBarService } from '../shared/services/snack-bar.service';
     OrdersPageComponent,
     CreateOrderPageComponent,
     ItemCardComponent,
-    NumberDialogComponent
+    NumberDialogComponent,
+    CardsContainerComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +43,8 @@ import { SnackBarService } from '../shared/services/snack-bar.service';
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
-    MatSortModule
+    MatSortModule,
+    MatTabsModule
   ]
 })
 export class OrdersModule { }

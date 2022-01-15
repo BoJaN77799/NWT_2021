@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
+import { AddNewItem } from '../../models/add-new-item';
 import { Item } from '../../models/item';
+import { AddNewItemService } from '../../services/add-new-item.service';
 import { NumberDialogComponent } from '../number-dialog/number-dialog.component';
 
 @Component({
@@ -14,7 +16,8 @@ export class ItemCardComponent implements OnInit {
   @Input() 
   item: Item | undefined;
 
-  constructor(public dialog: MatDialog, private snackBarService : SnackBarService) {}
+  constructor(public dialog: MatDialog, private snackBarService : SnackBarService,
+              private addNewItemService : AddNewItemService) {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(NumberDialogComponent, {
@@ -23,13 +26,18 @@ export class ItemCardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result < 0) {
-        this.snackBarService.openSnackBar('Invalid quantity');
+      if(result && result < 0) {
+        this.snackBarService.openSnackBarFast('Invalid quantity', );
       }
       else {
-        // emit
+        let newItem : AddNewItem = { id: this.item?.id, quantity: result };
+        this.sendNewItem(newItem);
       }
     });
+  }
+
+  sendNewItem(newItem: AddNewItem) : void {
+    this.addNewItemService.sendMessage(newItem);
   }
 
   ngOnInit(): void {

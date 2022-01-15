@@ -18,4 +18,15 @@ export class SnackBarService {
       panelClass: className
     });
   }
+
+  openSnackBarFast(message: string, action: string="",
+    hPosition: any="center", vPosition : any="top",
+    className: any="snack-style" ) {
+    this.matSnackBar.open(message, action, {
+      duration: 3000,
+      horizontalPosition: hPosition ? hPosition : 'center',
+      verticalPosition: vPosition ? vPosition : 'top',
+      panelClass: className
+    });
+  }
 }

@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { QuantitySelection } from '../../models/QuantitySelection';
+import { ItemQuantitySelection } from '../../models/item-quantity-selection';
+
+
 
 @Component({
   selector: 'app-number-dialog',
@@ -11,7 +13,7 @@ export class NumberDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<NumberDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public quantitySelection: QuantitySelection,
+    @Inject(MAT_DIALOG_DATA) public quantitySelection: ItemQuantitySelection,
   ) {}
 
   cancel(): void {

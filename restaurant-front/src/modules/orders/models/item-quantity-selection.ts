@@ -1,4 +1,4 @@
-export interface QuantitySelection {
+export interface ItemQuantitySelection {
     id: number,
     name: string,
     quantity: number

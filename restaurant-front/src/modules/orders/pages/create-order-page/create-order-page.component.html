@@ -1,1 +1,11 @@
-<app-item-card [item]="item"></app-item-card>
+<mat-tab-group mat-align-tabs="center" animationDuration="0ms">
+    <mat-tab label="Food">
+        <app-cards-container [cards]="items"></app-cards-container>
+        <app-pagination [totalItems]="7" [pageSize]="6" (pageSelected)="changePageFood($event)"></app-pagination>
+    </mat-tab>
+    <mat-tab label="Drink">
+        <app-cards-container [cards]="items"></app-cards-container>
+        <app-pagination [totalItems]="7" [pageSize]="6" (pageSelected)="changePageDrink($event)"></app-pagination>
+    </mat-tab>
+</mat-tab-group>
+
