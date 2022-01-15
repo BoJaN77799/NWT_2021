@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../../models/item';
+import { DrinkSearchService } from '../../services/drink-search.service';
 import { FoodSearchService } from '../../services/food-search.service';
 
 @Component({
@@ -9,31 +10,40 @@ import { FoodSearchService } from '../../services/food-search.service';
 })
 export class CreateOrderPageComponent implements OnInit {
 
-  item1 : Item = {id: 1, name: "Jagnjece pecenje1", description: "Jako ukusno", price: 1201, imgSrc: undefined };
-  item2 : Item = {id: 2, name: "Jagnjece pecenje2", description: "Jako ukusno", price: 1202, imgSrc: undefined };
-  item3 : Item = {id: 3, name: "Jagnjece pecenje3", description: "Jako ukusno", price: 1203, imgSrc: undefined };
-  item4 : Item = {id: 4, name: "Jagnjece pecenje4", description: "Jako ukusno", price: 1204, imgSrc: undefined };
-  item5 : Item = {id: 5, name: "Jagnjece pecenje5", description: "Jako ukusno", price: 1205, imgSrc: undefined };
-  item6 : Item = {id: 6, name: "Jagnjece pecenje6", description: "Jako ukusno", price: 1206, imgSrc: undefined };
-  item7 : Item = {id: 7, name: "Jagnjece pecenje7", description: "Jako ukusno", price: 1207, imgSrc: undefined };
+  pageSize: number;
+  totalItemsFood: number;
+  totalItemsDrink: number;
 
-  items : Item[] = [this.item1, this.item2, this.item3, this.item4, this.item5, this.item6, this.item7];
+  foodItems: Item[] = [];
+  drinkItems: Item[] = []
 
-  constructor(private foodSearchService : FoodSearchService) {}
+  constructor(private foodSearchService: FoodSearchService, private drinkSearchService: DrinkSearchService) {
+    this.pageSize = 6;
+    this.totalItemsFood = 0;
+    this.totalItemsDrink = 0;
+  }
 
   ngOnInit(): void {
-    this.foodSearchService.searchFood().subscribe((response) => {
-      console.log(response);
-      // Implementirati da prima generik da bih mogao da preuzmem valjda zaglavlja jebem li ga
-    })
+    this.getPageFood(1);
+    this.getPageDrink(1);
   }
 
-  changePageFood(nextPage: number): void {
-    
+  getPageFood(nextPage: number): void {
+    this.foodSearchService.searchFood(nextPage - 1).subscribe((response) => {   
+      if(response.body) {
+        this.totalItemsFood = Number(response.headers.get('total-elements'));
+        this.foodItems = response.body;
+      }
+    });
   }
 
-  changePageDrink(nextPage: number): void {
-    // Dobavi sledecu stranu sa parametrima iz search i ostalog
+  getPageDrink(nextPage: number): void {
+    this.drinkSearchService.searchDrink(nextPage - 1).subscribe((response) => {   
+      if(response.body) {
+        this.totalItemsDrink = Number(response.headers.get('total-elements'));
+        this.drinkItems = response.body;
+      }
+    });
   }
   
 }
