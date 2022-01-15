@@ -1,6 +1,7 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
-import { TableAdminDTO } from 'src/modules/shared/models/table-admin-dto';
-import { SvgService } from '../../services/svg.service';
+import { TableAdminDTO } from 'src/modules/tables/models/table-admin-dto';
+import { SvgService } from '../../services/svg-service/svg.service';
+import { TablesService } from '../../services/tables-service/tables.service';
 
 @Directive({
   selector: '[appDroppable]'
@@ -10,7 +11,7 @@ export class DroppableDirective {
   //TODO - staviti da bude slika stola - ovo staviti samo konobaru
 
   
-  
+  //todo error ako nije ulogovan korisnik ili je expired token
   
   
   //highlight sto koji se pomera
@@ -26,7 +27,7 @@ export class DroppableDirective {
 
   selectedTable : {draggingElement: any, tableDTO: TableAdminDTO, startingPosition: {x: number, y:number}, isNew: boolean} | undefined;
 
-  constructor(private elementRef: ElementRef, private svgService: SvgService) {}
+  constructor(private elementRef: ElementRef, private svgService: SvgService, private tableService: TablesService) {}
 
   generateID() : number {
     let maxId = 0;
@@ -37,34 +38,6 @@ export class DroppableDirective {
     }
     return maxId + 1;
   }
-
-  // @HostListener('drop', ['$event'])
-  // onDrop(event: any) {
-  //   //POZIVA SE KAD SE DODA STO 
-
-  //   //todo hardkodovan je floor, srediti
-  //   let tableAdded : TableAdminDTO = {active: true, floor: 0, id: this.generateID(), x: 0, y: 0}; 
-  //   let startingPositionIrrelevant = {x: 0, y: 0};
-  //   //const droppedElementId = event.dataTransfer.getData('text');
-  //   const droppedElement = document.getElementsByClassName('tableAdd')[0] as any;
-  //   droppedElement.setAttribute('draggable', true);
-  //   droppedElement.setAttribute('id', tableAdded.id.toString());
-
-  //   this.selectedTable = {draggingElement: droppedElement, tableDTO: tableAdded, startingPosition: startingPositionIrrelevant};
-
-  //   const svgPoint = this.svgService.getSVGPoint(event, droppedElement);
-  //   this.setPositionDragDrop({ x: svgPoint.x, y: svgPoint.y  });
-
-  //   if (this.checkForOverlapTables(this.selectedTable.tableDTO)){
-  //     droppedElement.setAttribute('cx', 400);
-  //     event.preventDefault();
-  //     return;
-  //   }
-
-  //   this.tablesList.push(this.selectedTable.tableDTO);
-  //   this.selectedTable = undefined;
-  //   event.preventDefault();
-  // }
 
   @HostListener('mousemove', ['$event'])
   onMouseMove(event: any): void {
@@ -81,8 +54,8 @@ export class DroppableDirective {
       if (tableType === "new"){  //dodaje se novi sto
         this.selectedTable = {
           draggingElement: event.target, 
-          tableDTO: {active: true, floor: 0, id: this.generateID(),x:640, y:50}, //damo mu x i y starting pos 
-          startingPosition: {x: 640, y: 50}, //todo napraviti neku konstantu da se zna starting pos za nove
+          tableDTO: {active: true, floor: 0, id: this.generateID(),x:640, y:200}, //damo mu x i y starting pos 
+          startingPosition: {x: 640, y: 200}, //todo napraviti neku konstantu da se zna starting pos za nove
           isNew: true 
         };  
         event.target.setAttribute('tableId', this.selectedTable.tableDTO.id);
@@ -133,9 +106,12 @@ export class DroppableDirective {
 
   @HostListener('mouseup', ['$event'])
   onMouseUp(event: any): void {
-    if (this.selectedTable && this.checkForOverlapTables(this.selectedTable.tableDTO)){
+    if (!this.selectedTable)
+      return;
+
+    if (this.checkForOverlapTables(this.selectedTable.tableDTO)){
       this.resetPosition();
-    }else if (this.selectedTable?.isNew){
+    }else if (this.selectedTable.isNew){
       if (!this.setPositionOnDrop({x: this.selectedTable.tableDTO.x, y: this.selectedTable.tableDTO.y})){
         this.resetPosition();
         this.selectedTable = undefined;
@@ -143,8 +119,27 @@ export class DroppableDirective {
       }
       if (event.target.getAttribute('tableId') === this.selectedTable.tableDTO.id.toString()){
         event.target.remove();
-        this.tablesList.push(this.selectedTable.tableDTO);
+
+        let addedTable : TableAdminDTO = this.selectedTable.tableDTO;
+        addedTable.id = -1;  // kad je -1 nece se prikazati tekst, to radimo da bi sakrili id novododanog stola, 
+                                              // tj prikazace se id tek kad ga dobavimo sa backenda
+        this.tablesList.push(addedTable);
+        this.tableService.addTable(addedTable).subscribe((res) => {
+          if(res.body != null){
+            addedTable.id = res.body.id;
+          }
+          //todo toast za error
+        });
       }
+    }else if (!this.selectedTable.isNew){
+      this.tableService.updateTable({id: this.selectedTable.tableDTO.id, 
+                                    x: this.selectedTable.tableDTO.x, 
+                                    y: this.selectedTable.tableDTO.y})
+                        .subscribe((res) => { }, 
+                          (err) => {
+                            //todo toast za error
+                            console.log("greskica kod update stolova");
+                          });
     }
     this.selectedTable = undefined;
   }
@@ -178,13 +173,13 @@ export class DroppableDirective {
     if (!this.selectedTable)
       return;
     
-    if (coord.x > 50 && (coord.x <= 520 || this.selectedTable.isNew)){ 
+    if (coord.x > 50 && (coord.x <= 520 || this.selectedTable.isNew) && coord.x != this.selectedTable.tableDTO.x){ 
       this.selectedTable.draggingElement.setAttribute('cx', coord.x);
       this.selectedTable.tableDTO.x = coord.x;
     }
-    if (coord.y >= 50 && coord.y <= 350){
+    if (coord.y >= 50 && coord.y <= 350 && coord.y != this.selectedTable.tableDTO.y){
       this.selectedTable.draggingElement.setAttribute('cy', coord.y);
       this.selectedTable.tableDTO.y = coord.y;
-    }
+    } 
   }
 }

@@ -19,6 +19,7 @@ import { HeaderCommonComponent } from './components/headers/header-common/header
 import { HeaderManagerComponent } from './components/headers/header-manager/header-manager.component';
 import { MatRippleModule } from '@angular/material/core';
 import { ReportsModule } from '../reports/reports.module';
+import { HeaderAdminComponent } from './components/headers/header-admin/header-admin/header-admin.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ReportsModule } from '../reports/reports.module';
     RootLayoutPageComponent,
     HeaderCommonComponent,
     HeaderManagerComponent,
+    HeaderAdminComponent,
   ],
   imports: [
     CommonModule,

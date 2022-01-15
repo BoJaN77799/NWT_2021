@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TableAdminDTO } from 'src/modules/shared/models/table-admin-dto';
+import { TableAdminDTO } from 'src/modules/tables/models/table-admin-dto';
 
 @Injectable({
   providedIn: 'root'
