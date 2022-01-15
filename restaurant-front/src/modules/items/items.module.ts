@@ -6,6 +6,9 @@ import { DrinkCreateComponent } from './components/drink-create/drink-create.com
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ItemsRoutes } from './items.routes';
+import { ItemCreateComponent } from './components/item-create/item-create.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -13,12 +16,15 @@ import { ItemsRoutes } from './items.routes';
   declarations: [
     ItemCreatePageComponent,
     FoodCreateComponent,
-    DrinkCreateComponent
+    DrinkCreateComponent,
+    ItemCreateComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(ItemsRoutes)
+    RouterModule.forChild(ItemsRoutes),
+    ReactiveFormsModule,
+    MatSelectModule
   ]
 })
 export class ItemsModule { }

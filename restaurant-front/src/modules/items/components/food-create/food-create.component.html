@@ -1,1 +1,123 @@
-<p>food-create works!</p>
+<div class="reactiveFormDiv">
+    <form class="reactiveForm" [formGroup]="foodForm" (ngSubmit)="onSubmit()">
+        <span class="food-creation-label">food creation</span>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group row my_margin">
+                    <label for="name" class="col-3 col-form-label">Name</label>
+                    <div class="col-6">
+                        <input class="form-control" type="text" id="name" placeholder="Enter name"
+                            formControlName="name" />
+                        <small class="text-danger"
+                            *ngIf="f['name'].touched && f['name'].errors && f['name'].errors['required']">
+                            Name is required.</small>
+                    </div>
+                </div>
+
+                <div class="form-group row my_margin">
+                    <label for="cost" class="col-3 col-form-label">Cost</label>
+                    <div class="col-6">
+                        <input class="form-control" type="number" id="cost" step="100" min="0" placeholder="Fill cost"
+                            formControlName="cost" />
+                        <small class="text-danger"
+                            *ngIf="f['cost'].touched && f['cost'].errors && f['cost'].errors['required']">
+                            Cost is required.</small>
+                        <small class="text-danger"
+                            *ngIf="f['cost'].touched && f['cost'].errors && f['cost'].errors['min']">
+                            Cost is too low.</small>
+                    </div>
+                </div>
+
+                <div class="form-group row my_margin">
+                    <label for="category" class="col-3 col-form-label">Category name</label>
+                    <div class="col-6">
+                        <input class="form-control" type="text" id="category" placeholder="Enter category"
+                            formControlName="category" />
+                        <small class="text-danger"
+                            *ngIf="f['category'].touched && f['category'].errors && f['category'].errors['required']">
+                            Category is required.</small>
+                    </div>
+                </div>
+
+                <div class="form-group row my_margin">
+                    <label for="description" class="col-3 col-form-label">Description</label>
+                    <div class="col-6">
+                        <textarea rows=3 class="form-control" type="text" id="description" placeholder="Description"
+                            formControlName="description"></textarea>
+                        <small class="text-danger"
+                            *ngIf="f['description'].touched && f['description'].errors && f['description'].errors['required']">
+                            Description is required</small>
+                    </div>
+                </div>
+
+                <div class="form-group row my_margin">
+                    <label for="recipe" class="col-3 col-form-label">Recipe</label>
+                    <div class="col-6">
+                        <textarea rows=3 class="form-control" type="text" id="recipe" placeholder="Recipe"
+                            formControlName="recipe"></textarea>
+                        <small class="text-danger"
+                            *ngIf="f['recipe'].touched && f['recipe'].errors && f['recipe'].errors['required']">
+                            Recipe is required</small>
+                    </div>
+                </div>
+
+                <div class="form-group row my_margin">
+                    <label for="timeToMake" class="col-3 col-form-label">Time to make</label>
+                    <div class="col-6">
+                        <input class="form-control" type="number" step="5" id="timeToMake" placeholder="Time to make"
+                            formControlName="timeToMake" />
+                        <small class="text-danger"
+                            *ngIf="f['timeToMake'].touched && f['timeToMake'].errors && f['timeToMake'].errors['required']">
+                            Time to make is required</small>
+                        <small class="text-danger"
+                            *ngIf="f['timeToMake'].touched && f['timeToMake'].errors && f['timeToMake'].errors['min']">
+                            Time to make is too low</small>
+                    </div>
+                </div>
+                <div class="form-group row my_margin">
+                    <label for="foodType" class="col-3 col-form-label">Food type</label>
+                    <div class="col-9">
+                        <mat-form-field appearance="fill" class="col-5">
+                            <mat-label>Select a type</mat-label>
+                            <mat-select [(value)]="selectedType">
+                                <mat-option *ngFor="let fType of ['APPETIZER','MAIN_DISH','DESERT']" [value]="fType">
+                                    {{fType}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group row">
+                    <span>
+                        <label for="ingredients" class="col-2 col-form-label">Ingredients:</label>
+                        <mat-form-field appearance="fill" class="col-5">
+                            <mat-label>Select an ingredient</mat-label>
+                            <mat-select [(value)]="selected" (selectionChange)="addChoosenIngredient($event.value);">
+                                <mat-option *ngFor="let ingredient of foodIngredientsToShow" [value]="ingredient">
+                                    {{ingredient.name}} ({{ingredient.allergen ? "allergen": "not allergen"}})
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </span>
+                    <span class="col-7">
+                        <span [ngStyle]="{'visibility': (food.ingredients.length === 0) ? 'hidden' : 'visible'}">
+                            <button type="button" class="btn btn-primary" (click)="reset()">Clear</button>
+                            <table style="width:100%; margin-top:10px">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Is allergen</th>
+                                </tr>
+                                <tr *ngFor="let ingredient of food['ingredients']">
+                                    <td>{{ingredient.name}}</td>
+                                    <td>{{ingredient.allergen ? "allergen": "not allergen"}}</td>
+                                </tr>
+                            </table>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]='checkSubmit()'>Submit</button>
+    </form>
+</div>

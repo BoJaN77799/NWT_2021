@@ -15,7 +15,7 @@ export class RoleGuard implements CanActivate {
     const jwt: JwtHelperService = new JwtHelperService();
 
     if (!token) {
-      this.router.navigate(["/auth/login"]);
+      this.router.navigate(["rest-app/auth/login"]);
       return false;
     }
 

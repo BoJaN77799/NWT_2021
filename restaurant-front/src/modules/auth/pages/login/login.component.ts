@@ -53,6 +53,9 @@ export class LoginComponent implements OnInit {
         else if (role === "COOK") {
           this.router.navigate(["rest-app/orders/orders-page"]);
         }
+        else if (role === "HEAD_COOK") {
+          this.router.navigate(["rest-app/orders/orders-page"]);
+        }
         else if (role === "BARMAN") {
           this.router.navigate(["rest-app/orders/orders-page"]); // mozda nece biti redirektovan ovdje... Ako bude spojicu
         }

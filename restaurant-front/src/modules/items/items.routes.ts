@@ -9,15 +9,19 @@ export const ItemsRoutes: Routes = [
     path: "items-page",
     component: ItemCreatePageComponent,
     canActivate: [RoleGuard],
-    data: { expectedRoles: "HEADCOOK|BARMAN" },
+    data: { expectedRoles: "HEAD_COOK|BARMAN" },
     children: [
       {
         path: "food-create",
         component: FoodCreateComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRoles: "HEAD_COOK" },
       },
       {
         path: "drink-create",
         component: DrinkCreateComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRoles: "BARMAN" },
       }
     ]
   }
