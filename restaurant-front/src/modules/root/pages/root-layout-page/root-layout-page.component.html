@@ -1,15 +1,15 @@
-<div class="row primer">
+<div>
   <div class="col">
     <app-header-manager *ngIf="role === 'MANAGER'"></app-header-manager>
-    <app-header-manager *ngIf="role === 'ADMINISTRATOR'"></app-header-manager>
     <app-header-cook *ngIf="role === 'COOK'"></app-header-cook>
+    <app-header-admin *ngIf="role === 'ADMINISTRATOR'"></app-header-admin>
   </div>
-</div>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">
-      <router-outlet (activate)="checkRole()"></router-outlet>
+  <div class="container-fluid" style="height: 100%;">
+    <div class="row">
+      <div class="col">
+        <router-outlet (activate)="checkRole()"></router-outlet>
+      </div>
     </div>
   </div>
 </div>

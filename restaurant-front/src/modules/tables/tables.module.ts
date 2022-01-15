@@ -4,14 +4,18 @@ import { SharedModule } from '../shared/shared.module';
 import { TablesRoutes } from './tables.routes';
 import { RouterModule } from '@angular/router';
 import { TablesAdminComponent } from './pages/tables-admin/tables-admin.component';
+import { DroppableDirective } from './directives/droppable/droppable.directive';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
 @NgModule({
   declarations: [
-    TablesAdminComponent
+    TablesAdminComponent,
+    DroppableDirective
   ],
   imports: [
+    DragDropModule,
     CommonModule,
     SharedModule,
     RouterModule.forChild(TablesRoutes)

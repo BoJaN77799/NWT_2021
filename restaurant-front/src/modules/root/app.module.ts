@@ -24,6 +24,7 @@ import { HeaderCookComponent } from './components/headers/header-cook/header-coo
 import { NgChartsModule } from 'ng2-charts';
 
 import { EmployeesModule } from '../employees/employees.module';
+import { HeaderAdminComponent } from './components/headers/header-admin/header-admin/header-admin.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { EmployeesModule } from '../employees/employees.module';
     HeaderCommonComponent,
     HeaderManagerComponent,
     HeaderCookComponent,
+    HeaderAdminComponent,
   ],
   imports: [
     CommonModule,
