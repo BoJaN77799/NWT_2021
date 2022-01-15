@@ -7,8 +7,10 @@
                 <img src="{{employee.profilePhoto}}" class="rounded" width="100">
                 <div>
                     <div> 
-                        <button class="btn btn-primary" style="margin-right: 20px;">Salaries</button> 
-                        <button class="btn btn-danger">Bonuses</button> 
+                        <button class="btn btn-primary" style="margin-right: 20px;"
+                        (click)="openMoneyDialog(true)">Salaries</button> 
+                        <button class="btn btn-danger"
+                        (click)="openMoneyDialog(false)">Bonuses</button> 
                     </div> 
                 </div>
             </div>

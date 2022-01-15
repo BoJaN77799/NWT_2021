@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmployeeDTO } from '../../models/EmployeeDTO';
+import { MoneyViewComponent } from '../money-view/money-view.component';
 
 @Component({
   selector: 'app-employee-profile',
@@ -9,7 +10,7 @@ import { EmployeeDTO } from '../../models/EmployeeDTO';
 })
 export class EmployeeProfileComponent{
 
-  constructor(
+  constructor(public dialog: MatDialog,
     public dialogRef: MatDialogRef<EmployeeProfileComponent>,
     @Inject(MAT_DIALOG_DATA) public employee: EmployeeDTO,
   ) {}
@@ -17,4 +18,15 @@ export class EmployeeProfileComponent{
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  openMoneyDialog(indicator: boolean): void {
+    const dialogRef = this.dialog.open(MoneyViewComponent, {
+      data: {indicator : indicator, email: this.employee.email}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
 }

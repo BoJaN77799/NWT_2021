@@ -11,12 +11,14 @@ import { EmployeeCardComponent } from './components/employee-card/employee-card.
 import { EmployeeProfileComponent } from './components/employee-profile/employee-profile.component';
 
 import { FormsModule } from '@angular/forms';
+import { MoneyViewComponent } from './components/money-view/money-view.component';
 
 @NgModule({
   declarations: [
     EmployeesViewComponent,
     EmployeeCardComponent,
-    EmployeeProfileComponent
+    EmployeeProfileComponent,
+    MoneyViewComponent
   ],
   imports: [
     CommonModule,
