@@ -49,6 +49,8 @@ export class PaginationComponent implements OnInit, OnChanges {
     ) {
       this.pages.push(i);
     }
+    this.activePage = 1; // Darko dodao ovo, izvini ako je zeznulo nesto
+      // stavio da bi vratio na prvu stranu kad dodje do promene prikazanog sadrzaja (delovalo mi logicno)
   }
 
   selected(newPage: number) {

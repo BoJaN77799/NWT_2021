@@ -1,0 +1,94 @@
+<div class="row p-4 align-items-center justify-content-center">
+    <h1 class="p-4" style="text-align: center; font-weight: bold; color: red;">User list</h1>
+        <form class="row p-4 align-items-center justify-content-center" [formGroup]="searchFormGroup" (keydown.enter)="$event.preventDefault()">
+            <div class="col-4 align-items-center justify-content-center">
+                <mat-form-field class="example-form-field" appearance="fill" style="width: 100%;">
+                    <mat-label>Search users</mat-label>
+                    <input matInput type="text" formControlName="searchField">
+                    <button *ngIf="searchFormGroup.controls['searchField'].value" matSuffix mat-icon-button aria-label="Clear" 
+                        (click)="searchFormGroup.controls['searchField'].setValue('')">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <mat-form-field appearance="fill">
+                    <mat-label>User type</mat-label>
+                    <mat-select formControlName="userType">
+                        <mat-option value="all" selected>Any</mat-option>
+                        <mat-option value="ADMINISTRATOR">Admin</mat-option>
+                        <mat-option value="MANAGER">Manager</mat-option>
+                        <mat-option value="WAITER">Waiter</mat-option>
+                        <mat-option value="COOK">Cook</mat-option>
+                        <mat-option value="HEAD_COOK">Head cook</mat-option>
+                        <mat-option value="BARMAN">Barman</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <!-- <div class="col-2">
+                <button mat-raised-button color="primary">Search</button>
+               <mat-form-field appearance="fill">
+                    
+                </mat-form-field>
+            </div> -->
+                
+        </form>
+    <div class="col-10">
+        <div class="example-container mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" width="100%" (matSortChange) = "onSort($event)" matSort>
+        
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef
+                    mat-sort-header sortActionDescription="Sort by id"> Id </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef
+                    mat-sort-header sortActionDescription="Sort by firstName"> First name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef
+                    mat-sort-header sortActionDescription="Sort by lastName"> Last name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="userType">
+                    <th mat-header-cell *matHeaderCellDef
+                    mat-sort-header sortActionDescription="Sort by userType"> User type </th>
+                    <td mat-cell *matCellDef="let element"> {{element.userType}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="active">
+                    <th mat-header-cell *matHeaderCellDef
+                    mat-sort-header sortActionDescription="Sort by userType"> Active </th>
+                    <td mat-cell *matCellDef="let element"> {{element.active}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef
+                    mat-sort-header sortActionDescription="Sort by userType"> Email </th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="telephone">
+                    <th mat-header-cell *matHeaderCellDef
+                    mat-sort-header sortActionDescription="Sort by userType"> Telephone </th>
+                    <td mat-cell *matCellDef="let element"> {{element.telephone}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="isPaswordChanged">
+                    <th mat-header-cell *matHeaderCellDef
+                    mat-sort-header sortActionDescription="Sort by userType"> Password changed </th>
+                    <td mat-cell *matCellDef="let element"> {{element.passwordChanged}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row (click)="nista(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        <app-pagination class="p-4" [totalItems]="totalItems" [pageSize]="pageSize" (pageSelected)="changePage($event)"></app-pagination>
+    </div>
+</div>

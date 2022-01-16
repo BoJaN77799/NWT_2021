@@ -25,6 +25,7 @@ import { NgChartsModule } from 'ng2-charts';
 
 import { EmployeesModule } from '../employees/employees.module';
 import { HeaderAdminComponent } from './components/headers/header-admin/header-admin/header-admin.component';
+import { UsersModule } from '../users/users.module';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { HeaderAdminComponent } from './components/headers/header-admin/header-a
     NgChartsModule,
     OrdersModule,
     EmployeesModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent]
