@@ -47,6 +47,7 @@ export class FoodCreateComponent {
       }
     );
     this.selected = {
+      id: -1,
       name: "",
       allergen: false
     };
@@ -122,7 +123,7 @@ export class FoodCreateComponent {
       if (!found)
         this.food.ingredients.push(ingredient);
     }
-    this.selected = { name: "", allergen: false };
+    this.selected = { id: -1, name: "", allergen: false };
   }
 
   checkSubmit() {
