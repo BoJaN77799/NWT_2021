@@ -17,6 +17,8 @@ import { UtilService } from './services/util/util.service';
 import { SearchInputBtnComponent } from './components/search-input-btn/search-input-btn.component';
 import { SelectCustomTextComponent } from './components/select-custom-text/select-custom-text.component';
 import { MatSelectModule } from '@angular/material/select';
+import { FoodSearchService } from './services/food-search.service';
+import { DrinkSearchService } from './services/drink-search.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { MatSelectModule } from '@angular/material/select';
   providers: [
     SnackBarService,
     UtilService,
+    FoodSearchService,
+    DrinkSearchService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
   ],
 })

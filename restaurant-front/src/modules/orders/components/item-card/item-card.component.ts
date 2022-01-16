@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { AddNewItem } from '../../models/add-new-item';
-import { Item } from '../../models/item';
+import { Item } from '../../../shared/models/item';
 import { AddNewItemService } from '../../services/add-new-item.service';
 import { NumberDialogComponent } from '../number-dialog/number-dialog.component';
 

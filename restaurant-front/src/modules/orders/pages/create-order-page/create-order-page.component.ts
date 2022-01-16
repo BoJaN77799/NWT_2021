@@ -1,10 +1,12 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { DrinkSearchDTO } from 'src/modules/shared/models/drink-search-dto';
+import { FoodSearchDTO } from 'src/modules/shared/models/food-search-dto';
 import { Pageable } from 'src/modules/shared/models/pageable';
-import { DrinkSearchDTO } from '../../models/drink-search-dto';
-import { FoodSearchDTO } from '../../models/food-search-dto';
-import { Item } from '../../models/item';
-import { DrinkSearchService } from '../../services/drink-search.service';
-import { FoodSearchService } from '../../services/food-search.service';
+import { DrinkSearchService } from 'src/modules/shared/services/drink-search.service';
+import { FoodSearchService } from 'src/modules/shared/services/food-search.service';
+
+import { Item } from '../../../shared/models/item';
+
 
 @Component({
   selector: 'app-create-order-page',
