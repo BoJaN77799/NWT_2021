@@ -3,5 +3,11 @@ export interface Item {
     name: string,
     description: string,
     price: number,
-    imgSrc: string | null | undefined
+    category: Category,
+    imgSrc: string
+}
+
+export interface Category {
+    id: number,
+    name: string
 }

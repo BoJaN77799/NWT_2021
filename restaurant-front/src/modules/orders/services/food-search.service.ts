@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Pageable } from 'src/modules/shared/models/pageable';
+import { FoodSearchDTO } from '../models/food-search-dto';
 import { Item } from '../models/item';
 
 @Injectable({
@@ -13,8 +15,7 @@ export class FoodSearchService {
 
   constructor(private httpClient: HttpClient) { }
 
-  searchFood(page: number = 0, size: number = 6, 
-             name: string = "ALL", category: string = "ALL", type: string = "ALL"): Observable<HttpResponse<Item[]>> {
+  searchFood(foodSearchDTO: FoodSearchDTO, pageable: Pageable): Observable<HttpResponse<Item[]>> {
 
     let queryParams = {};
 
@@ -23,21 +24,29 @@ export class FoodSearchService {
       observe: 'response'
     };
 
-    let params = this.createParams(name, category, type, page, size);
+    let params = this.createParams(foodSearchDTO, pageable);
 
     return this.httpClient.get<HttpResponse<Item[]>>(`restaurant/api/food${params}`, queryParams);
   }
 
-  createParams(name: string, category: string, type: string, page: number, size: number) : string {
-    return `?${this.createSearchParams(name, category, type)}&${this.createPageableParams(page, size)}`;
+  createParams(foodSearchDTO: FoodSearchDTO, pageable: Pageable) : string {
+    return `?${this.createSearchParams(foodSearchDTO)}&${this.createPageableParams(pageable)}`;
   }
 
-  createSearchParams(name: string, category: string, type: string) {
+  createSearchParams(foodSearchDTO: FoodSearchDTO) {
+    let name: string = foodSearchDTO.name;
+    let category: string = foodSearchDTO.category;
+    let type: string = foodSearchDTO.type;
+
     return `name=${name}&category=${category}&type=${type}`;
   }
 
-  createPageableParams(page: number, size: number) : string {
-    return `page=${page}&size=${size}`;
+  createPageableParams(pageable: Pageable) : string {
+    let page: number = pageable.page;
+    let size: number = pageable.size;
+    let sort: string = pageable.sort;
+
+    return `page=${page}&size=${size}&sort=${sort}`;
   } 
   
 }

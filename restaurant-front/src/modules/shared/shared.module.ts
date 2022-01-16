@@ -43,7 +43,7 @@ import { MatSelectModule } from '@angular/material/select';
     DateRangePickerComponent,
     PaginationComponent,
     SearchInputBtnComponent,
-    SelectCustomTextComponent
+    SelectCustomTextComponent,
   ],
   providers: [
     SnackBarService,

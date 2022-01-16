@@ -13,11 +13,13 @@ import { NumberDialogComponent } from '../number-dialog/number-dialog.component'
 })
 export class ItemCardComponent implements OnInit {
 
-  @Input() 
-  item: Item | undefined;
+  @Input()
+  item: Item;
 
   constructor(public dialog: MatDialog, private snackBarService : SnackBarService,
-              private addNewItemService : AddNewItemService) {}
+              private addNewItemService : AddNewItemService) {
+    this.item = { id: -1,  name: '', description: '', price: -1, category: {id: -1, name: ''}, imgSrc: ''};
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(NumberDialogComponent, {

@@ -1,5 +1,5 @@
-export interface FoodSearchDTO {
-    name: string | null | undefined,
-    category: string | null | undefined,
-    type: string | null | undefined;
+import { DrinkSearchDTO } from "./drink-search-dto";
+
+export interface FoodSearchDTO extends DrinkSearchDTO{
+    type: string;
 }
