@@ -7,6 +7,6 @@ export const OrdersRoutes: Routes = [
     path: "orders-page",
     component: OrdersPageComponent,
     canActivate: [RoleGuard],
-    data: { expectedRoles: "HEADCOOK|COOK|BARMAN|WAITER" },
+    data: { expectedRoles: "HEAD_COOK|COOK|BARMAN|WAITER" },
   }
 ];

@@ -20,6 +20,7 @@ import { HeaderManagerComponent } from './components/headers/header-manager/head
 import { ReportsModule } from '../reports/reports.module';
 import { OrdersModule } from '../orders/orders.module';
 import { HeaderCookComponent } from './components/headers/header-cook/header-cook.component';
+import { ItemsModule } from '../items/items.module';
 
 import { NgChartsModule } from 'ng2-charts';
 
@@ -44,12 +45,13 @@ import { HeaderAdminComponent } from './components/headers/header-admin/header-a
     FormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    MaterialExampleModule, 
+    MaterialExampleModule,
     TablesModule,
     ReportsModule,
     NgChartsModule,
     OrdersModule,
     EmployeesModule,
+    ItemsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

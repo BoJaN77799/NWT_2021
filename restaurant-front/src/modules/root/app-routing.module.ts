@@ -20,18 +20,23 @@ const routes: Routes = [
       },
       {
         path: "reports",
-        loadChildren: () => 
+        loadChildren: () =>
           import("./../reports/reports.module").then((m) => m.ReportsModule),
       },
       {
         path: "orders",
-        loadChildren: () => 
+        loadChildren: () =>
           import("./../orders/orders.module").then((m) => m.OrdersModule),
       },
       {
         path: "employees",
-        loadChildren: () => 
+        loadChildren: () =>
           import("./../employees/employees.module").then((m) => m.EmployeesModule),
+      },
+      {
+        path: "items",
+        loadChildren: () =>
+          import("./../items/items.module").then((m) => m.ItemsModule),
       },
     ],
   },
