@@ -37,7 +37,7 @@ export class ItemCardComponent implements OnInit {
   }
 
   sendNewItem(newItem: AddNewItem) : void {
-    this.addNewItemService.sendMessage(newItem);
+    this.addNewItemService.sendItem(newItem);
   }
 
   ngOnInit(): void {

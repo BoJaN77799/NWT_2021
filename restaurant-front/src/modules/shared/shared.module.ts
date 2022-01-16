@@ -14,11 +14,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { SnackBarService } from './services/snack-bar.service';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { UtilService } from './services/util/util.service';
+import { SearchInputBtnComponent } from './components/search-input-btn/search-input-btn.component';
+import { SelectCustomTextComponent } from './components/select-custom-text/select-custom-text.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
     DateRangePickerComponent,
-    PaginationComponent
+    PaginationComponent,
+    SearchInputBtnComponent,
+    SelectCustomTextComponent
   ],
   imports: [
     CommonModule,
@@ -28,14 +33,17 @@ import { UtilService } from './services/util/util.service';
     MatNativeDateModule,
     MatFormFieldModule,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
     MatFormFieldModule,
     MatRippleModule,
     DateRangePickerComponent,
-    PaginationComponent
+    PaginationComponent,
+    SearchInputBtnComponent,
+    SelectCustomTextComponent
   ],
   providers: [
     SnackBarService,

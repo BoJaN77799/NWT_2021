@@ -1,9 +1,13 @@
 <mat-tab-group mat-align-tabs="center" animationDuration="0ms">
     <mat-tab label="Food">
+        <app-search-input-btn (searchBtnClicked)="foodSearchBtnClicked($event)"></app-search-input-btn>
+        <app-select-custom-text placeholder="Category" [options]=foodCategories (optionSelected)=foodOptionChanged($event)></app-select-custom-text>
         <app-cards-container [cards]="foodItems"></app-cards-container>
         <app-pagination [totalItems]="totalItemsFood" [pageSize]="pageSize" (pageSelected)="getPageFood($event)"></app-pagination>
     </mat-tab>
     <mat-tab label="Drink">
+        <app-search-input-btn (searchBtnClicked)="drinkSearchBtnClicked($event)" ></app-search-input-btn>
+        <app-select-custom-text placeholder="Category" [options]=drinkCategories (optionSelected)=drinkOptionChanged($event)></app-select-custom-text>
         <app-cards-container [cards]="drinkItems"></app-cards-container>
         <app-pagination [totalItems]="totalItemsDrink" [pageSize]="pageSize" (pageSelected)="getPageDrink($event)"></app-pagination>
     </mat-tab>

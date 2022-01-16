@@ -12,9 +12,13 @@ export class AddNewItemService {
 
   constructor() { }
 
-  sendMessage(newItem : AddNewItem) {
+  /* 
+    Sabskrajbovati se na promene u itemMessageSource preko itemMessage$
+    https://youtu.be/oj6Tae2oSo0?t=444
+  */
+
+  sendItem(newItem : AddNewItem) {
     this.itemMessageSource.next(newItem);
   }
-
 
 }

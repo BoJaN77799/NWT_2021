@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Item } from '../../models/item';
 import { DrinkSearchService } from '../../services/drink-search.service';
 import { FoodSearchService } from '../../services/food-search.service';
@@ -17,15 +17,24 @@ export class CreateOrderPageComponent implements OnInit {
   foodItems: Item[] = [];
   drinkItems: Item[] = []
 
+  foodCategories: string[];
+  drinkCategories: string[];
+
   constructor(private foodSearchService: FoodSearchService, private drinkSearchService: DrinkSearchService) {
     this.pageSize = 6;
     this.totalItemsFood = 0;
     this.totalItemsDrink = 0;
+    this.foodCategories = [];
+    this.drinkCategories = [];
   }
 
   ngOnInit(): void {
     this.getPageFood(1);
     this.getPageDrink(1);
+
+    /* Procitati kategorije sa beka i dodati ih u liste */
+    this.foodCategories = ['did', 'didnt', 'didnot'];
+    this.drinkCategories = ['did', 'didnt', 'didnot'];
   }
 
   getPageFood(nextPage: number): void {
@@ -45,5 +54,26 @@ export class CreateOrderPageComponent implements OnInit {
       }
     });
   }
+
+  foodSearchBtnClicked(searchText: string): void {
+    alert(searchText);
+  }
   
+  drinkSearchBtnClicked(searchText: string): void {
+    alert(searchText);
+  }
+
+  foodOptionChanged(option: any): void {
+    if(option) {
+      alert(option);
+    }
+    
+  }
+  
+  drinkOptionChanged(option: any): void {
+    if(option) {
+      alert(option);
+    }
+  }
+
 }
