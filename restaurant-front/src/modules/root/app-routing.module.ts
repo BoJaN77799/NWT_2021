@@ -38,6 +38,11 @@ const routes: Routes = [
         loadChildren: () =>
           import("./../items/items.module").then((m) => m.ItemsModule),
       },
+      {
+        path: "menus",
+        loadChildren: () =>
+          import("./../menus/menus.module").then((m) => m.MenusModule),
+      }
     ],
   },
   {

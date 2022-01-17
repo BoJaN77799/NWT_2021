@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Creating Menu</h1>
+<div mat-dialog-content>
+  <p>Create a new menu.</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Name for menu</mat-label>
+    <input matInput [(ngModel)]="newValue">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="createMenu()">Create</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>
