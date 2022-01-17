@@ -86,7 +86,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row (click)="nista(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-row (click)="selectedUser(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
         </div>
         <app-pagination class="p-4" [totalItems]="totalItems" [pageSize]="pageSize" (pageSelected)="changePage($event)"></app-pagination>

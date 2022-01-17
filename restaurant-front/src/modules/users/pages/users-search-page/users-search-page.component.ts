@@ -1,7 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { UserViewInfoComponent } from '../../components/user-view-info/user-view-info.component';
+import { UserInfoView } from '../../models/user-info-view';
 import { UserTableView } from '../../models/user-table-view';
 import { UsersService } from '../../services/users-service/users.service';
 
@@ -32,7 +35,7 @@ export class UsersSearchPageComponent implements OnInit, AfterViewInit {
   //sort
   @ViewChild(MatSort) sort: MatSort | undefined;
 
-  constructor(private fb: FormBuilder, private usersService: UsersService) {
+  constructor(private fb: FormBuilder, private usersService: UsersService, public dialog: MatDialog) {
     this.searchFormGroup = this.fb.group({
       searchField: [''],
       userType: ['']
@@ -90,8 +93,16 @@ export class UsersSearchPageComponent implements OnInit, AfterViewInit {
     });
   }
 
-  public nista(user: UserTableView){
-    //ovde ubaciti onclick na user-a - otvaranje modala i to
+  public selectedUser(user: UserTableView){
+    this.usersService.getUserInfo(user.id).subscribe((res) => {
+      if(res.body != null){
+        const dialogRef = this.dialog.open(UserViewInfoComponent, {
+          data: res.body,
+          width: '700px',
+        });
+      }
+      //todo error
+    });
   }
 
   allFieldsEmpty() : boolean{

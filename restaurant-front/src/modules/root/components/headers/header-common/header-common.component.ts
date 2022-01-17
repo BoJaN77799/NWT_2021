@@ -19,7 +19,7 @@ export class HeaderCommonComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(["rest-app/auth/login"]);
+    //this.router.navigate(["rest-app/auth/login"]);
   }
   
 }

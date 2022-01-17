@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 import { UsersRoutes } from './users.routes';
 import { MaterialExampleModule } from 'src/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserViewInfoComponent } from './components/user-view-info/user-view-info.component';
 
 
 
 @NgModule({
   declarations: [
-    UsersSearchPageComponent
+    UsersSearchPageComponent,
+    UserViewInfoComponent
   ],
   imports: [
     CommonModule,
