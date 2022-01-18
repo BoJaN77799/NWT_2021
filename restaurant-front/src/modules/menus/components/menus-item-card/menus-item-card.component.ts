@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConformationDialogComponent } from 'src/modules/shared/components/conformation-dialog/conformation-dialog.component';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { ItemMenuDTO } from '../../models/ItemMenuDTO';
+import { MenuItemDTO } from '../../models/MenuItemDTO';
 import { MenusService } from '../../services/menus.service';
+import { MenuItemAddDialogComponent } from '../menu-item-add-dialog/menu-item-add-dialog.component';
 
 
 @Component({
@@ -31,7 +33,21 @@ export class MenusItemCardComponent {
   constructor(public dialog: MatDialog, private menusService: MenusService, private snackBarService: SnackBarService) { }
 
   addItemToMenu(): void {
-    this.renderList.emit(null);
+    let menuItemDTO =  {menuName: '', itemId: this.item.id};
+    this.dialog.open(MenuItemAddDialogComponent, {
+      data: menuItemDTO
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.menusService.addItemToMenu(menuItemDTO as MenuItemDTO)
+        .subscribe((response) => {
+          this.snackBarService.openSnackBar(response.body as string);
+          this.renderList.emit(null);
+        },
+        (err) => {
+          this.snackBarService.openSnackBar(err.error as string);
+        })
+      }
+    })
   }
 
   removeItemFromMenu(): void {
