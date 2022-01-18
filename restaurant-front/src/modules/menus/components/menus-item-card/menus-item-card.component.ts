@@ -1,15 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ItemMenuDTO } from '../../models/ItemMenuDTO';
 
 @Component({
   selector: 'app-menus-item-card',
   templateUrl: './menus-item-card.component.html',
   styleUrls: ['./menus-item-card.component.scss']
 })
-export class MenusItemCardComponent implements OnInit {
+export class MenusItemCardComponent {
 
+  @Input() item: ItemMenuDTO = {
+    id: 0,
+    name: '',
+    description: '',
+    image: '',
+    cost: 0,
+    currentPrice: 0,
+    itemType: '',
+    menu: ''
+  }
+
+  @Input() selectedName: string = '';
+  
   constructor() { }
 
-  ngOnInit(): void {
+  addItemToMenu(): void {
+
+  }
+
+  removeItemFromMenu(): void {
+
   }
 
 }

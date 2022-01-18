@@ -1,1 +1,13 @@
-<p>update-menu-dialog works!</p>
+<mat-form-field appearance="fill">
+    <mat-label>Menus</mat-label>
+    <mat-select [(ngModel)]="selected" name="food">
+      <mat-option *ngFor="let menu of menus" [value]="menu.name">
+        {{menu.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <p> Selected menu: {{selected}} </p>
+  <div mat-dialog-actions>
+    <button mat-button (click)="updateMenu()">{{nameButton}}</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  </div>

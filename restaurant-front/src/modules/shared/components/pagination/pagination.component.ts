@@ -28,6 +28,10 @@ export class PaginationComponent implements OnInit, OnChanges {
     this.activePage = 1;
   }
 
+  reset(): void {
+    this.activePage = 1;
+  }
+
   ngOnInit() {
     this.pages = [];
     for (

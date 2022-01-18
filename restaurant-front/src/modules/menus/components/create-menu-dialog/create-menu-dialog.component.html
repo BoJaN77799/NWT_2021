@@ -6,6 +6,16 @@
     <input matInput [(ngModel)]="newValue">
   </mat-form-field>
 </div>
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Active Menus</mat-label>
+    <select matNativeControl required>
+      <option *ngFor="let menu of menus" [value]="menu.name">
+        {{menu.name}}
+      </option>
+    </select>
+  </mat-form-field>
+</div>
 <div mat-dialog-actions>
   <button mat-button (click)="createMenu()">Create</button>
   <button mat-button (click)="onNoClick()">Cancel</button>

@@ -1,1 +1,28 @@
-<p>menus-item-card works!</p>
+<div class="card" style="width: 16rem;">
+    <img class="card-img-top" src="http://localhost:8080/user_profile_photos/test/default.jpg" alt="Card image cap">
+    <div class="card-body">
+      <h3 class="card-title" style="font-weight: bold;">{{item.id}} {{item.name}}</h3>
+      <p class="card-text">Menu: <span style="color: red;">{{item.menu}}</span>
+          <br>
+          Current price: {{item.currentPrice}} RSD
+          <br>
+          Cost: {{item.cost}} RSD
+          <br>
+          Item type: {{item.itemType}}
+      </p>
+    </div>
+    <div *ngIf="selectedName === 'Nedefinisan'"
+     class="example-button-container" style="margin: 10px 0px 10px 170px;">
+      <button mat-fab color="primary" aria-label="Example icon button with a delete icon"
+      (click)="addItemToMenu()">
+        <mat-icon>library_add</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="selectedName !== 'Nedefinisan'"
+    class="example-button-container" style="margin: 10px 0px 10px 170px;">
+      <button mat-fab color="warn" aria-label="Example icon button with a home icon"
+      (click)="removeItemFromMenu()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+</div>

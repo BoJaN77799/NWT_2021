@@ -1,3 +1,7 @@
-<app-menus-bar></app-menus-bar>
-<app-menus-items-list></app-menus-items-list>
-<app-menus-item-card></app-menus-item-card>
+<app-menus-bar (optionSelected)="takeSelectedName($event)"></app-menus-bar>
+<app-menus-items-list [selectedName]="selectedName" [items]="items"></app-menus-items-list>
+<div *ngIf="selectedName !== ''" style="margin-top:30px;">
+        <app-pagination  [totalItems]="totalSize" [pageSize]="pageSize"
+        (pageSelected)="changePage($event)"></app-pagination>     
+</div>
+
