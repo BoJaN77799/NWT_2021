@@ -1,4 +1,5 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, QueryList, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { PaginationComponent } from 'src/modules/shared/components/pagination/pagination.component';
 import { DrinkSearchDTO } from 'src/modules/shared/models/drink-search-dto';
 import { FoodSearchDTO } from 'src/modules/shared/models/food-search-dto';
 import { Pageable } from 'src/modules/shared/models/pageable';
@@ -6,7 +7,7 @@ import { DrinkSearchService } from 'src/modules/shared/services/drink-search.ser
 import { FoodSearchService } from 'src/modules/shared/services/food-search.service';
 
 import { Item } from '../../../shared/models/item';
-
+import { CategoriesService } from '../../services/categories.service';
 
 @Component({
   selector: 'app-create-order-page',
@@ -40,7 +41,10 @@ export class CreateOrderPageComponent implements OnInit {
   foodSortSelected: string;
   drinkSortSelected: string;
 
-  constructor(private foodSearchService: FoodSearchService, private drinkSearchService: DrinkSearchService) {
+  @ViewChildren(PaginationComponent) paginations!: QueryList<PaginationComponent>;
+
+  constructor(private foodSearchService: FoodSearchService, private drinkSearchService: DrinkSearchService,
+              private categoryService: CategoriesService) {
     this.pageSize = 6;
     this.totalItemsFood = 0;
     this.totalItemsDrink = 0;
@@ -63,59 +67,75 @@ export class CreateOrderPageComponent implements OnInit {
     this.getPageFood(1);
     this.getPageDrink(1);
 
-    /* Procitati kategorije sa beka i dodati ih u liste */
-    this.foodCategories = ['did', 'didnt', 'didnot'];
-    this.drinkCategories = ['did', 'didnt', 'didnot'];
+    this.categoryService.getFoodCategories().subscribe((response) => {
+      if(response.body)
+        this.foodCategories = response.body;
+    });
+
+    this.categoryService.getDrinkCategories().subscribe((response) => {
+      if(response.body)
+        this.drinkCategories = response.body;
+    });
   }
 
-  getPageFood(nextPage: number): void {
+  getPageFood(nextPage: number, reset: boolean = false): void {
     this.currentPageFood = nextPage;
     let foodSearchDTO = this.createFoodSearchDTO();
+    if(reset) { /* Reset pagination component when caller of this function could change size and order of items */
+      this.paginations.first.reset();
+      this.currentPageFood = 1;
+      nextPage = this.currentPageFood;
+    }
     let pageable = this.createPageable(nextPage, this.foodSortSelected);
-
+    
     this.foodSearchService.searchFood(foodSearchDTO, pageable).subscribe((response) => {   
       if(response.body) {
         this.totalItemsFood = Number(response.headers.get('total-elements'));
-        this.foodItems = response.body;
+        this.foodItems = response.body as Item[];
       }
     });
   }
 
-  getPageDrink(nextPage: number): void {
+  getPageDrink(nextPage: number, reset: boolean = false): void {
     this.currentPageDrink = nextPage;
     let drinkSearchDTO = this.createDrinkSearchDTO();
+    if(reset) {  /* Reset pagination component when caller of this function could change size and order of items */
+      this.paginations.last.reset();
+      this.currentPageDrink = 1;
+      nextPage = this.currentPageDrink;
+    }
     let pageable = this.createPageable(nextPage, this.drinkSortSelected);
 
     this.drinkSearchService.searchDrink(drinkSearchDTO, pageable).subscribe((response) => {   
       if(response.body) {
         this.totalItemsDrink = Number(response.headers.get('total-elements'));
-        this.drinkItems = response.body;
+        this.drinkItems = response.body as Item[];
       }
     });
   }
 
   foodSearchBtnClicked(searchText: string): void {
     this.searchFoodText = searchText;
-    this.getPageFood(this.currentPageFood);
+    this.getPageFood(this.currentPageFood, true);
   }
   
   drinkSearchBtnClicked(searchText: string): void {
     this.searchDrinkText = searchText;
-    this.getPageDrink(this.currentPageDrink);
+    this.getPageDrink(this.currentPageDrink, true);
   }
 
   foodCategoryChanged(option: any): void {
     if(!option) option = '';
 
     this.foodCategorySelected = option as string;
-    this.getPageFood(this.currentPageFood);
+    this.getPageFood(this.currentPageFood, true);
   }
   
   drinkCategoryChanged(option: any): void {
     if(!option) option = '';
 
     this.drinkCategorySelected = option as string;
-    this.getPageDrink(this.currentPageDrink);
+    this.getPageDrink(this.currentPageDrink, true);
   }
 
   foodTypeChanged(option: any): void {
@@ -124,7 +144,7 @@ export class CreateOrderPageComponent implements OnInit {
     let type: string = this.adjustTypeForBack(option as string);
 
     this.foodTypeSelected = type;
-    this.getPageFood(this.currentPageFood);
+    this.getPageFood(this.currentPageFood, true);
   }
 
   adjustTypeForBack(type: string): string {
