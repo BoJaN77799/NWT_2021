@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConformationDialogComponent } from 'src/modules/shared/components/conformation-dialog/conformation-dialog.component';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { BonusDTO } from '../../models/BonusDTO';
 import { IndicatorEmail } from '../../models/IndicatorEmail';
@@ -20,7 +21,7 @@ export class MoneyViewComponent implements OnInit{
 
   value: number;
 
-  constructor(
+  constructor(public dialog: MatDialog,
     public dialogRef: MatDialogRef<MoneyViewComponent>,
     @Inject(MAT_DIALOG_DATA) public indicatorEmail: IndicatorEmail,
   private employeesService: EmployeesService, private snackBarService: SnackBarService) 
@@ -75,7 +76,15 @@ export class MoneyViewComponent implements OnInit{
 
   createNewSalary(value: number): void {
     let newSalary = { amount: value, email: this.indicatorEmail.email };
-    this.employeesService.createNewSalary(newSalary as SalaryDTO)
+    this.dialog.open(ConformationDialogComponent, {
+      data: 
+      { 
+        title: "Creating a new salart",
+        message: "You want to create a salart  " + newSalary.amount + " RSD."
+      },
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.employeesService.createNewSalary(newSalary as SalaryDTO)
         .subscribe((response) => {
           this.snackBarService.openSnackBar(response.body as string);
           this.employeesService.getSalariesOfEmployee(this.indicatorEmail.email)
@@ -86,11 +95,21 @@ export class MoneyViewComponent implements OnInit{
         (err) => {
           this.snackBarService.openSnackBar(err.error as string);
         });
+      }
+    });
   }
 
   createNewBonus(value: number): void {
     let newBonus = { amount: value, email: this.indicatorEmail.email };
-    this.employeesService.createNewBonus(newBonus as BonusDTO)
+    this.dialog.open(ConformationDialogComponent, {
+      data: 
+      { 
+        title: "Creating bonus",
+        message: "You want to create a new bonus  " + newBonus.amount + " RSD."
+      },
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.employeesService.createNewBonus(newBonus as BonusDTO)
         .subscribe((response) => {
           this.snackBarService.openSnackBar(response.body as string);
           this.employeesService.getBonusesOfEmployee(this.indicatorEmail.email)
@@ -101,6 +120,8 @@ export class MoneyViewComponent implements OnInit{
         (err) => {
           this.snackBarService.openSnackBar(err.error as string);
         })
+      }
+    });
   }
 
   onNoClick(): void {

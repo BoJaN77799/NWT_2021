@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ConformationDialogComponent } from 'src/modules/shared/components/conformation-dialog/conformation-dialog.component';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { Menu } from '../../models/Menu';
 import { MenusService } from '../../services/menus.service';
@@ -14,7 +15,7 @@ export class CreateMenuDialogComponent implements OnInit{
   newValue: string = '';
   menus: Menu[] = [];
   
-  constructor(
+  constructor(public dialog: MatDialog,
     public dialogRef: MatDialogRef<CreateMenuDialogComponent>,
     private menusService: MenusService, private snackBarService: SnackBarService
   ) {}
@@ -37,7 +38,15 @@ export class CreateMenuDialogComponent implements OnInit{
   createMenu(): void {
     console.log(this.newValue);
     if (this.newValue && this.newValue !== ''){
-      this.menusService.createNewMenu(this.newValue)
+      this.dialog.open(ConformationDialogComponent, {
+        data: 
+        { 
+          title: "Creating menu",
+          message: "You want to create a new menu  " + this.newValue + "."
+        },
+      }).afterClosed().subscribe(result => {
+        if (result) {
+          this.menusService.createNewMenu(this.newValue)
           .subscribe((response) => {
             this.snackBarService.openSnackBar(response.body as string);
             this.menusService.findAllWithSpecificStatus(true)
@@ -51,6 +60,9 @@ export class CreateMenuDialogComponent implements OnInit{
           (err) => {
             this.snackBarService.openSnackBar(err.error as string);
           })
+        }
+      })
+    
     }
   }
 }
