@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ConformationDialogComponent } from 'src/modules/shared/components/conformation-dialog/conformation-dialog.component';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { ItemMenuDTO } from '../../models/ItemMenuDTO';
 import { MenusService } from '../../services/menus.service';
+
 
 @Component({
   selector: 'app-menus-item-card',
@@ -25,21 +28,31 @@ export class MenusItemCardComponent {
   
   @Output() renderList: EventEmitter<any> = new EventEmitter();
   
-  constructor(private menusService: MenusService, private snackBarService: SnackBarService) { }
+  constructor(public dialog: MatDialog, private menusService: MenusService, private snackBarService: SnackBarService) { }
 
   addItemToMenu(): void {
     this.renderList.emit(null);
   }
 
   removeItemFromMenu(): void {
-    this.menusService.removeItemFromMenu({menuName: this.item.menu, itemId: this.item.id})
-    .subscribe((response) => {
-      console.log(response);
-      this.snackBarService.openSnackBar(response.body as string);
-      this.renderList.emit(null);
-    },
-    (err) => {
-      this.snackBarService.openSnackBar(err.error as string);
+    this.dialog.open(ConformationDialogComponent, {
+      data: 
+      { 
+        title: "Remove item from menu",
+        message: "You want to remove " + this.item.name + " from " + this.item.menu + "."
+      },
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.menusService.removeItemFromMenu({menuName: this.item.menu, itemId: this.item.id})
+        .subscribe((response) => {
+          console.log(response);
+          this.snackBarService.openSnackBar(response.body as string);
+          this.renderList.emit(null);
+        },
+        (err) => {
+          this.snackBarService.openSnackBar(err.error as string);
+        })
+      }
     })
   }
 

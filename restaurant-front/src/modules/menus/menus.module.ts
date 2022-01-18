@@ -12,6 +12,7 @@ import { MaterialExampleModule } from 'src/material.module';
 import { CreateMenuDialogComponent } from './components/create-menu-dialog/create-menu-dialog.component';
 import { UpdateMenuDialogComponent } from './components/update-menu-dialog/update-menu-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { MenuItemAddDialogComponent } from './components/menu-item-add-dialog/menu-item-add-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     MenusItemsListComponent,
     MenusItemCardComponent,
     CreateMenuDialogComponent,
-    UpdateMenuDialogComponent
+    UpdateMenuDialogComponent,
+    MenuItemAddDialogComponent
   ],
   imports: [
     CommonModule,

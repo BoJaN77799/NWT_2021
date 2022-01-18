@@ -87,7 +87,7 @@ export class MenusService {
   addItemToMenu(menuItemDTO: MenuItemDTO) {
     let queryParams = {};
     queryParams = {
-      headers: this.headers,
+      headers: this.headers, 
       observe: "response",
       responseType: "text"
     };

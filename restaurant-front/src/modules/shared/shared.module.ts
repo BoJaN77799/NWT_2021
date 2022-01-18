@@ -10,10 +10,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SnackBarService } from './services/snack-bar.service';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { UtilService } from './services/util/util.service';
+import { ConformationDialogComponent } from './components/conformation-dialog/conformation-dialog.component';
 
 @NgModule({
   declarations: [
-    PaginationComponent
+    PaginationComponent,
+    ConformationDialogComponent,
   ],
   imports: [
     CommonModule,

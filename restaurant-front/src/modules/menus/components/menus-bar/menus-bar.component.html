@@ -1,11 +1,12 @@
 <div class="example-button-row" style="margin-top: 20px; margin-bottom: 20px;">
     <button mat-raised-button color="primary" style="margin-left: 40px; margin-right: 20px;"
-    (click)="openCreateMenuDialog()">Create</button>
+    (click)="openCreateMenuDialog()">Create New Menu</button>
     <button mat-raised-button color="accent" style="margin-right: 20px;"
-    (click)="openActivateMenuDialog()">Activate</button>
+    (click)="openActivateMenuDialog()">Activate Menu</button>
     <button mat-raised-button color="warn"
-    (click)="openDeactivateMenuDialog()">Deactivate</button>
-    <mat-form-field appearance="fill" style="margin-left: 30px;">
+    (click)="openDeactivateMenuDialog()">Deactivate Menu</button>
+    <span style="margin-left: 100px; color: red; font-weight: bold;">Load items from selected menu: </span>
+    <mat-form-field appearance="fill" style="margin-left: 15px;">
       <mat-label>Menus names</mat-label>
       <mat-select [(ngModel)]="selectedName" ngModel (ngModelChange)="optionChanged($event)">
         <mat-option *ngFor="let name of menusNames" [value]="name">
