@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
-import { AddNewItem } from '../../models/add-new-item';
 import { Item } from '../../../shared/models/item';
 import { AddNewItemService } from '../../services/add-new-item.service';
 import { NumberDialogComponent } from '../number-dialog/number-dialog.component';
+import { ItemQuantitySelection } from '../../models/item-quantity-selection';
 
 @Component({
   selector: 'app-item-card',
@@ -32,17 +32,16 @@ export class ItemCardComponent implements OnInit {
         this.snackBarService.openSnackBarFast('Invalid quantity', );
       }
       else {
-        let newItem : AddNewItem = { id: this.item?.id, quantity: result };
+        let newItem : ItemQuantitySelection = { id: this.item.id, name: this.item.name, quantity: result };
         this.sendNewItem(newItem);
       }
     });
   }
 
-  sendNewItem(newItem: AddNewItem) : void {
+  sendNewItem(newItem: ItemQuantitySelection) : void {
     this.addNewItemService.sendItem(newItem);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

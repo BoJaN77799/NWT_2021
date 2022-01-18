@@ -19,6 +19,8 @@ import { MatInputModule } from '@angular/material/input';
 import { SnackBarService } from '../shared/services/snack-bar.service';
 import { CardsContainerComponent } from './components/cards-container/cards-container.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { SelectItemsComponent } from './components/select-items/select-items.component';
+import { ItemsManipulationComponent } from './components/items-manipulation/items-manipulation.component';
 
 
 
@@ -28,7 +30,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     CreateOrderPageComponent,
     ItemCardComponent,
     NumberDialogComponent,
-    CardsContainerComponent
+    CardsContainerComponent,
+    SelectItemsComponent,
+    ItemsManipulationComponent
   ],
   imports: [
     CommonModule,
