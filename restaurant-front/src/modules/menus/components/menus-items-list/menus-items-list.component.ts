@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ItemMenuDTO } from '../../models/ItemMenuDTO';
 
 @Component({
@@ -11,6 +11,8 @@ export class MenusItemsListComponent implements AfterViewInit {
   @Input() items: ItemMenuDTO[] = [];
   @Input() selectedName: string = '';
 
+  @Output() renderListToParent: EventEmitter<any> = new EventEmitter();
+
   constructor() { 
   }
 
@@ -18,6 +20,8 @@ export class MenusItemsListComponent implements AfterViewInit {
     throw new Error('Method not implemented.');
   }
 
-
+  renderList() {
+    this.renderListToParent.emit(null);
+  }
 
 }

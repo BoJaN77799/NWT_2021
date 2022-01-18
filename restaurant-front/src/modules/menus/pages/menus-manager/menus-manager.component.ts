@@ -27,6 +27,12 @@ export class MenusManagerComponent  {
     this.items = [];
   }
 
+  renderList() {
+    if (this.selectedName && this.selectedName !== ''){
+      this.takeSelectedName(this.selectedName);
+    }
+  }
+
   takeSelectedName(optionSelected: any): void {
     this.child?.reset();
     this.selectedName = optionSelected as string;

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ItemMenuDTO } from '../models/ItemMenuDTO';
 import { Menu } from '../models/Menu';
+import { MenuItemDTO } from '../models/MenuItemDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -70,5 +71,27 @@ export class MenusService {
     
     return this.http.get<HttpResponse<ItemMenuDTO[]>>
     ("restaurant/api/items/findAllItemsWithMenuName", queryParams);
+  }
+
+  removeItemFromMenu(menuItemDTO: MenuItemDTO) {
+    let queryParams = {};
+    queryParams = {
+      headers: this.headers,
+      observe: "response",
+      responseType: "text"
+    };
+    return this.http.post<HttpResponse<string>>(
+      "restaurant/api/items/removeItemFromMenu", menuItemDTO, queryParams);
+  }
+
+  addItemToMenu(menuItemDTO: MenuItemDTO) {
+    let queryParams = {};
+    queryParams = {
+      headers: this.headers,
+      observe: "response",
+      responseType: "text"
+    };
+    return this.http.post<HttpResponse<string>>(
+      "restaurant/api/items/addItemToMenu", menuItemDTO, queryParams);
   }
 }
