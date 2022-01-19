@@ -66,7 +66,8 @@ export class MenusService {
       params: new HttpParams()
         .set("name", name)
         .append("page", String(page))
-        .append("size", String(size)),
+        .append("size", String(size))
+        .append("sort", "id"),
     };  
     
     return this.http.get<HttpResponse<ItemMenuDTO[]>>
