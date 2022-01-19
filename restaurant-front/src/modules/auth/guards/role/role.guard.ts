@@ -20,7 +20,7 @@ export class RoleGuard implements CanActivate {
     }
 
     const info = jwt.decodeToken(token);
-    const roles: string[] = expectedRoles.split("|", 2);
+    const roles: string[] = expectedRoles.split("|");
 
     if (roles.indexOf(info.role) === -1) {
       //this.router.navigate(["/wine/list"]); oni su stavili redirect mi cemo samo ostati na stranici ako

@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["rest-app/orders/orders-page"]); // mozda nece biti redirektovan ovdje... Ako bude spojicu
         }
         else if (role === "WAITER") {
-          this.router.navigate(["rest-app/orders/create-order-page"]);
+          this.router.navigate(["rest-app/orders/orders-page"]);
         }
         //TODO ovde dodati if za svakog korisnika, i poslati ga na home page sa 
         //         this.router.navigate(["putanja_do_home_page"]);

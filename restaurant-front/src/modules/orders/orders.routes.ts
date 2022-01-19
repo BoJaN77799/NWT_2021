@@ -11,7 +11,7 @@ export const OrdersRoutes: Routes = [
     data: { expectedRoles: "HEADCOOK|COOK|BARMAN|WAITER" },
   },
   {
-    path: "create-order-page",
+    path: "create-order-page/:tableId",
     component: CreateOrderPageComponent,
     canActivate: [RoleGuard],
     data: { expectedRoles: "WAITER" },

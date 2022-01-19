@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { AddNewItem } from '../../models/add-new-item';
@@ -27,10 +28,11 @@ export class ItemsManipulationComponent implements OnInit {
 
   constructor(private addNewItemService: AddNewItemService,
               private snackBarService: SnackBarService,
-              private orderService: OrdersService) { 
+              private orderService: OrdersService,
+              private router: Router,) { 
     this.orderItems = [];
     this.initiallyLoadedOrderItems = [];
-    this.tableId = 2;
+    this.tableId = 0;
     this.globalPrice = 0;
     this.note = "";
   }
@@ -45,12 +47,19 @@ export class ItemsManipulationComponent implements OnInit {
 
   sendOrder(): void {
     if(this.orderItems.length === 0) { this.snackBarService.openSnackBarFast('Please select items'); return; }
-
+  
     /* Creation mode if length 0 */
     if(this.initiallyLoadedOrderItems.length === 0) {
       let orderDTO = this.createOrderCreationDTO();
       this.orderService.sendOrder(orderDTO).subscribe((response) => {
-        console.log(response.body);
+        if(response.body) {
+          this.snackBarService.openSnackBarFast(response.body);
+          this.router.navigate(["rest-app/orders/orders-page"]);
+        }
+      },
+      (error) => {
+        this.snackBarService.openSnackBarFast(error.error);
+        this.router.navigate(["rest-app/orders/orders-page"]);
       });
     }
     else {
@@ -140,7 +149,6 @@ export class ItemsManipulationComponent implements OnInit {
   private addOrderItemsForDelete(): void {
     /* Call this method before back when update */
     for(let oi of this.initiallyLoadedOrderItems) {
-      this.orderItems.find(orderItem => orderItem.id === oi.id);
       if(this.orderItemInOrderItemsList(oi)) {
         oi.quantity = 0;
         this.orderItems.push(oi);
@@ -155,7 +163,7 @@ export class ItemsManipulationComponent implements OnInit {
   private createOrderCreationDTO(): OrderCreationDTO {
     let orderDTO: OrderCreationDTO = {
       note: this.note,
-      tableId: 2,
+      tableId: this.tableId,
       waiterId: this.getWaiterId(),
       orderItems: this.orderItems
     };
