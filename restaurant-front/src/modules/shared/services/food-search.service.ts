@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pageable } from 'src/modules/shared/models/pageable';
@@ -21,32 +21,18 @@ export class FoodSearchService {
 
     queryParams = {
       headers: this.headers,
-      observe: 'response'
+      observe: 'response',
+      params: new HttpParams()
+        .set("name", foodSearchDTO.name)
+        .append("category", foodSearchDTO.category)
+        .append("type", foodSearchDTO.type)
+        .append("menu", foodSearchDTO.menu)
+        .append("page", pageable.page)
+        .append("size", pageable.size)
+        .append("sort", pageable.sort)
     };
 
-    let params = this.createParams(foodSearchDTO, pageable);
-
-    return this.httpClient.get<HttpResponse<Item[]>>(`restaurant/api/food${params}`, queryParams);
+    return this.httpClient.get<HttpResponse<Item[]>>(`restaurant/api/food`, queryParams);
   }
 
-  createParams(foodSearchDTO: FoodSearchDTO, pageable: Pageable) : string {
-    return `?${this.createSearchParams(foodSearchDTO)}&${this.createPageableParams(pageable)}`;
-  }
-
-  createSearchParams(foodSearchDTO: FoodSearchDTO) {
-    let name: string = foodSearchDTO.name;
-    let category: string = foodSearchDTO.category;
-    let type: string = foodSearchDTO.type;
-
-    return `name=${name}&category=${category}&type=${type}`;
-  }
-
-  createPageableParams(pageable: Pageable) : string {
-    let page: number = pageable.page;
-    let size: number = pageable.size;
-    let sort: string = pageable.sort;
-
-    return `page=${page}&size=${size}&sort=${sort}`;
-  } 
-  
 }

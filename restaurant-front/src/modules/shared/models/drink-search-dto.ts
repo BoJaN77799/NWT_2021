@@ -1,4 +1,5 @@
 export interface DrinkSearchDTO {
     name: string,
-    category: string
+    category: string,
+    menu: string
 }

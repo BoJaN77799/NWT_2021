@@ -13,12 +13,16 @@ export class SelectCustomTextComponent implements OnInit {
   @Input()
   placeholder: string;
 
+  @Input()
+  defaultOption: string;  
+
   @Output()
   optionSelected: EventEmitter<string>;
 
   constructor() { 
     this.options = [];
     this.placeholder = '';
+    this.defaultOption = '';
     this.optionSelected = new EventEmitter();
   }
 

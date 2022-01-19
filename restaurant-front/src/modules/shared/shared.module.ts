@@ -12,6 +12,7 @@ import { SelectCustomTextComponent } from './components/select-custom-text/selec
 import { FoodSearchService } from './services/food-search.service';
 import { DrinkSearchService } from './services/drink-search.service';
 import { ConformationDialogComponent } from './components/conformation-dialog/conformation-dialog.component';
+import { MenuNamesService } from './services/menu-names.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ConformationDialogComponent } from './components/conformation-dialog/co
     UtilService,
     FoodSearchService,
     DrinkSearchService,
+    MenuNamesService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
   ],
 })

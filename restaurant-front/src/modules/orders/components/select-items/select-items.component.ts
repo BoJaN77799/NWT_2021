@@ -5,7 +5,7 @@ import { FoodSearchDTO } from 'src/modules/shared/models/food-search-dto';
 import { Pageable } from 'src/modules/shared/models/pageable';
 import { DrinkSearchService } from 'src/modules/shared/services/drink-search.service';
 import { FoodSearchService } from 'src/modules/shared/services/food-search.service';
-
+import { MenuNamesService } from 'src/modules/shared/services/menu-names.service';
 import { Item } from '../../../shared/models/item';
 import { CategoriesService } from '../../services/categories.service';
 
@@ -25,6 +25,8 @@ export class SelectItemsComponent implements OnInit {
   foodItems: Item[] = [];
   drinkItems: Item[] = []
 
+  menus: string[] = [];
+
   foodCategories: string[];
   drinkCategories: string[];
 
@@ -35,6 +37,8 @@ export class SelectItemsComponent implements OnInit {
   /* Properties for search */
   searchFoodText: string;
   searchDrinkText: string;
+  foodMenuSelected: string;
+  drinkMenuSelected: string;
   foodCategorySelected: string;
   drinkCategorySelected: string;
   foodTypeSelected: string;
@@ -44,17 +48,22 @@ export class SelectItemsComponent implements OnInit {
   @ViewChildren(PaginationComponent) paginations!: QueryList<PaginationComponent>;
 
   constructor(private foodSearchService: FoodSearchService, private drinkSearchService: DrinkSearchService,
-              private categoryService: CategoriesService) {
+              private categoryService: CategoriesService, private menuNamesService: MenuNamesService) {
     this.pageSize = 6;
     this.totalItemsFood = 0;
     this.totalItemsDrink = 0;
     this.currentPageFood = 0;
     this.currentPageDrink = 0;
+    this.foodItems = [];
+    this.drinkItems = [];
+    this.menus = ['Meni 1', 'Meni 2'];
     this.foodCategories = [];
     this.drinkCategories = [];
     this.foodTypes = ['Appetizer', 'Main dish', 'Desert'];;
     this.searchFoodText = '';
     this.searchDrinkText = '';
+    this.foodMenuSelected = '';
+    this.drinkMenuSelected = '';
     this.foodCategorySelected = '';
     this.drinkCategorySelected = '';
     this.foodTypeSelected = '';
@@ -67,6 +76,13 @@ export class SelectItemsComponent implements OnInit {
     this.getPageFood(1);
     this.getPageDrink(1);
 
+    this.menuNamesService.findAllActiveMenuNames().subscribe((response) => {
+      if(response.body) {
+        this.menus = response.body;
+        this.menus.splice(0, 1);
+      }
+    })
+
     this.categoryService.getFoodCategories().subscribe((response) => {
       if(response.body)
         this.foodCategories = response.body;
@@ -76,6 +92,7 @@ export class SelectItemsComponent implements OnInit {
       if(response.body)
         this.drinkCategories = response.body;
     });
+
   }
 
   getPageFood(nextPage: number, reset: boolean = false): void {
@@ -121,6 +138,20 @@ export class SelectItemsComponent implements OnInit {
   
   drinkSearchBtnClicked(searchText: string): void {
     this.searchDrinkText = searchText;
+    this.getPageDrink(this.currentPageDrink, true);
+  }
+
+  foodMenuChanged(option: any): void {
+    if(!option) option = '';
+
+    this.foodMenuSelected = option as string;
+    this.getPageFood(this.currentPageFood, true);
+  }
+
+  drinkMenuChanged(option: any): void {
+    if(!option) option = '';
+
+    this.drinkMenuSelected = option as string;
     this.getPageDrink(this.currentPageDrink, true);
   }
 
@@ -192,7 +223,8 @@ export class SelectItemsComponent implements OnInit {
     let foodSearchDTO: FoodSearchDTO = {
       name: this.searchFoodText,
       category: this.foodCategorySelected,
-      type: this.foodTypeSelected
+      type: this.foodTypeSelected,
+      menu: this.foodMenuSelected
     };
 
     return foodSearchDTO;
@@ -201,7 +233,8 @@ export class SelectItemsComponent implements OnInit {
   createDrinkSearchDTO(): DrinkSearchDTO {
     let drinkSearchDTO: DrinkSearchDTO = {
       name: this.searchDrinkText,
-      category: this.drinkCategorySelected
+      category: this.drinkCategorySelected,
+      menu: this.drinkMenuSelected
     };
 
     return drinkSearchDTO;
