@@ -23,6 +23,7 @@ import { HeaderCookComponent } from './components/headers/header-cook/header-coo
 import { ItemsModule } from '../items/items.module';
 
 import { NgChartsModule } from 'ng2-charts';
+import { HeaderWaiterComponent } from './components/headers/header-waiter/header-waiter.component';
 
 import { EmployeesModule } from '../employees/employees.module';
 import { HeaderAdminComponent } from './components/headers/header-admin/header-admin/header-admin.component';
@@ -35,7 +36,11 @@ import { MenusModule } from '../menus/menus.module';
     HeaderCommonComponent,
     HeaderManagerComponent,
     HeaderCookComponent,
+<<<<<<< HEAD
     HeaderAdminComponent,
+=======
+    HeaderWaiterComponent,
+>>>>>>> feature_createOrder
   ],
   imports: [
     CommonModule,

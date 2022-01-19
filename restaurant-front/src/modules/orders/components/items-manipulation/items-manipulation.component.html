@@ -1,0 +1,23 @@
+<ul class="list-group">
+    <a *ngFor="let oi of orderItems" class="list-group-item d-flex justify-content-between align-items-center">
+      {{oi.name}} ({{oi.price}}) [{{oi.priority | priority}}]
+      <div>
+        <span class="badge bg-primary rounded-pill">{{oi.quantity}}</span>
+        <button class="btn btn-outline-secondary" (click)="decreaseQuantity(oi)"><mat-icon>remove</mat-icon></button>
+        <button class="btn btn-outline-secondary" (click)="increaseQuantity(oi)"><mat-icon>add</mat-icon></button>
+        <button class="btn btn-outline-secondary" (click)="removeOrderItem(oi)"><mat-icon>delete_outline</mat-icon></button>
+        <button class="btn btn-outline-secondary" (click)="decreasePriority(oi)"><mat-icon>arrow_downward</mat-icon></button>
+        <button class="btn btn-outline-secondary" (click)="increasePriority(oi)"><mat-icon>arrow_upward</mat-icon></button>
+      </div>
+    </a>
+    
+    <p>
+      <mat-icon>event_note</mat-icon>
+      Note
+    </p>
+    <textarea [(ngModel)]="note"></textarea>
+    <p>
+      <mat-icon> attach_money</mat-icon>
+      {{globalPrice}}
+    </p>
+</ul>

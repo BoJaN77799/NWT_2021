@@ -10,12 +10,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SnackBarService } from './services/snack-bar.service';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { UtilService } from './services/util/util.service';
+import { SearchInputBtnComponent } from './components/search-input-btn/search-input-btn.component';
+import { SelectCustomTextComponent } from './components/select-custom-text/select-custom-text.component';
+import { FoodSearchService } from './services/food-search.service';
+import { DrinkSearchService } from './services/drink-search.service';
 import { ConformationDialogComponent } from './components/conformation-dialog/conformation-dialog.component';
 
 @NgModule({
   declarations: [
     PaginationComponent,
     ConformationDialogComponent,
+    PaginationComponent,
+    SearchInputBtnComponent,
+    SelectCustomTextComponent
   ],
   imports: [
     CommonModule,
@@ -24,11 +31,15 @@ import { ConformationDialogComponent } from './components/conformation-dialog/co
     MaterialExampleModule
   ],
   exports: [
-    PaginationComponent
+    PaginationComponent,
+    SearchInputBtnComponent,
+    SelectCustomTextComponent,
   ],
   providers: [
     SnackBarService,
     UtilService,
+    FoodSearchService,
+    DrinkSearchService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
   ],
 })

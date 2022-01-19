@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+  <h3>{{quantitySelection.name}}</h3>
+  <mat-form-field appearance="fill">
+    <mat-label>Quantity</mat-label>
+    <input type="number" min="0" matInput [(ngModel)]="quantitySelection.quantity">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button [mat-dialog-close]="quantitySelection.quantity" cdkFocusInitial>Confirm</button>
+</div>

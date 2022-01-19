@@ -2,7 +2,12 @@
   <div class="col">
     <app-header-manager *ngIf="role === 'MANAGER'"></app-header-manager>
     <app-header-manager *ngIf="role === 'ADMINISTRATOR'"></app-header-manager>
+<<<<<<< HEAD
     <app-header-cook *ngIf="role === 'COOK' || role === 'HEAD_COOK'"></app-header-cook>
+=======
+    <app-header-cook *ngIf="role === 'COOK'"></app-header-cook>
+    <app-header-waiter *ngIf="role === 'WAITER'"></app-header-waiter>
+>>>>>>> feature_createOrder
   </div>
 
   <div class="container-fluid" style="height: 100%;">
