@@ -16,7 +16,6 @@ import { ItemCardComponent } from './components/item-card/item-card.component';
 import { NumberDialogComponent } from './components/number-dialog/number-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { SnackBarService } from '../shared/services/snack-bar.service';
 import { CardsContainerComponent } from './components/cards-container/cards-container.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SelectItemsComponent } from './components/select-items/select-items.component';

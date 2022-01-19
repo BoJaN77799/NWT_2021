@@ -54,12 +54,12 @@ export class ItemsManipulationComponent implements OnInit {
       this.orderService.sendOrder(orderDTO).subscribe((response) => {
         if(response.body) {
           this.snackBarService.openSnackBarFast(response.body);
-          this.router.navigate(["rest-app/orders/orders-page"]);
+          this.router.navigate(["rest-app/orders/create-order-page/0"]);
         }
       },
       (error) => {
         this.snackBarService.openSnackBarFast(error.error);
-        this.router.navigate(["rest-app/orders/orders-page"]);
+        this.router.navigate(["rest-app/orders/create-order-page/0"]);
       });
     }
     else {

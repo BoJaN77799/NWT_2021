@@ -36,11 +36,8 @@ import { MenusModule } from '../menus/menus.module';
     HeaderCommonComponent,
     HeaderManagerComponent,
     HeaderCookComponent,
-<<<<<<< HEAD
     HeaderAdminComponent,
-=======
     HeaderWaiterComponent,
->>>>>>> feature_createOrder
   ],
   imports: [
     CommonModule,
