@@ -4,7 +4,7 @@ import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { Item } from '../../../shared/models/item';
 import { AddNewItemService } from '../../services/add-new-item.service';
 import { NumberDialogComponent } from '../number-dialog/number-dialog.component';
-import { ItemQuantitySelection } from '../../models/item-quantity-selection';
+import { AddNewItem } from '../../models/add-new-item';
 
 @Component({
   selector: 'app-item-card',
@@ -24,21 +24,25 @@ export class ItemCardComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(NumberDialogComponent, {
       width: '250px',
-      data: { name: this.item?.name, id: this.item?.id, quantity: 0 }
+      data: { name: this.item.name, id: this.item.id, quantity: 0 }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result && result < 0) {
-        this.snackBarService.openSnackBarFast('Invalid quantity', );
+      if(result === undefined) return;
+      
+      if(result === null) 
+        this.snackBarService.openSnackBarFast('Invalid quantity');
+      else if(result < 1) {
+        this.snackBarService.openSnackBarFast('Invalid quantity');
       }
       else {
-        let newItem : ItemQuantitySelection = { id: this.item.id, name: this.item.name, quantity: result };
+        let newItem : AddNewItem = { id: this.item.id, name: this.item.name, quantity: result, price: this.item.price };
         this.sendNewItem(newItem);
       }
     });
   }
 
-  sendNewItem(newItem: ItemQuantitySelection) : void {
+  sendNewItem(newItem: AddNewItem) : void {
     this.addNewItemService.sendItem(newItem);
   }
 

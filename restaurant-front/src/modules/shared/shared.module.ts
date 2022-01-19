@@ -36,7 +36,8 @@ import { DrinkSearchService } from './services/drink-search.service';
     MatFormFieldModule,
     MatSnackBarModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
   exports: [
     MatButtonModule,

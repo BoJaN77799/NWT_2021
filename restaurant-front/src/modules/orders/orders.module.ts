@@ -21,6 +21,7 @@ import { CardsContainerComponent } from './components/cards-container/cards-cont
 import { MatTabsModule } from '@angular/material/tabs';
 import { SelectItemsComponent } from './components/select-items/select-items.component';
 import { ItemsManipulationComponent } from './components/items-manipulation/items-manipulation.component';
+import { PriorityPipe } from './pipes/priority.pipe';
 
 
 
@@ -32,7 +33,8 @@ import { ItemsManipulationComponent } from './components/items-manipulation/item
     NumberDialogComponent,
     CardsContainerComponent,
     SelectItemsComponent,
-    ItemsManipulationComponent
+    ItemsManipulationComponent,
+    PriorityPipe
   ],
   imports: [
     CommonModule,

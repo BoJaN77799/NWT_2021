@@ -1,5 +1,8 @@
-import { ItemQuantitySelection } from "./item-quantity-selection";
-
-export interface OrderItem extends ItemQuantitySelection {
-    price: number
+export interface OrderItem {
+    id: number | null,
+    itemId: number,
+    name: string,
+    quantity: number,
+    price: number,
+    priority: number | null
 }

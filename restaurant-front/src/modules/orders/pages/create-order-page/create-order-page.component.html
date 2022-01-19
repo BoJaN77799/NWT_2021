@@ -1,2 +1,7 @@
 <app-select-items></app-select-items>
-<app-items-manipulation [orderItems]="ois"></app-items-manipulation>
+<!-- Prosledi ispod id stola -->
+<app-items-manipulation></app-items-manipulation> 
+<div class="text-center">
+    <button type="button" class="btn btn-primary" (click)="sendOrder()">Send order</button>
+    <button type="button" class="btn btn-primary">Cancel</button>
+</div>
