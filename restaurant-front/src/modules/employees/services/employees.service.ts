@@ -23,7 +23,8 @@ export class EmployeesService {
       observe: "response",
       params: new HttpParams()
         .set("page", String(page))
-        .append("size", String(size)),
+        .append("size", String(size))
+        .append("sort", "id"),
     };
 
     return this.http.get<HttpResponse<EmployeeDTO[]>>("restaurant/api/employees/findAll", queryParams);

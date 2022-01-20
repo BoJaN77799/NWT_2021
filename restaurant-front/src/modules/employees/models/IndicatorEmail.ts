@@ -1,4 +1,6 @@
-export interface IndicatorEmail {
+import { EmployeeDTO } from "./EmployeeDTO";
+
+export interface IndicatorEmployee {
     indicator: boolean;
-    email: string;
+    employee: EmployeeDTO;
 }

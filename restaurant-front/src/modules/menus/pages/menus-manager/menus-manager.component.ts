@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { PaginationComponent } from 'src/modules/shared/components/pagination/pagination.component';
 import { ItemMenuDTO } from '../../models/ItemMenuDTO';
+import { ItemsService } from '../../services/items.service';
 import { MenusService } from '../../services/menus.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class MenusManagerComponent  {
 
   items: ItemMenuDTO[];
 
-  constructor(private menusService: MenusService) {
+  constructor(private menusService: MenusService, private itemsService: ItemsService) {
     this.pageSize = 3;
     this.currentPage = 1;
     this.totalSize = 1;
@@ -37,7 +38,7 @@ export class MenusManagerComponent  {
     this.child?.reset();
     this.selectedName = optionSelected as string;
     if (this.selectedName && this.selectedName !== '') {
-      this.menusService.findAllItemsWithMenuName(this.selectedName, this.currentPage - 1, this.pageSize)
+      this.itemsService.findAllItemsWithMenuName(this.selectedName, this.currentPage - 1, this.pageSize)
         .subscribe((response) => {
           this.items = response.body as ItemMenuDTO[];
           this.totalSize = Number(response.headers.get("total-elements"));
@@ -47,7 +48,7 @@ export class MenusManagerComponent  {
   }
 
   changePage(newPage: number) {
-    this.menusService.findAllItemsWithMenuName(this.selectedName, newPage - 1, this.pageSize)
+    this.itemsService.findAllItemsWithMenuName(this.selectedName, newPage - 1, this.pageSize)
         .subscribe((response) => {
           this.items = response.body as ItemMenuDTO[];
           this.totalSize = Number(response.headers.get("total-elements"));

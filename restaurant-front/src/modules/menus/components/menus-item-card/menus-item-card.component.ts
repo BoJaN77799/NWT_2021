@@ -4,7 +4,9 @@ import { ConformationDialogComponent } from 'src/modules/shared/components/confo
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { ItemMenuDTO } from '../../models/ItemMenuDTO';
 import { MenuItemDTO } from '../../models/MenuItemDTO';
+import { ItemsService } from '../../services/items.service';
 import { MenusService } from '../../services/menus.service';
+import { ItemPricesComponent } from '../item-prices/item-prices.component';
 import { MenuItemAddDialogComponent } from '../menu-item-add-dialog/menu-item-add-dialog.component';
 
 
@@ -30,7 +32,8 @@ export class MenusItemCardComponent {
   
   @Output() renderList: EventEmitter<any> = new EventEmitter();
   
-  constructor(public dialog: MatDialog, private menusService: MenusService, private snackBarService: SnackBarService) { }
+  constructor(public dialog: MatDialog, private menusService: MenusService, 
+    private itemsService: ItemsService, private snackBarService: SnackBarService) { }
 
   addItemToMenu(): void {
     let menuItemDTO =  {menuName: '', itemId: this.item.id};
@@ -38,7 +41,7 @@ export class MenusItemCardComponent {
       data: menuItemDTO
     }).afterClosed().subscribe(result => {
       if (result) {
-        this.menusService.addItemToMenu(menuItemDTO as MenuItemDTO)
+        this.itemsService.addItemToMenu(menuItemDTO as MenuItemDTO)
         .subscribe((response) => {
           this.snackBarService.openSnackBar(response.body as string);
           this.renderList.emit(null);
@@ -59,7 +62,7 @@ export class MenusItemCardComponent {
       },
     }).afterClosed().subscribe(result => {
       if (result) {
-        this.menusService.removeItemFromMenu({menuName: this.item.menu, itemId: this.item.id})
+        this.itemsService.removeItemFromMenu({menuName: this.item.menu, itemId: this.item.id})
         .subscribe((response) => {
           console.log(response);
           this.snackBarService.openSnackBar(response.body as string);
@@ -72,4 +75,13 @@ export class MenusItemCardComponent {
     })
   }
 
+  openPriceDialog(): void {
+    const dialogRef = this.dialog.open(ItemPricesComponent, {
+      data: this.item
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
 }

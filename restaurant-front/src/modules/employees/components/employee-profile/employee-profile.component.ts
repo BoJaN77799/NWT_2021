@@ -21,7 +21,8 @@ export class EmployeeProfileComponent{
 
   openMoneyDialog(indicator: boolean): void {
     const dialogRef = this.dialog.open(MoneyViewComponent, {
-      data: {indicator : indicator, email: this.employee.email}
+      data: {indicator : indicator, employee: this.employee},
+  
     });
 
     dialogRef.afterClosed().subscribe(result => {
