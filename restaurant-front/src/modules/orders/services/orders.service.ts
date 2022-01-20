@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { OrderCreationDTO, Orders } from '../models/orders';
+import { OrderCreationDTO, Orders, OrderUpdateDTO } from '../models/orders';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +36,28 @@ export class OrdersService {
     };
 
     return this.http.post<HttpResponse<string>>("restaurant/api/orders", orderDTO, queryParams);
+  }
+
+  findOneWithOrderItemsForUpdate(orderId: number): Observable<HttpResponse<OrderUpdateDTO>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: "response"
+    };
+   
+    return this.http.get<HttpResponse<OrderUpdateDTO>>("restaurant/api/orders/forUpdate/" + orderId, queryParams);
+  }
+
+  updateOrder(orderDTO: OrderUpdateDTO): Observable<HttpResponse<string>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: "response",
+      responseType: "text"
+    };
+
+    return this.http.put<HttpResponse<string>>("restaurant/api/orders", orderDTO, queryParams);
   }
 }

@@ -1,10 +1,11 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { AddNewItem } from '../../models/add-new-item';
 import { OrderItem } from '../../models/order-item';
-import { OrderCreationDTO } from '../../models/orders';
+import { OrderCreationDTO, OrderUpdateDTO } from '../../models/orders';
 import { AddNewItemService } from '../../services/add-new-item.service';
 import { OrdersService } from '../../services/orders.service';
 
@@ -15,11 +16,15 @@ import { OrdersService } from '../../services/orders.service';
 })
 export class ItemsManipulationComponent implements OnInit {
 
-  @Input()
+  orderForUpdate: OrderUpdateDTO;
+
   orderItems: OrderItem[];
 
   @Input()
   tableId: number;
+
+  @Input()
+  orderId: number;
 
   initiallyLoadedOrderItems: OrderItem[];
 
@@ -30,9 +35,11 @@ export class ItemsManipulationComponent implements OnInit {
               private snackBarService: SnackBarService,
               private orderService: OrdersService,
               private router: Router,) { 
+    this.orderForUpdate = {id: -1, note: '', tableId: -1, waiterId: -1, orderItems: []};
     this.orderItems = [];
     this.initiallyLoadedOrderItems = [];
     this.tableId = 0;
+    this.orderId = 0;
     this.globalPrice = 0;
     this.note = "";
   }
@@ -42,29 +49,60 @@ export class ItemsManipulationComponent implements OnInit {
       this.addNewItemToList(message as AddNewItem);
     });
 
-    this.saveInitiallyLoadedOrderItemsAndCalcGlobPrice();
+    if(this.orderId) { // if update mode
+      this.orderService.findOneWithOrderItemsForUpdate(this.orderId).subscribe((response) => {
+        if(response.body) {
+          this.orderForUpdate = response.body;
+          this.orderItems = this.orderForUpdate.orderItems;
+          this.note = this.orderForUpdate.note;
+          this.saveInitiallyLoadedOrderItemsAndCalcGlobPrice();
+        } 
+      },
+      (error) => {
+        this.snackBarService.openSnackBarFast(error.statusText);
+        this.router.navigate(["rest-app/orders/create-order-page/0"]);
+      });
+    }
   }
 
   sendOrder(): void {
     if(this.orderItems.length === 0) { this.snackBarService.openSnackBarFast('Please select items'); return; }
   
     /* Creation mode if length 0 */
-    if(this.initiallyLoadedOrderItems.length === 0) {
+    if(this.orderId === 0) {
       let orderDTO = this.createOrderCreationDTO();
+
       this.orderService.sendOrder(orderDTO).subscribe((response) => {
-        if(response.body) {
-          this.snackBarService.openSnackBarFast(response.body);
-          this.router.navigate(["rest-app/orders/create-order-page/0"]);
-        }
+        this.handleResponse(response);
       },
       (error) => {
-        this.snackBarService.openSnackBarFast(error.error);
-        this.router.navigate(["rest-app/orders/create-order-page/0"]);
+        this.handleError(error);
       });
     }
     else {
-      // TODO: Code fore order update
-      // this.addOrderItemsForDelete();
+      let orderDTO = this.createOrderUpdateDTO();
+      this.addOrderItemsForDelete();
+      
+      this.orderService.updateOrder(orderDTO).subscribe((response) => {
+        this.handleResponse(response);
+      },
+      (error) => {
+        this.handleError(error);
+      });
+    }
+  }
+
+  private handleResponse(response: HttpResponse<string>): void {
+    if(response.body) {
+      this.snackBarService.openSnackBarFast(response.body);
+      this.router.navigate(["rest-app/orders/create-order-page/0"]);
+    }
+  }
+
+  private handleError(error: any): void {
+    if(error) {
+      this.snackBarService.openSnackBarFast(error.error);
+      this.router.navigate(["rest-app/orders/create-order-page/0"]);
     }
   }
 
@@ -78,7 +116,8 @@ export class ItemsManipulationComponent implements OnInit {
       name: newItem.name,
       quantity: newItem.quantity,
       price: newItem.price,
-      priority: null
+      priority: null,
+      itemType: newItem.itemType
     };
     this.orderItems.push(newOrderItem);
     this.globalPrice += newOrderItem.quantity * newOrderItem.price;
@@ -117,14 +156,14 @@ export class ItemsManipulationComponent implements OnInit {
   }
 
   increasePriority(item: OrderItem): void {
-    if(item.priority == null) item.priority = 1;
-    else if(item.priority === 3) item.priority = null;
+    if(item.priority == null) item.priority = 0;
+    else if(item.priority === 2) item.priority = null;
     else item.priority += 1;
   }
 
   decreasePriority(item: OrderItem): void {
-    if(item.priority == null) item.priority = 3;
-    else if(item.priority === 1) item.priority = null;
+    if(item.priority == null) item.priority = 2;
+    else if(item.priority === 0) item.priority = null;
     else item.priority -= 1;
   }
 
@@ -139,7 +178,8 @@ export class ItemsManipulationComponent implements OnInit {
         name: orderItem.name,
         quantity: orderItem.quantity,
         price: orderItem.price,
-        priority: orderItem.priority
+        priority: orderItem.priority,
+        itemType: orderItem.itemType
       }
       this.initiallyLoadedOrderItems.push(oi);
       this.globalPrice += oi.quantity * oi.price;
@@ -149,7 +189,7 @@ export class ItemsManipulationComponent implements OnInit {
   private addOrderItemsForDelete(): void {
     /* Call this method before back when update */
     for(let oi of this.initiallyLoadedOrderItems) {
-      if(this.orderItemInOrderItemsList(oi)) {
+      if(!this.orderItemInOrderItemsList(oi)) {
         oi.quantity = 0;
         this.orderItems.push(oi);
       }
@@ -165,6 +205,17 @@ export class ItemsManipulationComponent implements OnInit {
       note: this.note,
       tableId: this.tableId,
       waiterId: this.getWaiterId(),
+      orderItems: this.orderItems
+    };
+    return orderDTO;
+  }
+
+  private createOrderUpdateDTO(): OrderUpdateDTO {
+    let orderDTO: OrderUpdateDTO = {
+      id: this.orderId,
+      note: this.note,
+      tableId: -1,
+      waiterId: -1,
       orderItems: this.orderItems
     };
     return orderDTO;

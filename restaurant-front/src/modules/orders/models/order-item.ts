@@ -5,4 +5,5 @@ export interface OrderItem {
     quantity: number,
     price: number,
     priority: number | null
+    itemType: string | null
 }

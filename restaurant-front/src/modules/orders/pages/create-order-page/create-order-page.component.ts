@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemsManipulationComponent } from '../../components/items-manipulation/items-manipulation.component';
-import { OrderItem } from '../../models/order-item';
-
 
 @Component({
   selector: 'app-create-order-page',

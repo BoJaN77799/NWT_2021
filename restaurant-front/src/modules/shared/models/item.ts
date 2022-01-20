@@ -4,7 +4,8 @@ export interface Item {
     description: string,
     price: number,
     category: Category,
-    imgSrc: string
+    imgSrc: string,
+    itemType: string
 }
 
 export interface Category {

@@ -18,7 +18,7 @@ export class ItemCardComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private snackBarService : SnackBarService,
               private addNewItemService : AddNewItemService) {
-    this.item = { id: -1,  name: '', description: '', price: -1, category: {id: -1, name: ''}, imgSrc: ''};
+    this.item = { id: -1,  name: '', description: '', price: -1, category: {id: -1, name: ''}, imgSrc: '', itemType: ''};
   }
 
   openDialog(): void {
@@ -36,7 +36,7 @@ export class ItemCardComponent implements OnInit {
         this.snackBarService.openSnackBarFast('Invalid quantity');
       }
       else {
-        let newItem : AddNewItem = { id: this.item.id, name: this.item.name, quantity: result, price: this.item.price };
+        let newItem : AddNewItem = { id: this.item.id, name: this.item.name, quantity: result, price: this.item.price, itemType: this.item.itemType };
         this.sendNewItem(newItem);
       }
     });
