@@ -13,6 +13,7 @@ import { CreateMenuDialogComponent } from './components/create-menu-dialog/creat
 import { UpdateMenuDialogComponent } from './components/update-menu-dialog/update-menu-dialog.component';
 import { FormsModule } from '@angular/forms';
 import { MenuItemAddDialogComponent } from './components/menu-item-add-dialog/menu-item-add-dialog.component';
+import { ItemPricesComponent } from './components/item-prices/item-prices.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MenuItemAddDialogComponent } from './components/menu-item-add-dialog/me
     MenusItemCardComponent,
     CreateMenuDialogComponent,
     UpdateMenuDialogComponent,
-    MenuItemAddDialogComponent
+    MenuItemAddDialogComponent,
+    ItemPricesComponent
   ],
   imports: [
     CommonModule,
