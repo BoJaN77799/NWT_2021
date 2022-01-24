@@ -28,6 +28,7 @@ import { HeaderWaiterComponent } from './components/headers/header-waiter/header
 import { EmployeesModule } from '../employees/employees.module';
 import { HeaderAdminComponent } from './components/headers/header-admin/header-admin/header-admin.component';
 import { MenusModule } from '../menus/menus.module';
+import { HeaderBarmanComponent } from './components/headers/header-barman/header-barman.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { MenusModule } from '../menus/menus.module';
     HeaderCookComponent,
     HeaderAdminComponent,
     HeaderWaiterComponent,
+    HeaderBarmanComponent,
   ],
   imports: [
     CommonModule,
