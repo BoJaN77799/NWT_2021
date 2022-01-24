@@ -6,17 +6,15 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   templateUrl: './root-layout-page.component.html',
   styleUrls: ['./root-layout-page.component.scss']
 })
-export class RootLayoutPageComponent implements OnInit {
+export class RootLayoutPageComponent {
 
-  public showFiller : boolean = false;
+  public showFiller: boolean = false;
 
   public role: string;
 
   constructor() {
     this.role = "";
   }
-
-  ngOnInit() {}
 
   checkRole() {
     const item = localStorage.getItem("user");
