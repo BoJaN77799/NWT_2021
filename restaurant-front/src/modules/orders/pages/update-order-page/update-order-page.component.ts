@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemsManipulationComponent } from '../../components/items-manipulation/items-manipulation.component';
-import { OrderUpdateDTO } from '../../models/orders';
+import { OrderUpdateDTO } from '../../models/order';
 import { OrdersService } from '../../services/orders.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class UpdateOrderPageComponent implements OnInit {
 
   orderId: number;
 
-  constructor(private route: ActivatedRoute, private orderService: OrdersService) { 
+  constructor(private route: ActivatedRoute, private orderService: OrdersService) {
     this.orderId = 0;
   }
 

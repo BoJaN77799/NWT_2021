@@ -13,6 +13,7 @@ import { FoodSearchService } from './services/food-search.service';
 import { DrinkSearchService } from './services/drink-search.service';
 import { ConformationDialogComponent } from './components/conformation-dialog/conformation-dialog.component';
 import { MenuNamesService } from './services/menu-names.service';
+import { DateFormatPipe } from './pipes/date-format.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MenuNamesService } from './services/menu-names.service';
     ConformationDialogComponent,
     PaginationComponent,
     SearchInputBtnComponent,
-    SelectCustomTextComponent
+    SelectCustomTextComponent,
+    DateFormatPipe,
   ],
   imports: [
     CommonModule,
@@ -32,6 +34,7 @@ import { MenuNamesService } from './services/menu-names.service';
     PaginationComponent,
     SearchInputBtnComponent,
     SelectCustomTextComponent,
+    DateFormatPipe
   ],
   providers: [
     SnackBarService,

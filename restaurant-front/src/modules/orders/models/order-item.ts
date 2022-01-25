@@ -1,3 +1,5 @@
+import { Item } from "src/modules/shared/models/item";
+
 export interface OrderItem {
     id: number | null,
     itemId: number,
@@ -6,4 +8,8 @@ export interface OrderItem {
     price: number,
     priority: number | null
     itemType: string | null
+}
+
+export interface OrderItemWithItem extends OrderItem {
+    item: Item
 }

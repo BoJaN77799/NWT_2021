@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { OrderCreationDTO, Orders, OrderUpdateDTO } from '../models/orders';
+import { UtilService } from 'src/modules/shared/services/util/util.service';
+import { OrderCreationDTO, Order, OrderUpdateDTO } from '../models/order';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,9 @@ export class OrdersService {
 
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private utilService: UtilService) { }
 
-  getAll(page: number, size: number): Observable<HttpResponse<Orders[]>> {
+  getAll(page: number, size: number): Observable<HttpResponse<Order[]>> {
     let queryParams = {};
 
     queryParams = {
@@ -22,8 +23,9 @@ export class OrdersService {
         .set("page", String(page))
         .append("size", String(size)),
     };
-
-    return this.http.get<HttpResponse<Orders[]>>("restaurant/api/orders/forCook/all", queryParams);
+    let role = this.utilService.getLoggedUserRole();
+    role = role.includes("COOK") ? "Cook" : "Barman";
+    return this.http.get<HttpResponse<Order[]>>("restaurant/api/orders/for" + role + "/all", queryParams);
   }
 
   sendOrder(orderDTO: OrderCreationDTO): Observable<HttpResponse<string>> {
@@ -45,7 +47,7 @@ export class OrdersService {
       headers: this.headers,
       observe: "response"
     };
-   
+
     return this.http.get<HttpResponse<OrderUpdateDTO>>("restaurant/api/orders/forUpdate/" + orderId, queryParams);
   }
 
