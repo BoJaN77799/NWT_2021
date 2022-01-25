@@ -21,4 +21,14 @@ export class UtilService {
     }
     return "";
   }
+
+  public getLoggedUserEmail(): string {
+    const item = localStorage.getItem("user");
+
+    if (item) {
+      const jwt: JwtHelperService = new JwtHelperService();
+      return jwt.decodeToken(item).sub;
+    }
+    return "";
+  }
 }

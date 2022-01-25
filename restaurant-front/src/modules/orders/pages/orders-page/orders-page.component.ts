@@ -3,6 +3,8 @@ import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
+import { UtilService } from 'src/modules/shared/services/util/util.service';
 import { OrderViewComponent } from '../../components/order-view/order-view.component';
 import { Order } from '../../models/order';
 import { OrdersService } from '../../services/orders.service';
@@ -14,7 +16,7 @@ import { OrdersService } from '../../services/orders.service';
 })
 export class OrdersPageComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'createdAt', 'note', 'tableId'];
+  displayedColumns: string[] = ['id', 'createdAt', 'note', 'tableId', 'button'];
 
   pageSize: number;
   currentPage: number;
@@ -22,7 +24,12 @@ export class OrdersPageComponent implements AfterViewInit {
   ordersList: Order[];
   dataSource: MatTableDataSource<Order>;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private ordersService: OrdersService, public dialog: MatDialog) {
+  constructor(private _liveAnnouncer: LiveAnnouncer,
+    private ordersService: OrdersService,
+    public dialog: MatDialog,
+    private utilService: UtilService,
+    private snackBarService: SnackBarService
+  ) {
     this.ordersList = [];
     this.dataSource = new MatTableDataSource(this.ordersList)
     this.pageSize = 5;
@@ -74,6 +81,24 @@ export class OrdersPageComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
+    });
+  }
+
+  acceptOrder(element: any): void {
+    console.log(element);
+    let email = this.utilService.getLoggedUserEmail();
+    if (email) this.ordersService.acceptOrder(element.id, email).subscribe((res) => {
+      if (res.status == 200) {
+        if (res.body) {
+          this.snackBarService.openSnackBar(res.body as string);
+        }
+        const index = this.dataSource.data.indexOf(element.id);
+        this.dataSource.data.splice(index, 1);
+        this.dataSource._updateChangeSubscription();
+      }
+      else {
+        this.snackBarService.openSnackBar(res.body as string);
+      }
     });
   }
 

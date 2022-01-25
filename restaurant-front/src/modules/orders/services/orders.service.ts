@@ -62,4 +62,18 @@ export class OrdersService {
 
     return this.http.put<HttpResponse<string>>("restaurant/api/orders", orderDTO, queryParams);
   }
+
+  acceptOrder(id: number, email: string): Observable<HttpResponse<string>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: "response",
+      responseType: "text",
+      params: new HttpParams()
+        .set("id", id)
+        .append("email", email)
+    };
+    return this.http.get<HttpResponse<string>>("restaurant/api/orders/accept", queryParams);
+  }
 }

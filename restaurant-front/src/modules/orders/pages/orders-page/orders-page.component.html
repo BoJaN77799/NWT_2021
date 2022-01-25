@@ -28,8 +28,16 @@
       <td mat-cell *matCellDef="let element"> {{element.tableId}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="button">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button (click)="openDialog(element)">Info</button>
+        <button mat-button (click)="acceptOrder(element)">Accept</button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDialog(row)"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
 <app-pagination [totalItems]="totalSize" [pageSize]="pageSize" (pageSelected)="changePage($event)">
