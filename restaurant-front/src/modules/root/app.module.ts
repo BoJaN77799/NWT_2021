@@ -10,7 +10,7 @@ import { MaterialExampleModule } from 'src/material.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { RootLayoutPageComponent } from './pages/root-layout-page/root-layout-page.component';
 import { TablesModule } from '../tables/tables.module';
@@ -26,6 +26,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { EmployeesModule } from '../employees/employees.module';
 import { HeaderAdminComponent } from './components/headers/header-admin/header-admin/header-admin.component';
 import { UsersModule } from '../users/users.module';
+import { ProfileViewComponent } from './components/common/profile-view/profile-view.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { UsersModule } from '../users/users.module';
     HeaderManagerComponent,
     HeaderCookComponent,
     HeaderAdminComponent,
+    ProfileViewComponent,
   ],
   imports: [
     CommonModule,
@@ -45,8 +47,9 @@ import { UsersModule } from '../users/users.module';
     FormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    MaterialExampleModule, 
+    MaterialExampleModule,
     TablesModule,
+    ReactiveFormsModule,
     ReportsModule,
     NgChartsModule,
     OrdersModule,

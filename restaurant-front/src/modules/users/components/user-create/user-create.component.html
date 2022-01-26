@@ -1,0 +1,177 @@
+
+<div class="row">
+    <h1 style="text-align: center">User creation</h1>
+</div>
+<div class="row justify-content-center align-items-center">
+    <div class="col align-items-center justify-content-center">
+        <img *ngIf="previewImg" [src]="previewImg" height="150px" width="150px" style="display: block;margin-left: auto;margin-right: auto;">
+        <img *ngIf="!previewImg" src="restaurant/user_profile_photos/test/default.jpg" height="150px" width="150px" style="display: block;margin-left: auto;margin-right: auto;">
+    </div>
+</div>
+
+<div class="row justify-content-center align-items-center">
+    <div class="col justify-content-center align-items-center">
+        <div class="col d-flex justify-content-center">
+            <button mat-flat-button color="primary" (click)="imgInput.click()" class="m-3">Upload profile photo</button>
+        </div>
+        
+        <input
+            #imgInput
+            hidden="true"
+            type="file"
+            id="fileInput"
+            name="fileInput"
+            accept="image/*"
+            onclick="this.value = null"
+            (change)="selectImage($event)"
+            />
+    </div>
+</div>
+<form class="row align-items-center justify-content-center" [formGroup]="createUserFormGroup">
+
+    <div class="row d-flex justify-content-center">
+        <mat-form-field class="example-form-field m-2" appearance="fill" style="width: 45%;">
+            <mat-label>First name</mat-label>
+            <input matInput type="text" formControlName="firstName">
+            <button *ngIf="createUserFormGroup.controls['firstName'].value" matSuffix mat-icon-button aria-label="Clear" 
+                (click)="createUserFormGroup.controls['firstName'].setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error
+                *ngIf="
+                createUserFormGroup.controls['firstName'].touched &&
+                createUserFormGroup.controls['firstName'].errors?.['required']
+                ">
+                First name is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field  m-2" appearance="fill" style="width: 45%;">
+            <mat-label>Last name</mat-label>
+            <input matInput type="text" formControlName="lastName">
+            <button *ngIf="createUserFormGroup.controls['lastName'].value" matSuffix mat-icon-button aria-label="Clear" 
+                (click)="createUserFormGroup.controls['lastName'].setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error
+                *ngIf="
+                createUserFormGroup.controls['lastName'].touched &&
+                createUserFormGroup.controls['lastName'].errors?.['required']
+                ">
+                Last name is required
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <mat-form-field class="example-form-field  m-2" appearance="fill" style="width: 45%;">
+            <mat-label>Email</mat-label>
+            <input matInput type="text" formControlName="email">
+            <button *ngIf="createUserFormGroup.controls['email'].value" matSuffix mat-icon-button aria-label="Clear" 
+                (click)="createUserFormGroup.controls['email'].setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error
+                *ngIf="
+                createUserFormGroup.controls['email'].touched &&
+                createUserFormGroup.controls['email'].errors?.['required']
+                ">
+                Email is required
+            </mat-error>
+            <mat-error
+                *ngIf="
+                createUserFormGroup.controls['email'].touched &&
+                createUserFormGroup.controls['email'].errors?.['email']
+                ">
+                Email is invalid
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field  m-2" appearance="fill" style="width: 45%;">
+            <mat-label>Telephone</mat-label>
+            <input matInput type="text" formControlName="telephone">
+            <button *ngIf="createUserFormGroup.controls['telephone'].value" matSuffix mat-icon-button aria-label="Clear" 
+                (click)="createUserFormGroup.controls['telephone'].setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error
+                *ngIf="
+                createUserFormGroup.controls['telephone'].touched &&
+                createUserFormGroup.controls['telephone'].errors?.['required']
+                ">
+                Telephone is required
+            </mat-error>
+            <mat-error
+                *ngIf="
+                createUserFormGroup.controls['telephone'].touched &&
+                createUserFormGroup.controls['telephone'].errors?.['minlength']
+                ">
+                Telephone has to have at least 5 digits
+            </mat-error>
+            <mat-error
+                *ngIf="
+                createUserFormGroup.controls['telephone'].touched &&
+                createUserFormGroup.controls['telephone'].errors?.['maxlength']
+                ">
+                Telephone can have max 12 digits
+            </mat-error>
+            <mat-error
+                *ngIf="
+                createUserFormGroup.controls['telephone'].touched &&
+                createUserFormGroup.controls['telephone'].errors?.['telephone']
+                ">
+                Telephone can have only digits
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <mat-form-field class="example-form-field  m-2" appearance="fill" style="width: 45%;">
+            <mat-label>Address</mat-label>
+            <input matInput type="text" formControlName="address">
+            <button *ngIf="createUserFormGroup.controls['address'].value" matSuffix mat-icon-button aria-label="Clear" 
+                (click)="createUserFormGroup.controls['address'].setValue('')">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error
+                *ngIf="
+                createUserFormGroup.controls['address'].touched &&
+                createUserFormGroup.controls['address'].errors?.['required']
+                ">
+                Address is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field  m-2" appearance="fill" style="width: 45%;">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender">
+                <mat-option value="MALE">Male</mat-option>
+                <mat-option value="FEMALE">Female</mat-option>
+                <mat-option value="OTHER">Other</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <mat-form-field class="example-form-field  m-2" appearance="fill" style="width: 45%;">
+            <mat-label>User type</mat-label>
+            <mat-select formControlName="userType">
+                <mat-option value="ADMINISTRATOR">Admin</mat-option>
+                <mat-option value="MANAGER">Manager</mat-option>
+                <mat-option value="WAITER">Waiter</mat-option>
+                <mat-option value="COOK">Cook</mat-option>
+                <mat-option value="HEAD_COOK">Head cook</mat-option>
+                <mat-option value="BARMAN">Barman</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <button mat-flat-button color="primary" class="m-3" style="width: 30%;" (click)="createUser()">Create user</button>
+    </div>
+    <mat-progress-spinner
+        *ngIf="loadVisible"
+        class="example-margin"
+        mode="indeterminate" >
+    </mat-progress-spinner>
+</form>

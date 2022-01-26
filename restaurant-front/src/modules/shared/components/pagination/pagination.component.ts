@@ -18,7 +18,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   @Input() pageSize: number;
   @Output() pageSelected: EventEmitter<number>;
   pages: number[];
-  activePage: number;
+  public activePage: number;
 
   constructor(private utilService: UtilService) {
     this.totalItems = 1;
@@ -26,6 +26,15 @@ export class PaginationComponent implements OnInit, OnChanges {
     this.pages = [];
     this.pageSelected = new EventEmitter();
     this.activePage = 1;
+  }
+
+  public setActivePage(newActivePage : number){
+    let numOfPages = this.utilService.getNoPages(this.totalItems, this.pageSize);
+    if (newActivePage > numOfPages){
+      this.activePage = numOfPages;
+    }else{
+      this.activePage = newActivePage;
+    }
   }
 
   ngOnInit() {
@@ -49,8 +58,6 @@ export class PaginationComponent implements OnInit, OnChanges {
     ) {
       this.pages.push(i);
     }
-    this.activePage = 1; // Darko dodao ovo, izvini ako je zeznulo nesto
-      // stavio da bi vratio na prvu stranu kad dodje do promene prikazanog sadrzaja (delovalo mi logicno)
   }
 
   selected(newPage: number) {
