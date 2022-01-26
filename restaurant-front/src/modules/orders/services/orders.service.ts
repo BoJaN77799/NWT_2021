@@ -60,4 +60,17 @@ export class OrdersService {
 
     return this.http.put<HttpResponse<string>>("restaurant/api/orders", orderDTO, queryParams);
   }
+
+  finishOrder(orderId: number): Observable<HttpResponse<string>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: "response",
+      responseType: "text"
+    };
+
+    return this.http.put<HttpResponse<string>>("restaurant/api/orders/finish", orderId, queryParams);
+  }
+
 }

@@ -34,7 +34,7 @@ export class ItemsManipulationComponent implements OnInit {
   constructor(private addNewItemService: AddNewItemService,
               private snackBarService: SnackBarService,
               private orderService: OrdersService,
-              private router: Router,) { 
+              private router: Router) { 
     this.orderForUpdate = {id: -1, note: '', tableId: -1, waiterId: -1, orderItems: []};
     this.orderItems = [];
     this.initiallyLoadedOrderItems = [];

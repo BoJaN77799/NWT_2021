@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { ItemsManipulationComponent } from '../../components/items-manipulation/items-manipulation.component';
 import { OrderUpdateDTO } from '../../models/orders';
 import { OrdersService } from '../../services/orders.service';
@@ -16,7 +17,8 @@ export class UpdateOrderPageComponent implements OnInit {
 
   orderId: number;
 
-  constructor(private route: ActivatedRoute, private orderService: OrdersService) { 
+  constructor(private route: ActivatedRoute, private orderService: OrdersService,
+              private router: Router, private snackBarService: SnackBarService) { 
     this.orderId = 0;
   }
 
@@ -26,6 +28,21 @@ export class UpdateOrderPageComponent implements OnInit {
 
   updateOrder(): void {
     this.itemsManipulationComponent.sendOrder();
+  }
+
+  finishOrder(): void {
+    this.orderService.finishOrder(this.orderId).subscribe((response) => {
+      if(response.body) {
+        this.snackBarService.openSnackBarFast(response.body);
+        this.router.navigate(["rest-app/orders/create-order-page/0"]);
+      }   
+    },
+    (error) => {
+      if(error) {
+        this.snackBarService.openSnackBarFast(error.error);
+        this.router.navigate(["rest-app/orders/create-order-page/0"]);
+      }
+    })
   }
 
 }
