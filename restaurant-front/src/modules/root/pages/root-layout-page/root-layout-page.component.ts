@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { SocketService } from 'src/modules/shared/services/socket.service';
 
 @Component({
   selector: 'app-root-layout-page',
@@ -12,7 +13,7 @@ export class RootLayoutPageComponent {
 
   public role: string;
 
-  constructor() {
+  constructor(private socketService: SocketService) {
     this.role = "";
   }
 
@@ -22,6 +23,7 @@ export class RootLayoutPageComponent {
     if (item) {
       const jwt: JwtHelperService = new JwtHelperService();
       this.role = jwt.decodeToken(item).role;
+      this.socketService.connect(jwt.decodeToken(item).userId);
     }
   }
 
