@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/modules/auth/services/auth-service/auth.service';
 import { UserUpdate } from 'src/modules/root/models/user-update';
 import { UserProfileService } from 'src/modules/root/service/user-profile.service';
+import { UtilService } from 'src/modules/shared/services/util/util.service';
 import { ProfileViewComponent } from '../../common/profile-view/profile-view.component';
 
 @Component({
@@ -17,7 +18,9 @@ export class HeaderCommonComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private userService: UserProfileService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private util: UtilService
+
   ) { }
 
   ngOnInit(): void {
@@ -29,16 +32,16 @@ export class HeaderCommonComponent implements OnInit {
   }
 
   profile() {
-    // this.userService.getUserInfo(user.id).subscribe((res) => {
-    //   if (res.body != null) {
-    //     const dialogRef = this.dialog.open(ProfileViewComponent, {
-    //       data: res.body,
-    //       width: '600px',
-    //       height: '80vh'
-    //     });
-    //   }
-    //   //todo error
-    // });
+    this.userService.getUserInfo(this.util.getLoggedUserId()).subscribe((res) => {
+      if (res.body != null) {
+        const dialogRef = this.dialog.open(ProfileViewComponent, {
+          data: res.body,
+          width: '600px',
+          height: '80vh'
+        });
+      }
+      //todo error
+    });
   }
 
 }

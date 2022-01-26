@@ -1,28 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#" style="color: red;">Admin Navbar</a>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/rest-app/tables/tables-admin">Tables</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/rest-app/users/users-search">Users</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Reports
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" [routerLink]="'/rest-app/reports/reports-manager/sales-table'" 
-                routerLinkActive="active" 
-                >Sales</a></li>
-              <li><a class="dropdown-item" href="#">Income and Expenses</a></li>
-              <li><a class="dropdown-item" href="#">Acitvity</a></li>
-            </ul>
-          </li>
-        </ul>
-        <app-header-common></app-header-common>
-      </div>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/rest-app/users/users-search" style="color: red;">Admin Navbar</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/rest-app/tables/tables-admin">Tables</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/rest-app/users/users-search">Users</a>
+        </li>
+      </ul>
+      <app-header-common></app-header-common>
     </div>
-  </nav> 
+  </div>
+</nav>

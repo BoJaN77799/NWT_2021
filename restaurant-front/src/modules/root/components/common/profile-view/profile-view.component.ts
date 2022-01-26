@@ -76,6 +76,11 @@ export class ProfileViewComponent implements OnInit {
   }
 
   public saveChanges() {
+    if (!this.updateUserFormGroup.valid) {
+      this.snackBarService.openSnackBar("Can't save changes, user info invalid!");
+      return;
+    }
+
     let userToUpdate: UserUpdate = this.getUserToUpdate();
 
     this.loadVisible = true;
@@ -84,10 +89,13 @@ export class ProfileViewComponent implements OnInit {
       if (res.body != null) {
         this.loadVisible = false;
         this.dialogRef.close(userToUpdate);
-        this.snackBarService.openSnackBar("User updated!");
+        this.snackBarService.openSnackBar("User info updated!");
       }
-      //todo toast za error, i dodati load visible false
-    });
+    },
+      (err) => {
+        this.snackBarService.openSnackBar(err.error);
+        this.loadVisible = false;
+      });
   }
 
 }
