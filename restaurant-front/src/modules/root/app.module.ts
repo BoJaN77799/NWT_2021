@@ -29,6 +29,7 @@ import { EmployeesModule } from '../employees/employees.module';
 import { HeaderAdminComponent } from './components/headers/header-admin/header-admin/header-admin.component';
 import { MenusModule } from '../menus/menus.module';
 import { HeaderBarmanComponent } from './components/headers/header-barman/header-barman.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { HeaderBarmanComponent } from './components/headers/header-barman/header
     FormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    SharedModule,
     MaterialExampleModule,
     TablesModule,
     ReportsModule,

@@ -1,6 +1,9 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { Message } from 'src/modules/shared/models/message';
+import { SocketService } from 'src/modules/shared/services/socket.service';
 import { EmployeeDTO } from '../../models/EmployeeDTO';
 import { EmployeesService } from '../../services/employees.service';
+
 
 @Component({
   selector: 'app-employees-view',
@@ -14,7 +17,9 @@ export class EmployeesViewComponent implements AfterViewInit {
   totalSize: number;
   employees: EmployeeDTO [];
 
-  constructor(private employeesService: EmployeesService) { 
+  messages: string[] = [];
+  
+  constructor( private employeesService: EmployeesService, private socketService: SocketService) { 
     this.employees = [];
     this.pageSize = 4;
     this.currentPage = 1;
@@ -30,11 +35,12 @@ export class EmployeesViewComponent implements AfterViewInit {
   }
 
   changePage(newPage: number) {
+    this.socketService.sendMessage({content: "Nova poruka"})
     this.employeesService.findAllEmployees(newPage - 1, this.pageSize)
         .subscribe((response) => {
           this.employees = response.body as EmployeeDTO[];
           this.totalSize = Number(response.headers.get("total-elements"));
         });
   }
-
+ 
 }
