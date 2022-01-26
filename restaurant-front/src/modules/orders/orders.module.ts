@@ -22,6 +22,8 @@ import { SelectItemsComponent } from './components/select-items/select-items.com
 import { ItemsManipulationComponent } from './components/items-manipulation/items-manipulation.component';
 import { PriorityPipe } from './pipes/priority.pipe';
 import { UpdateOrderPageComponent } from './pages/update-order-page/update-order-page.component';
+import { OrderViewComponent } from './components/order-view/order-view.component';
+import { MyOrdersPageComponent } from './pages/my-orders-page/my-orders-page.component';
 
 
 
@@ -35,7 +37,9 @@ import { UpdateOrderPageComponent } from './pages/update-order-page/update-order
     SelectItemsComponent,
     ItemsManipulationComponent,
     PriorityPipe,
-    UpdateOrderPageComponent
+    UpdateOrderPageComponent,
+    OrderViewComponent,
+    MyOrdersPageComponent
   ],
   imports: [
     CommonModule,
