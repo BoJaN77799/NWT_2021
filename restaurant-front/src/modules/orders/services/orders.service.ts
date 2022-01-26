@@ -76,4 +76,20 @@ export class OrdersService {
     };
     return this.http.get<HttpResponse<string>>("restaurant/api/orders/accept", queryParams);
   }
+
+  getAllMy(id: number, page: number, size: number): Observable<HttpResponse<Order[]>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: "response",
+      params: new HttpParams()
+        .set("page", String(page))
+        .append("size", String(size)),
+    };
+    let role = this.utilService.getLoggedUserRole();
+    role = role.includes("COOK") ? "Cook" : "Barman";
+
+    return this.http.get<HttpResponse<Order[]>>("restaurant/api/orders/for" + role + "/all/" + id, queryParams);
+  }
 }

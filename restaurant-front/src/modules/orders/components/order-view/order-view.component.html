@@ -9,18 +9,9 @@
 
         <p [hidden]="!order.cookId">cookId: {{order.cookId}}</p>
     </div>
-    <div class="col-3">
-        <div class="note">
-            <p class="left">IIIIIIIIIIIIIIIIIIIIIIIIIIIIII</p>
-            <p>Napomena:</p>
-            <div class="content">
-                {{order.note}}
-            </div>
-        </div>
-    </div>
 </div>
 <div class="row">
-    <div class="col">
+    <div class="col-8">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table" matSort
             (matSortChange)="announceSortChange($event)">
 
@@ -55,5 +46,15 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+    </div>
+
+    <div class="col-3" style="margin:20px; padding: 0px;">
+        <div class="note">
+            <p class="left">IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+            <p style="font-weight:bold; font-style:italic">Napomena:</p>
+            <div class="content">
+                {{order.note}}
+            </div>
+        </div>
     </div>
 </div>

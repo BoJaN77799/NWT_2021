@@ -40,5 +40,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-<app-pagination [totalItems]="totalSize" [pageSize]="pageSize" (pageSelected)="changePage($event)">
+<app-pagination [totalItems]="totalSize" [pageSize]="pageSize" (pageSelected)="changePage($event)" class="pagination">
 </app-pagination>

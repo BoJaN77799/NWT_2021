@@ -23,6 +23,7 @@ import { ItemsManipulationComponent } from './components/items-manipulation/item
 import { PriorityPipe } from './pipes/priority.pipe';
 import { UpdateOrderPageComponent } from './pages/update-order-page/update-order-page.component';
 import { OrderViewComponent } from './components/order-view/order-view.component';
+import { MyOrdersPageComponent } from './pages/my-orders-page/my-orders-page.component';
 
 
 
@@ -37,7 +38,8 @@ import { OrderViewComponent } from './components/order-view/order-view.component
     ItemsManipulationComponent,
     PriorityPipe,
     UpdateOrderPageComponent,
-    OrderViewComponent
+    OrderViewComponent,
+    MyOrdersPageComponent
   ],
   imports: [
     CommonModule,

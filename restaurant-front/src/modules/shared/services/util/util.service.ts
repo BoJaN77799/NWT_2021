@@ -31,4 +31,14 @@ export class UtilService {
     }
     return "";
   }
+
+  public getLoggedUserId(): number {
+    const item = localStorage.getItem("user");
+
+    if (item) {
+      const jwt: JwtHelperService = new JwtHelperService();
+      return jwt.decodeToken(item).userId;
+    }
+    return -1;
+  }
 }
