@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { Message } from 'src/modules/shared/models/message';
+import { Notification } from 'src/modules/shared/models/notification';
 import { SocketService } from 'src/modules/shared/services/socket.service';
 import { EmployeeDTO } from '../../models/EmployeeDTO';
 import { EmployeesService } from '../../services/employees.service';
@@ -15,11 +15,11 @@ export class EmployeesViewComponent implements AfterViewInit {
   pageSize: number;
   currentPage: number;
   totalSize: number;
-  employees: EmployeeDTO [];
+  employees: EmployeeDTO[];
 
   messages: string[] = [];
-  
-  constructor( private employeesService: EmployeesService, private socketService: SocketService) { 
+
+  constructor(private employeesService: EmployeesService, private socketService: SocketService) {
     this.employees = [];
     this.pageSize = 4;
     this.currentPage = 1;
@@ -28,19 +28,19 @@ export class EmployeesViewComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.employeesService.findAllEmployees(this.currentPage - 1, this.pageSize)
-        .subscribe((response) => {
-          this.employees = response.body as EmployeeDTO[];
-          this.totalSize = Number(response.headers.get("total-elements"));
-        });
+      .subscribe((response) => {
+        this.employees = response.body as EmployeeDTO[];
+        this.totalSize = Number(response.headers.get("total-elements"));
+      });
   }
 
   changePage(newPage: number) {
-    this.socketService.sendMessage({content: "Nova poruka"})
+    this.socketService.sendMessage({ content: "Nova poruka" })
     this.employeesService.findAllEmployees(newPage - 1, this.pageSize)
-        .subscribe((response) => {
-          this.employees = response.body as EmployeeDTO[];
-          this.totalSize = Number(response.headers.get("total-elements"));
-        });
+      .subscribe((response) => {
+        this.employees = response.body as EmployeeDTO[];
+        this.totalSize = Number(response.headers.get("total-elements"));
+      });
   }
- 
+
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Message } from '../models/message';
+import { Notification } from '../models/notification';
 
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SocketService {
 
-  url: string =  '/socket';
+  url: string = '/socket';
 
   private stompClient: any;
   initialized: boolean = false;
@@ -18,11 +18,11 @@ export class SocketService {
   constructor(private toastr: ToastrService) { }
 
   connect(userId: any): void {
-    if(this.initialized) {
+    if (this.initialized) {
       return;
     }
     this.initialized = true;
- 
+
     const socket = new SockJS("http://localhost:8080/socket/");
     this.stompClient = Stomp.over(socket);
 
@@ -31,7 +31,7 @@ export class SocketService {
       that.initialized = true;
       console.log('Connected: ' + frame);
 
-      that.stompClient.subscribe('/socket-publisher', function (message: {body: any}) {
+      that.stompClient.subscribe('/socket-publisher', function (message: { body: any }) {
         that.showMessage(message);
       });
 
@@ -55,17 +55,17 @@ export class SocketService {
       this.showMessage(message);
     });
   }
-  
+
   sendMessage(message: any): void {
     this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(message));
   }
 
   showMessage(message: { body: any; }): void {
-    let messageResult: Message = JSON.parse(message.body);
-    this.toastr.success(messageResult.content, undefined, {
+    let messageResult: Notification = JSON.parse(message.body);
+    this.toastr.success(messageResult.message, undefined, {
       'timeOut': 3000
     });
-  
+
   }
 
 
