@@ -10,7 +10,7 @@ import { MaterialExampleModule } from 'src/material.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { RootLayoutPageComponent } from './pages/root-layout-page/root-layout-page.component';
 import { TablesModule } from '../tables/tables.module';
@@ -30,38 +30,43 @@ import { HeaderAdminComponent } from './components/headers/header-admin/header-a
 import { MenusModule } from '../menus/menus.module';
 import { HeaderBarmanComponent } from './components/headers/header-barman/header-barman.component';
 import { SharedModule } from '../shared/shared.module';
+import { UsersModule } from '../users/users.module';
+import { ProfileViewComponent } from './components/common/profile-view/profile-view.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    RootLayoutPageComponent,
-    HeaderCommonComponent,
-    HeaderManagerComponent,
-    HeaderCookComponent,
-    HeaderAdminComponent,
-    HeaderWaiterComponent,
-    HeaderBarmanComponent,
-  ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    AuthModule,
-    FormsModule,
-    HttpClientModule,
-    ToastrModule.forRoot(),
-    SharedModule,
-    MaterialExampleModule,
-    TablesModule,
-    ReportsModule,
-    NgChartsModule,
-    OrdersModule,
-    EmployeesModule,
-    ItemsModule,
-    MenusModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        RootLayoutPageComponent,
+        HeaderCommonComponent,
+        HeaderManagerComponent,
+        HeaderCookComponent,
+        HeaderAdminComponent,
+        HeaderWaiterComponent,
+        HeaderBarmanComponent,
+        ProfileViewComponent,
+    ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        AuthModule,
+        FormsModule,
+        HttpClientModule,
+        ToastrModule.forRoot(),
+        SharedModule,
+        MaterialExampleModule,
+        TablesModule,
+        ReactiveFormsModule,
+        ReportsModule,
+        NgChartsModule,
+        OrdersModule,
+        EmployeesModule,
+        ItemsModule,
+        MenusModule,
+        UsersModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

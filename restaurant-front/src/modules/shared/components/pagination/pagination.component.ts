@@ -18,7 +18,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   @Input() pageSize: number;
   @Output() pageSelected: EventEmitter<number>;
   pages: number[];
-  activePage: number;
+  public activePage: number;
 
   constructor(private utilService: UtilService) {
     this.totalItems = 1;
@@ -32,6 +32,15 @@ export class PaginationComponent implements OnInit, OnChanges {
     this.activePage = 1;
   }
 
+  public setActivePage(newActivePage: number) {
+    let numOfPages = this.utilService.getNoPages(this.totalItems, this.pageSize);
+    if (newActivePage > numOfPages) {
+      this.activePage = numOfPages;
+    } else {
+      this.activePage = newActivePage;
+    }
+  }
+
   ngOnInit() {
     this.pages = [];
     for (
@@ -43,7 +52,7 @@ export class PaginationComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges(changes : any) {
+  ngOnChanges(changes: any) {
     this.totalItems = changes.totalItems.currentValue;
     this.pages = [];
     for (

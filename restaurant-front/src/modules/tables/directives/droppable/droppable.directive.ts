@@ -9,6 +9,7 @@ import { TablesService } from '../../services/tables-service/tables.service';
 export class DroppableDirective {
 
   //TODO - staviti da bude slika stola - ovo staviti samo konobaru
+  //TODO floor vidi nigde ga ne saljem
 
   
   //todo error ako nije ulogovan korisnik ili je expired token
