@@ -92,4 +92,15 @@ export class OrdersService {
 
     return this.http.get<HttpResponse<Order[]>>("restaurant/api/orders/for" + role + "/all/" + id, queryParams);
   }
+
+  changeOrderItemStatus(id: number, status: string): Observable<HttpResponse<string>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: "response",
+      responseType: "text"
+    };
+    return this.http.put<HttpResponse<string>>("restaurant/api/orderItems/changeStatus", { id: id, status: status }, queryParams);
+  }
 }

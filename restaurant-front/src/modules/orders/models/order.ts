@@ -1,11 +1,11 @@
-import { OrderItem, OrderItemWithItem } from "./order-item";
+import { OrderItem, OrderItemExtended } from "./order-item";
 
 export interface Order {
     id: number;
     createdAt: number;
     note: string;
     tableId: number;
-    orderItems: OrderItemWithItem[]
+    orderItems: OrderItemExtended[]
     status: string;
     waiterId: number;
     barmenId: number;

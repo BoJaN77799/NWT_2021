@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UtilService } from 'src/modules/shared/services/util/util.service';
 
@@ -11,7 +11,11 @@ export class HeaderCookComponent {
 
   userId: number
 
+  @Input()
+  userRole: string;
+
   constructor(private utilService: UtilService) {
     this.userId = this.utilService.getLoggedUserId();
+    this.userRole = ""
   }
 }

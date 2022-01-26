@@ -1,5 +1,5 @@
+<div class="drink-creation-label">drink creation</div>
 <form class="reactiveForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
-    <span class="food-creation-label">food creation</span>
     <div class="row">
         <div class="col-6">
             <div class="form-group row my_margin">
@@ -65,5 +65,5 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary" type="submit" [disabled]='checkSubmit()'>Submit</button>
+    <button id="submit" class="btn" type="submit" [disabled]='checkSubmit()'>Submit</button>
 </form>

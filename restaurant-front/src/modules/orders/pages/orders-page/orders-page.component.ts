@@ -7,6 +7,7 @@ import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { UtilService } from 'src/modules/shared/services/util/util.service';
 import { OrderViewComponent } from '../../components/order-view/order-view.component';
 import { Order } from '../../models/order';
+import { OrderItem } from '../../models/order-item';
 import { OrdersService } from '../../services/orders.service';
 
 @Component({
@@ -16,7 +17,7 @@ import { OrdersService } from '../../services/orders.service';
 })
 export class OrdersPageComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'createdAt', 'note', 'tableId', 'button'];
+  displayedColumns: string[] = ['id', 'createdAt', 'note', 'tableId', 'orderSize', 'button'];
 
   pageSize: number;
   currentPage: number;
@@ -93,6 +94,12 @@ export class OrdersPageComponent implements AfterViewInit {
         const index = this.dataSource.data.indexOf(element.id);
         this.dataSource.data.splice(index, 1);
         this.dataSource._updateChangeSubscription();
+
+        element.orderItems.forEach((orderItem: OrderItem) => {
+          if (orderItem.id) {
+            this.ordersService.changeOrderItemStatus(orderItem.id, "IN_PROGRESS").subscribe((res) => { })
+          }
+        });
       }
       else {
         this.snackBarService.openSnackBar(res.body as string);

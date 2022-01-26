@@ -10,6 +10,7 @@ export interface OrderItem {
     itemType: string | null
 }
 
-export interface OrderItemWithItem extends OrderItem {
+export interface OrderItemExtended extends OrderItem {
     item: Item
+    status: string
 }

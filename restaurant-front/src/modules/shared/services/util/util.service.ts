@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -6,7 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class UtilService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   public getNoPages(totalItems: number, pageSize: number): number {
     return Math.ceil(totalItems / pageSize);
@@ -40,5 +41,16 @@ export class UtilService {
       return jwt.decodeToken(item).userId;
     }
     return -1;
+  }
+
+  public getUserInfo() {
+    let queryParams = {};
+
+    queryParams = {
+      headers: new HttpHeaders({}),
+      observe: "response",
+      responseType: "text"
+    };
+    return this.http.get<HttpResponse<string>>("restaurant/api/users/get_user_info_profile/{id}", queryParams);
   }
 }

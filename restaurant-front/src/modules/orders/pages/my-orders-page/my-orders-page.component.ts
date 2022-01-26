@@ -44,7 +44,7 @@ export class MyOrdersPageComponent implements AfterViewInit {
   sort: MatSort = new MatSort;
 
   ngAfterViewInit() {
-    this.employeeId = +this.route.snapshot.params['employeeId'];
+    this.employeeId = this.route.snapshot.params['employeeId'];
     this.dataSource.sort = this.sort;
     this.ordersService
       .getAllMy(this.employeeId, this.currentPage - 1, this.pageSize)

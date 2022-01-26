@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilService } from 'src/modules/shared/services/util/util.service';
 
 @Component({
   selector: 'app-header-barman',
@@ -7,5 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderBarmanComponent {
 
-  constructor() { }
+  userId: number
+
+  constructor(private utilService: UtilService) {
+    this.userId = this.utilService.getLoggedUserId();
+  }
 }
