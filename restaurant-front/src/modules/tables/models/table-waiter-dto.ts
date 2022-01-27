@@ -5,4 +5,5 @@ export interface TableWaiterDTO {
     floor: number;
     occupied: boolean;
     orderStatus: string;
+    orderIsMine: boolean;
 }

@@ -17,6 +17,30 @@ export class TablesService {
 
   constructor(private http: HttpClient) { }
 
+  deliverOrderToTable(id: number): Observable<HttpResponse<string>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: 'response',
+      responseType: 'text'
+    };
+
+    return this.http.get<HttpResponse<string>>("restaurant/api/orderItems/deliver/" + id, queryParams);
+  }
+
+  finishOrder(orderId: number): Observable<HttpResponse<string>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: "response",
+      responseType: "text"
+    };
+
+    return this.http.put<HttpResponse<string>>("restaurant/api/orders/finish", orderId, queryParams);
+  }
+
   getAllFromFloorAdmin(floor: number): Observable<TableAdminDTO[]> {
     let queryParams = {};
 

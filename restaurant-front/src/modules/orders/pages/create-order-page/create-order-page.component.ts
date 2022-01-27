@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ItemsManipulationComponent } from '../../components/items-manipulation/items-manipulation.component';
 
 @Component({
@@ -14,7 +14,7 @@ export class CreateOrderPageComponent implements OnInit {
 
   tableId: number;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.tableId = 0;
   }
 
@@ -24,5 +24,9 @@ export class CreateOrderPageComponent implements OnInit {
 
   sendOrder(): void {
     this.itemsManipulationComponent.sendOrder();
+  }
+
+  public onCancel(): void {
+    this.router.navigate(["rest-app/tables/tables-waiter"]);
   }
 }
