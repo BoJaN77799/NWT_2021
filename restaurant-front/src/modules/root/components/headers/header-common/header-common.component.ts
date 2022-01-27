@@ -1,38 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { UserProfileService } from 'src/modules/root/service/user-profile.service';
+import { ProfileViewComponent } from '../../common/profile-view/profile-view.component';
+import { AfterViewInit, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/modules/auth/services/auth-service/auth.service';
-import { UserUpdate } from 'src/modules/root/models/user-update';
-import { UserProfileService } from 'src/modules/root/service/user-profile.service';
+import { NotificationModalComponent } from 'src/modules/shared/components/notification-modal/notification-modal.component';
+import { NotificationService } from 'src/modules/shared/services/notification.service';
 import { UtilService } from 'src/modules/shared/services/util/util.service';
-import { ProfileViewComponent } from '../../common/profile-view/profile-view.component';
+import { Notification } from 'src/modules/shared/models/notification'
+import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 
 @Component({
   selector: 'app-header-common',
   templateUrl: './header-common.component.html',
   styleUrls: ['./header-common.component.scss']
 })
-export class HeaderCommonComponent implements OnInit {
+export class HeaderCommonComponent implements AfterViewInit {
+
+  notifications: Notification[];
+  employeeId: number;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private userService: UserProfileService,
-    public dialog: MatDialog,
-    private util: UtilService
-
-  ) { }
-
-  ngOnInit(): void {
+    private notificationService: NotificationService,
+    private dialog: MatDialog,
+    private utilService: UtilService,
+    private snackBarService: SnackBarService
+  ) {
+    this.notifications = [];
+    this.employeeId = -1;
   }
+
+  ngAfterViewInit() {
+    this.employeeId = this.utilService.getLoggedUserId();
+    this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
+      if (res.body) {
+        this.notifications = res.body;
+      }
+    })
+  }
+
 
   logout() {
     this.authService.logout();
-    //this.router.navigate(["rest-app/auth/login"]);
   }
 
   profile() {
-    this.userService.getUserInfo(this.util.getLoggedUserId()).subscribe((res) => {
+    this.userService.getUserInfo(this.employeeId).subscribe((res) => {
       if (res.body != null) {
         const dialogRef = this.dialog.open(ProfileViewComponent, {
           data: res.body,
@@ -42,6 +58,45 @@ export class HeaderCommonComponent implements OnInit {
       }
       //todo error
     });
+  }
+
+  notificationModal(): void {
+    if (this.notifications.length == 0) {// everytime after view init
+      this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
+        if (res.body) {
+          this.notifications = res.body;
+          if (this.notifications.length != 0) { // has at least one notif unseened
+            const dialogRef = this.dialog.open(NotificationModalComponent, {
+              data: this.notifications,
+              width: '60%',
+            });
+
+            dialogRef.afterClosed().subscribe(() => {
+              this.notifications = [];
+            });
+          }
+          else {
+            this.snackBarService.openSnackBar("You don't have any notifications to display!")
+          }
+        }
+      })
+    }
+    else {
+      if (this.notifications.length != 0) {
+        const dialogRef = this.dialog.open(NotificationModalComponent, {
+          data: this.notifications,
+          width: '60%',
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+          this.notifications = [];
+        });
+      }
+      else {
+        this.snackBarService.openSnackBar("You don't have any notifications to display!")
+      }
+    }
+
   }
 
 }

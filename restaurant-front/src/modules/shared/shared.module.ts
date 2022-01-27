@@ -14,6 +14,7 @@ import { DrinkSearchService } from './services/drink-search.service';
 import { ConformationDialogComponent } from './components/conformation-dialog/conformation-dialog.component';
 import { MenuNamesService } from './services/menu-names.service';
 import { DateFormatPipe } from './pipes/date-format.pipe';
+import { NotificationModalComponent } from './components/notification-modal/notification-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
     SearchInputBtnComponent,
     SelectCustomTextComponent,
     DateFormatPipe,
+    NotificationModalComponent,
   ],
   imports: [
     CommonModule,
