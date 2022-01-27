@@ -45,4 +45,7 @@ export class UpdateOrderPageComponent implements OnInit {
       })
   }
 
+  public onCancel(): void {
+    this.router.navigate(["rest-app/tables/tables-waiter"]);
+  }
 }
