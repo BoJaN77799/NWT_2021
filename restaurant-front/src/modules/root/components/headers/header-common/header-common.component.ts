@@ -71,8 +71,9 @@ export class HeaderCommonComponent implements AfterViewInit {
               width: '60%',
             });
 
-            dialogRef.afterClosed().subscribe(() => {
-              this.notifications = [];
+            dialogRef.afterClosed().subscribe((condition = false) => {
+              if (condition)
+                this.notifications = [];
             });
           }
           else {
@@ -88,8 +89,9 @@ export class HeaderCommonComponent implements AfterViewInit {
           width: '60%',
         });
 
-        dialogRef.afterClosed().subscribe(() => {
-          this.notifications = [];
+        dialogRef.afterClosed().subscribe((condition = false) => {
+          if (condition)
+            this.notifications = [];
         });
       }
       else {

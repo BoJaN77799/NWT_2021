@@ -13,16 +13,13 @@ import { UtilService } from '../../services/util/util.service';
 export class NotificationModalComponent {
 
   notifications: Notification[];
-  //employeeId: number;
 
   constructor(public dialogRef: MatDialogRef<NotificationModalComponent>,
     @Inject(MAT_DIALOG_DATA) private _notifications: Notification[],
-    //@Inject(MAT_DIALOG_DATA) private _employeeId: number,
     private notificationService: NotificationService,
     private snackBarService: SnackBarService,
     private utilService: UtilService) {
     this.notifications = _notifications
-    //this.employeeId = _employeeId;
   }
 
   seenAll() {
@@ -30,7 +27,7 @@ export class NotificationModalComponent {
     this.notificationService.seenAllNotifications(employeeId).subscribe((res) => {
       if (res.body) {
         this.snackBarService.openSnackBar(res.body);
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       }
     });
   }
@@ -40,7 +37,7 @@ export class NotificationModalComponent {
         let index = this.notifications.indexOf(notification);
         this.notifications.splice(index, 1);
         this.snackBarService.openSnackBar(res.body);
-        if (this.notifications.length === 0) this.dialogRef.close();
+        if (this.notifications.length === 0) this.dialogRef.close(true);
       }
     })
   }
