@@ -23,9 +23,9 @@ export class MoneyViewComponent implements OnInit{
 
   constructor(public dialog: MatDialog,
     public dialogRef: MatDialogRef<MoneyViewComponent>,
-    @Inject(MAT_DIALOG_DATA) public indicatorEmployee: IndicatorEmployee,
-    
-  private employeesService: EmployeesService, private snackBarService: SnackBarService) 
+    @Inject(MAT_DIALOG_DATA) public indicatorEmployee: IndicatorEmployee,  
+    private employeesService: EmployeesService, 
+    private snackBarService: SnackBarService) 
   {
     this.value = 0;
     this.title = (indicatorEmployee.indicator) ? "Salaries" : "Bonuses";
@@ -72,7 +72,6 @@ export class MoneyViewComponent implements OnInit{
         this.createNewBonus(this.value);
       }
     }
-  
   }
 
   createNewSalary(value: number): void {

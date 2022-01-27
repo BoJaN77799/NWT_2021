@@ -11,8 +11,6 @@ import { MenusService } from '../../services/menus.service';
 })
 export class MenusManagerComponent  {
 
-  @ViewChild(PaginationComponent) child:PaginationComponent | undefined;
-
   selectedName: string = '';
 
   pageSize: number;
@@ -21,6 +19,8 @@ export class MenusManagerComponent  {
 
   items: ItemMenuDTO[];
 
+  @ViewChild(PaginationComponent) child:PaginationComponent | undefined;
+  
   constructor(private menusService: MenusService, private itemsService: ItemsService) {
     this.pageSize = 3;
     this.currentPage = 1;

@@ -26,15 +26,9 @@ export class EmployeeCardComponent  {
   constructor(public dialog: MatDialog) {}
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(EmployeeProfileComponent, {
+    this.dialog.open(EmployeeProfileComponent, {
       data: this.employee,
       width: '700px',
-    });
-
-    // sta uraditi 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      //this.employee = result;
     });
   }
 

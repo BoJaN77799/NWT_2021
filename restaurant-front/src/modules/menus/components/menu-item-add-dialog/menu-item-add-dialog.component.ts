@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConformationDialogComponent } from 'src/modules/shared/components/conformation-dialog/conformation-dialog.component';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
-import { ItemMenuDTO } from '../../models/ItemMenuDTO';
 import { Menu } from '../../models/Menu';
 import { MenuItemDTO } from '../../models/MenuItemDTO';
 import { MenusService } from '../../services/menus.service';

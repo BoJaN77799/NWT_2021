@@ -11,7 +11,7 @@ import { AddNewItem } from '../../models/add-new-item';
   templateUrl: './item-card.component.html',
   styleUrls: ['./item-card.component.scss']
 })
-export class ItemCardComponent implements OnInit {
+export class ItemCardComponent {
 
   @Input()
   item: Item;
@@ -45,7 +45,4 @@ export class ItemCardComponent implements OnInit {
   sendNewItem(newItem: AddNewItem) : void {
     this.addNewItemService.sendItem(newItem);
   }
-
-  ngOnInit(): void {}
-
 }

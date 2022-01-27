@@ -1,5 +1,4 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { Message } from 'src/modules/shared/models/message';
 import { SocketService } from 'src/modules/shared/services/socket.service';
 import { EmployeeDTO } from '../../models/EmployeeDTO';
 import { EmployeesService } from '../../services/employees.service';

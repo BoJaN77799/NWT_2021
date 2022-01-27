@@ -62,7 +62,6 @@ export class CreateMenuDialogComponent implements OnInit{
           })
         }
       })
-    
     }
   }
 }

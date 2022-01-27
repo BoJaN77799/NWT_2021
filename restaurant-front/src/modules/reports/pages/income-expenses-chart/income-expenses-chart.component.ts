@@ -12,16 +12,17 @@ import { SharedDatePickerService } from '../../services/shared-date-picker.servi
   styleUrls: ['./income-expenses-chart.component.scss']
 })
 export class IncomeExpensesChartComponent implements AfterViewInit {
+  
+  public incomeExpenses: IncomeExpenses | undefined;
+
+  public range = new FormGroup({});
+  
   doughnutChartLabels: string[] = [ 'Expenses', 'Income' ];
   doughnutChartData: ChartData<'doughnut'> = {
     labels: this.doughnutChartLabels,
     datasets: [ {data:[]} ]
   }
   doughnutChartType: ChartType = 'doughnut';
-
-  public incomeExpenses: IncomeExpenses | undefined;
-
-  public range = new FormGroup({});
   
   constructor(private reportsService: ReportsService, private sharedDatePickerService: SharedDatePickerService,
     private snackBarService: SnackBarService) {
@@ -59,7 +60,10 @@ export class IncomeExpensesChartComponent implements AfterViewInit {
           }
         },
         (err) => {
-          this.snackBarService.openSnackBar('Empty list!',);
+          if (err.status === 400)
+            this.snackBarService.openSnackBar('Bad date format!');
+          else
+            this.snackBarService.openSnackBar('Empty list!');
         });
   }
 

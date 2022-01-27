@@ -16,6 +16,8 @@ import { SharedDatePickerService } from '../../services/shared-date-picker.servi
 })
 export class ActivityTableComponent implements AfterViewInit {
 
+  public range = new FormGroup({});
+  
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'userType', 'ordersAccomplished'];
   activityReports : UserReportDTO[] = [];
   dataSource = new MatTableDataSource(this.activityReports);
@@ -25,8 +27,6 @@ export class ActivityTableComponent implements AfterViewInit {
     labels: [],
     datasets: [{data:[]}]
   };
-
-  public range = new FormGroup({});
   
   constructor(private _liveAnnouncer: LiveAnnouncer,
     private reportsService: ReportsService, private sharedDatePickerService: SharedDatePickerService,
@@ -60,7 +60,10 @@ export class ActivityTableComponent implements AfterViewInit {
           this.renderComponent();
         },
         (err) => {
-          this.snackBarService.openSnackBar('Empty list!');
+          if (err.status === 400)
+            this.snackBarService.openSnackBar('Bad date format!');
+          else
+            this.snackBarService.openSnackBar('Empty list!');
         })
 
   }

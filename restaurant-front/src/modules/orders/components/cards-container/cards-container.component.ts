@@ -6,13 +6,11 @@ import { Item } from '../../../shared/models/item';
   templateUrl: './cards-container.component.html',
   styleUrls: ['./cards-container.component.scss']
 })
-export class CardsContainerComponent implements OnInit {
+export class CardsContainerComponent {
 
   @Input()
   cards: Item[] = [];
 
   constructor() { }
-
-  ngOnInit(): void {}
 
 }

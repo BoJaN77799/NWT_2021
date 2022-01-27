@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SharedDatePickerService } from '../../services/shared-date-picker.service';
 
@@ -19,7 +19,7 @@ export class ReportsManagerComponent {
         .subscribe(res => this.range = res);
   }
 
-  public changeDate(): void {
+  public changeDate(): void {  
     this.sharedDatePickerService.addDate(this.range);
   }
  

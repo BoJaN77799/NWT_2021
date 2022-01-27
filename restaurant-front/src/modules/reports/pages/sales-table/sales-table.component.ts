@@ -18,6 +18,8 @@ import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 })
 export class SalesTableComponent implements AfterViewInit{
 
+  public range = new FormGroup({});
+  
   displayedColumns: string[] = ['itemId', 'name', 'priceCount', 'itemCount'];
   salesList: Sales[]  = [] ;
   dataSource = new MatTableDataSource(this.salesList);
@@ -28,8 +30,6 @@ export class SalesTableComponent implements AfterViewInit{
     datasets: [
     ]
   }
-
-  public range = new FormGroup({});
   
   constructor(private _liveAnnouncer: LiveAnnouncer, private reportsService: ReportsService,
     private sharedDatePickerService: SharedDatePickerService, private snackBarService: SnackBarService) {
@@ -72,7 +72,10 @@ export class SalesTableComponent implements AfterViewInit{
             this.fillDoughnut();
         },
         (err) => {
-          this.snackBarService.openSnackBar('Empty list!');
+          if (err.status === 400)
+            this.snackBarService.openSnackBar('Bad date format!');
+          else
+            this.snackBarService.openSnackBar('Empty list!');
         })
         ;
   }

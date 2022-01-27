@@ -13,14 +13,14 @@ import { SharedDatePickerService } from '../../services/shared-date-picker.servi
 })
 export class SalesChartComponent implements AfterViewInit {
   
+  public range = new FormGroup({});
+  
   barChartData: ChartData<'bar'> = {
     datasets: [] 
   };
   salesList: Sales[]  = [] ;
   
   barChartOptions: ChartConfiguration['options'] = {};
-  
-  public range = new FormGroup({});
   
   constructor(private reportsService: ReportsService, private sharedDatePickerService: SharedDatePickerService,
     private snackBarService: SnackBarService) { 
@@ -50,7 +50,10 @@ export class SalesChartComponent implements AfterViewInit {
           console.log(this.salesList);
         },
         (err) => {
-          this.snackBarService.openSnackBar('Empty list!');
+          if (err.status === 400)
+            this.snackBarService.openSnackBar('Bad date format!');
+          else
+            this.snackBarService.openSnackBar('Empty list!');
         });
 
   }
