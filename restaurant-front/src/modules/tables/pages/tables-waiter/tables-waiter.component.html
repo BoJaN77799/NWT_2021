@@ -73,8 +73,7 @@
                     <div class="col-2 d-flex justify-content-center text-center my-auto">
                         <button class="mr-3" (click)="goToUpdateOrder()">Update order</button>
                     </div>
-                    <div class="col-2 d-flex justify-content-center text-center my-auto"
-                        *ngIf="selectedTable && selectedTable?.orderStatus=== 'FINISHABLE'">
+                    <div class="col-2 d-flex justify-content-center text-center my-auto">
                         <button class="ml-3" (click)="finishOrder()">Finish order</button>
                     </div>
                 </div>
