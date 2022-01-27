@@ -3,7 +3,8 @@ import { Notification } from '../models/notification';
 
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
-import { ToastrService } from 'ngx-toastr';
+import { SnackBarService } from './snack-bar.service';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class SocketService {
   private stompClient: any;
   initialized: boolean = false;
 
-  constructor(private toastr: ToastrService) { }
+  constructor(private snackBarService: SnackBarService, private notificationService: NotificationService) { }
 
   connect(userId: any): void {
     if (this.initialized) {
@@ -53,6 +54,7 @@ export class SocketService {
   subscribeToLocalSocket(userId: any): void {
     this.stompClient.subscribe("/socket-publisher/" + userId, (message: { body: string; }) => {
       this.showMessage(message);
+      this.notificationService.sendNotification(message);
     });
   }
 
@@ -62,11 +64,8 @@ export class SocketService {
 
   showMessage(message: { body: any; }): void {
     let messageResult: Notification = JSON.parse(message.body);
-    this.toastr.success(messageResult.message, undefined, {
-      'timeOut': 3000
-    });
-
+    
+    this.snackBarService.openSnackBarFast(messageResult.message);
   }
-
 
 }

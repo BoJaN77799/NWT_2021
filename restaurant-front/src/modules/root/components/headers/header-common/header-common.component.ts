@@ -2,7 +2,6 @@ import { UserProfileService } from 'src/modules/root/service/user-profile.servic
 import { ProfileViewComponent } from '../../common/profile-view/profile-view.component';
 import { AfterViewInit, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/modules/auth/services/auth-service/auth.service';
 import { NotificationModalComponent } from 'src/modules/shared/components/notification-modal/notification-modal.component';
 import { NotificationService } from 'src/modules/shared/services/notification.service';
@@ -18,11 +17,11 @@ import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 export class HeaderCommonComponent implements AfterViewInit {
 
   notifications: Notification[];
+  notificationsSize: number;
   employeeId: number;
 
   constructor(
     private authService: AuthService,
-    private router: Router,
     private userService: UserProfileService,
     private notificationService: NotificationService,
     private dialog: MatDialog,
@@ -30,6 +29,7 @@ export class HeaderCommonComponent implements AfterViewInit {
     private snackBarService: SnackBarService
   ) {
     this.notifications = [];
+    this.notificationsSize = 0;
     this.employeeId = -1;
   }
 
@@ -38,7 +38,12 @@ export class HeaderCommonComponent implements AfterViewInit {
     this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
       if (res.body) {
         this.notifications = res.body;
+        this.notificationsSize = this.notifications.length;
       }
+    })
+
+    this.notificationService.notificationMessage$.subscribe((notification) => {
+      this.notificationsSize += 1;
     })
   }
 
@@ -65,6 +70,7 @@ export class HeaderCommonComponent implements AfterViewInit {
       this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
         if (res.body) {
           this.notifications = res.body;
+          this.notificationsSize = this.notifications.length;
           if (this.notifications.length != 0) { // has at least one notif unseened
             const dialogRef = this.dialog.open(NotificationModalComponent, {
               data: this.notifications,
@@ -72,8 +78,10 @@ export class HeaderCommonComponent implements AfterViewInit {
             });
 
             dialogRef.afterClosed().subscribe((condition = false) => {
-              if (condition)
+              if (condition) {
                 this.notifications = [];
+                this.notificationsSize = 0;
+              } 
             });
           }
           else {
@@ -90,8 +98,10 @@ export class HeaderCommonComponent implements AfterViewInit {
         });
 
         dialogRef.afterClosed().subscribe((condition = false) => {
-          if (condition)
+          if (condition) {
             this.notifications = [];
+            this.notificationsSize = 0;
+          }
         });
       }
       else {
