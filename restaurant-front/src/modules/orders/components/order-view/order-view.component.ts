@@ -47,15 +47,14 @@ export class OrderViewComponent implements AfterViewInit {
     }
   }
 
-  finishOrderItem(element: OrderItemExtended) {
-    let statusFinished = "FINISHED";
+  changeOrderItemStatus(element: OrderItemExtended, status: string) {
     if (element.id)
-      this.orderService.changeOrderItemStatus(element.id, statusFinished).subscribe((res) => {
+      this.orderService.changeOrderItemStatus(element.id, status).subscribe((res) => {
         if (res.body) {
           this.snackBarService.openSnackBar(res.body)
           if (element.id) {
             const index = this.dataSource.data.indexOf(element);
-            this.dataSource.data[index].status = statusFinished;
+            this.dataSource.data[index].status = status;
             this.dataSource._updateChangeSubscription();
           }
         }

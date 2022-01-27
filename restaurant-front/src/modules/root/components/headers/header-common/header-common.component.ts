@@ -81,7 +81,9 @@ export class HeaderCommonComponent implements AfterViewInit {
               if (condition) {
                 this.notifications = [];
                 this.notificationsSize = 0;
-              } 
+              } else {
+                this.notificationsSize = this.notifications.length
+              }
             });
           }
           else {
@@ -101,6 +103,8 @@ export class HeaderCommonComponent implements AfterViewInit {
           if (condition) {
             this.notifications = [];
             this.notificationsSize = 0;
+          } else {
+            this.notificationsSize = this.notifications.length
           }
         });
       }

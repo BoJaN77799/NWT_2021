@@ -62,7 +62,8 @@ export class LoginComponent {
       }
     },
       (err) => {
-        this.snackBarService.openSnackBar(err.error);
+        if (err.status === 401)
+          this.snackBarService.openSnackBar("Bad credentials.");
       }
     );
   }
