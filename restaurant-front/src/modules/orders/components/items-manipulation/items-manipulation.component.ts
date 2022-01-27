@@ -60,7 +60,7 @@ export class ItemsManipulationComponent implements OnInit {
       },
         (error) => {
           this.snackBarService.openSnackBarFast(error.statusText);
-          this.router.navigate(["rest-app/orders/create-order-page/0"]);
+          this.router.navigate(["rest-app/tables/tables-waiter"]);
         });
     }
   }
@@ -95,14 +95,14 @@ export class ItemsManipulationComponent implements OnInit {
   private handleResponse(response: HttpResponse<string>): void {
     if (response.body) {
       this.snackBarService.openSnackBarFast(response.body);
-      this.router.navigate(["rest-app/orders/create-order-page/0"]);
+      this.router.navigate(["rest-app/tables/tables-waiter"]);
     }
   }
 
   private handleError(error: any): void {
     if (error) {
       this.snackBarService.openSnackBarFast(error.error);
-      this.router.navigate(["rest-app/orders/create-order-page/0"]);
+      this.router.navigate(["rest-app/tables/tables-waiter"]);
     }
   }
 

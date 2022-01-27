@@ -58,7 +58,7 @@ export class LoginComponent {
         this.router.navigate(["rest-app/orders/orders-page"]);
       }
       else if (role === "WAITER") {
-        this.router.navigate(["rest-app/orders/create-order-page/0"]);
+        this.router.navigate(["rest-app/tables/tables-waiter"]);
       }
     },
       (err) => {
