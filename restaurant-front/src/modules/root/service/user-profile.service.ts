@@ -42,7 +42,7 @@ export class UserProfileService {
     };
 
 
-    return this.http.get<HttpResponse<UserInfoView>>("restaurant/api/users/get_user_info/" + id, queryParams);
+    return this.http.get<HttpResponse<UserInfoView>>("restaurant/api/users/get_user_info_profile/" + id, queryParams);
   }
 
 }
