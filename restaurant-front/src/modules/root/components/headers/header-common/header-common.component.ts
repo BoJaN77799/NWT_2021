@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/modules/auth/services/auth-service/auth.service';
@@ -6,25 +6,37 @@ import { NotificationModalComponent } from 'src/modules/shared/components/notifi
 import { NotificationService } from 'src/modules/shared/services/notification.service';
 import { UtilService } from 'src/modules/shared/services/util/util.service';
 import { Notification } from 'src/modules/shared/models/notification'
-import { ThrowStmt } from '@angular/compiler';
+import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 
 @Component({
   selector: 'app-header-common',
   templateUrl: './header-common.component.html',
   styleUrls: ['./header-common.component.scss']
 })
-export class HeaderCommonComponent {
+export class HeaderCommonComponent implements AfterViewInit {
 
-  notificationsSize: number;
+  notifications: Notification[];
+  employeeId: number;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private notificationService: NotificationService,
     private dialog: MatDialog,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private snackBarService: SnackBarService
   ) {
-    this.notificationsSize = 0;
+    this.notifications = [];
+    this.employeeId = -1;
+  }
+
+  ngAfterViewInit() {
+    this.employeeId = this.utilService.getLoggedUserId();
+    this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
+      if (res.body) {
+        this.notifications = res.body;
+      }
+    })
   }
 
 
@@ -33,67 +45,42 @@ export class HeaderCommonComponent {
   }
 
   notificationModal(): void {
-    let userId = this.utilService.getLoggedUserId()
-    let notifications: Notification[] = [
-      {
-        id: 1,
-        message: "Waiter Milorad created new order on table 1",
-        tableId: 1,
-        orderId: 1
-      },
-      {
-        id: 2,
-        message: "Cook Drasko finished order item 'Supa' and that is ready to serve.",
-        tableId: 2,
-        orderId: 2
-      },
-      {
-        id: 3,
-        message: "Cook Drasko bringed order item 'Coca-cola' and that is ready to serveaaa.",
-        tableId: 3,
-        orderId: 3
-      },
-      {
-        id: 3,
-        message: "Cook Drasko bringed order item 'Coca-cola' and that is ready to serveaaaaa.",
-        tableId: 3,
-        orderId: 3
-      },
-      {
-        id: 3,
-        message: "Cook Drasko bringed order item 'Coca-cola' and that is ready to serveaaa.",
-        tableId: 3,
-        orderId: 3
-      },
-      {
-        id: 3,
-        message: "Cook Drasko bringed order item 'Coca-cola' and that is ready to serveaa.",
-        tableId: 3,
-        orderId: 3
-      },
-      {
-        id: 3,
-        message: "Cook Drasko bringed order item 'Coca-cola' and that is ready to serve.",
-        tableId: 3,
-        orderId: 3
-      },
-    ]
-    // this.notificationService.getAllNotifications(userId).subscribe((res) => {
-    //   if (res.body) {
-    //     notifications = res.body;
-    //     console.log(notifications);
-    this.notificationsSize = 3;
-    const dialogRef = this.dialog.open(NotificationModalComponent, {
-      data: notifications,
-      width: '60%',
-    });
+    if (this.notifications.length == 0) {// everytime after view init
+      this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
+        if (res.body) {
+          this.notifications = res.body;
+          if (this.notifications.length != 0) { // has at least one notif unseened
+            const dialogRef = this.dialog.open(NotificationModalComponent, {
+              data: this.notifications,
+              width: '60%',
+            });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result); // svaki da se setuje na seen
+            dialogRef.afterClosed().subscribe(() => {
+              this.notifications = [];
+            });
+          }
+          else {
+            this.snackBarService.openSnackBar("You don't have any notifications to display!")
+          }
+        }
+      })
+    }
+    else {
+      if (this.notifications.length != 0) {
+        const dialogRef = this.dialog.open(NotificationModalComponent, {
+          data: this.notifications,
+          width: '60%',
+        });
 
-    });
-    //   }
-    // })
+        dialogRef.afterClosed().subscribe(() => {
+          this.notifications = [];
+        });
+      }
+      else {
+        this.snackBarService.openSnackBar("You don't have any notifications to display!")
+      }
+    }
+
   }
 
 }
