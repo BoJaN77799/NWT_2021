@@ -44,6 +44,12 @@ export class HeaderCommonComponent implements AfterViewInit {
 
     this.notificationService.notificationMessage$.subscribe((notification) => {
       this.notificationsSize += 1;
+      this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
+        if (res.body) {
+          this.notifications = res.body;
+          this.notificationsSize = this.notifications.length;
+        }
+      })
     })
   }
 
@@ -65,47 +71,23 @@ export class HeaderCommonComponent implements AfterViewInit {
   }
 
   notificationModal(): void {
-    if (this.notifications.length == 0) {// everytime after view init
-      this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
-        if (res.body) {
-          this.notifications = res.body;
-          this.notificationsSize = this.notifications.length;
-          if (this.notifications.length != 0) { // has at least one notif unseened
-            const dialogRef = this.dialog.open(NotificationModalComponent, {
-              data: this.notifications,
-              width: '60%',
-            });
-
-            dialogRef.afterClosed().subscribe((condition = false) => {
-              if (condition) {
-                this.notifications = [];
-                this.notificationsSize = 0;
-              }
-            });
-          }
-          else {
-            this.snackBarService.openSnackBar("You don't have any notifications to display!")
-          }
-        }
-      })
+    if (this.notifications.length == 0) {
+      this.snackBarService.openSnackBar("You don't have any notifications to display!")
     }
     else {
-      if (this.notifications.length != 0) {
-        const dialogRef = this.dialog.open(NotificationModalComponent, {
-          data: this.notifications,
-          width: '60%',
-        });
+      const dialogRef = this.dialog.open(NotificationModalComponent, {
+        data: this.notifications,
+        width: '60%',
+      });
 
-        dialogRef.afterClosed().subscribe((condition = false) => {
-          if (condition) {
-            this.notifications = [];
-            this.notificationsSize = 0;
-          }
-        });
-      }
-      else {
-        this.snackBarService.openSnackBar("You don't have any notifications to display!")
-      }
+      dialogRef.afterClosed().subscribe((condition = false) => {
+        if (condition) {
+          this.notifications = [];
+          this.notificationsSize = 0;
+        } else {
+          this.notificationsSize = this.notifications.length
+        }
+      });
     }
 
   }

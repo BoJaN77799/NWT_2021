@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { Notification } from '../models/notification';
+import { Notification, NotificationWithType } from '../models/notification';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
-  private notificationMessageSource = new Subject<Notification>();
+  private notificationMessageSource = new Subject<NotificationWithType>();
   public notificationMessage$ = this.notificationMessageSource.asObservable();
 
   constructor(private httpClient: HttpClient) { }

@@ -3,11 +3,13 @@ import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { NotificationType } from 'src/modules/shared/models/enums/notification-type';
+import { NotificationWithType } from 'src/modules/shared/models/notification';
+import { NotificationService } from 'src/modules/shared/services/notification.service';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { UtilService } from 'src/modules/shared/services/util/util.service';
 import { OrderViewComponent } from '../../components/order-view/order-view.component';
 import { Order } from '../../models/order';
-import { OrderItem } from '../../models/order-item';
 import { OrdersService } from '../../services/orders.service';
 
 @Component({
@@ -29,7 +31,8 @@ export class OrdersPageComponent implements AfterViewInit {
     private ordersService: OrdersService,
     public dialog: MatDialog,
     private utilService: UtilService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private notificationService: NotificationService
   ) {
     this.ordersList = [];
     this.dataSource = new MatTableDataSource(this.ordersList)
@@ -53,6 +56,11 @@ export class OrdersPageComponent implements AfterViewInit {
           this.totalSize = Number(res.headers.get("total-elements"));
         }
       });
+    this.notificationService.notificationMessage$.subscribe((notification) => {
+      if (notification.type === NotificationType.CREATE_ORDER) {
+        this.changePage(this.currentPage);
+      }
+    })
   }
 
   announceSortChange(sortState: Sort) {
@@ -94,12 +102,6 @@ export class OrdersPageComponent implements AfterViewInit {
         const index = this.dataSource.data.indexOf(element.id);
         this.dataSource.data.splice(index, 1);
         this.dataSource._updateChangeSubscription();
-
-        element.orderItems.forEach((orderItem: OrderItem) => {
-          if (orderItem.id) {
-            this.ordersService.changeOrderItemStatus(orderItem.id, "IN_PROGRESS").subscribe((res) => { })
-          }
-        });
       }
       else {
         this.snackBarService.openSnackBar(res.body as string);

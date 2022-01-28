@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Notification } from '../models/notification';
+import { Notification, NotificationWithType } from '../models/notification';
 
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
@@ -54,7 +54,7 @@ export class SocketService {
   subscribeToLocalSocket(userId: any): void {
     this.stompClient.subscribe("/socket-publisher/" + userId, (message: { body: string; }) => {
       this.showMessage(message);
-      this.notificationService.sendNotification(message);
+      this.notificationService.sendNotification(JSON.parse(message.body) as NotificationWithType);
     });
   }
 
@@ -64,7 +64,7 @@ export class SocketService {
 
   showMessage(message: { body: any; }): void {
     let messageResult: Notification = JSON.parse(message.body);
-    
+
     this.snackBarService.openSnackBarFast(messageResult.message);
   }
 
