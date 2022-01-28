@@ -15,13 +15,14 @@
                         Options
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" [routerLink]="'/rest-app/orders/orders-page'"
+                        <li><a id="new-orders" class="dropdown-item" [routerLink]="'/rest-app/orders/orders-page'"
                                 routerLinkActive="active">New
                                 orders</a></li>
-                        <li><a class="dropdown-item" [routerLink]="'/rest-app/orders/my-orders-page/' + userId"
-                                routerLinkActive="active">My
+                        <li><a id="my-orders" class="dropdown-item"
+                                [routerLink]="'/rest-app/orders/my-orders-page/' + userId" routerLinkActive="active">My
                                 orders</a></li>
-                        <li><a class="dropdown-item" [routerLink]="'/rest-app/items/items-page/drink-create'"
+                        <li><a id="create-drink" class="dropdown-item"
+                                [routerLink]="'/rest-app/items/items-page/drink-create'"
                                 routerLinkActive="active">Create new drink</a></li>
                     </ul>
                 </li>

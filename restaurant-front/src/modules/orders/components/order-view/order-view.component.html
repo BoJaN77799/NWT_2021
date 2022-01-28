@@ -6,7 +6,7 @@
 </div>
 <div class="row">
     <div class="col-8">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table" matSort
+        <table id='order-items' mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table" matSort
             (matSortChange)="announceSortChange($event)">
 
             <ng-container matColumnDef="itemType">
@@ -54,7 +54,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="cursor: initial;"
                 [ngStyle]="{'background-color': (row.status === 'FINISHED') ? 'rgba(0,255,0,0.3)' : 'none'}"></tr>
         </table>
     </div>
