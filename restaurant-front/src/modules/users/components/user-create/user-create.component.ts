@@ -13,16 +13,16 @@ import { UsersService } from '../../services/users-service/users.service';
   templateUrl: './user-create.component.html',
   styleUrls: ['./user-create.component.scss']
 })
-export class UserCreateComponent implements OnInit {
+export class UserCreateComponent {
 
-  previewImg: string | undefined; 
+  previewImg: string | undefined;
   selectedImg: File | undefined;
 
-  public loadVisible : boolean = false;
+  public loadVisible: boolean = false;
 
   public createUserFormGroup: FormGroup;
 
-  constructor(private fb: FormBuilder, private usersService: UsersService, public dialog: MatDialog,public dialogRef: MatDialogRef<UserCreateComponent>,
+  constructor(private fb: FormBuilder, private usersService: UsersService, public dialog: MatDialog, public dialogRef: MatDialogRef<UserCreateComponent>,
     private snackBarService: SnackBarService) {
     this.createUserFormGroup = this.fb.group({
       firstName: ['', Validators.required],
@@ -33,17 +33,13 @@ export class UserCreateComponent implements OnInit {
       address: ['', Validators.required],
       userType: ['ADMINISTRATOR', Validators.required]
     });
-   }
-
-  ngOnInit(): void {
-    
   }
 
-  public selectImage(event: any){
+  public selectImage(event: any) {
     let selectedFiles = event.target.files;
 
 
-    if (selectedFiles && selectedFiles[0]){
+    if (selectedFiles && selectedFiles[0]) {
       this.selectedImg = selectedFiles[0];
 
       const reader = new FileReader();
@@ -54,22 +50,24 @@ export class UserCreateComponent implements OnInit {
     }
   }
 
-  public createUser(){
-    let created : UserCreate = this.createUserFormGroup.value;
+  public createUser() {
+    let created: UserCreate = this.createUserFormGroup.value;
 
     this.loadVisible = true;
 
     this.usersService.createUser(created, this.selectedImg).subscribe((res) => {
-      if(res.body != null){
+      if (res.body != null) {
         this.loadVisible = false;
         this.dialogRef.close(true);
         this.snackBarService.openSnackBar("User added!");
       }
-      //todo toast za error, i dodati load visible false
+    }, (err) => {
+      if (err.error)
+        this.snackBarService.openSnackBar(String(err.console));
     });
   }
 
-  public removeImage(){
+  public removeImage() {
     this.previewImg = undefined;
     this.selectedImg = undefined;
   }

@@ -32,6 +32,7 @@ import { HeaderBarmanComponent } from './components/headers/header-barman/header
 import { SharedModule } from '../shared/shared.module';
 import { UsersModule } from '../users/users.module';
 import { ProfileViewComponent } from './components/common/profile-view/profile-view.component';
+import { ChangePasswordComponent } from './components/common/change-password/change-password.component';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { ProfileViewComponent } from './components/common/profile-view/profile-v
         HeaderWaiterComponent,
         HeaderBarmanComponent,
         ProfileViewComponent,
+        ChangePasswordComponent,
     ],
     imports: [
         CommonModule,

@@ -10,5 +10,5 @@ export interface UserInfoView {
     profilePhoto: string,
     address: string,
     gender: string,
-    salary: number
+    salary: number | undefined | null
 }

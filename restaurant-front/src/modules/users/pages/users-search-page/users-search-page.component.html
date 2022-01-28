@@ -89,7 +89,8 @@
                 <ng-container matColumnDef="delete">
                     <th mat-header-cell *matHeaderCellDef>Delete</th>
                     <td mat-cell *matCellDef="let element">
-                        <button *ngIf="element.active" (click)="deleteUser($event, element.id)">Delete</button>
+                        <button *ngIf="element.active && element.id !== adminId"
+                            (click)="deleteUser($event, element.id)">Delete</button>
                     </td>
                 </ng-container>
 

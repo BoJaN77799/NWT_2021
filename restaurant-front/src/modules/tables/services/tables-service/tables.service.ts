@@ -64,6 +64,17 @@ export class TablesService {
     return this.http.get<TableWaiterDTO[]>("restaurant/api/tables/getAll", queryParams);
   }
 
+  getTableOrderInfoWaiter(id: number): Observable<HttpResponse<TableWaiterDTO>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: 'response'
+    };
+
+    return this.http.get<HttpResponse<TableWaiterDTO>>("restaurant/api/tables/tableInfo/{id}", queryParams);
+  }
+
   addTable(table: TableAdminDTO): Observable<HttpResponse<TableAdminDTO>> {
     let queryParams = {};
 

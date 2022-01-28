@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="row p-4 align-items-center">
     <div class="col-8">
-        <div class="svg-container" appDroppable [tablesList]="tables" height="100%" width="100%">
+        <div class="svg-container" appDroppable [tablesList]="tables" [currFloor]="currentFloor" height="100%"
+            width="100%">
             <svg id="dropzone" height="100%" width="100%" viewBox="0 0 700 400">
                 <rect height="400" width="150" x="580" y="0" opacity="0.4" />
 
@@ -15,8 +16,7 @@
                         stroke-width="1px" dy=".3em">{{table.id >= 0 ? table.id : ' '}}</text>
 
                     <image (click)="deleteTable(table.id)" [attr.tableId]="table.id" [attr.x]="table.x+20"
-                        [attr.y]="table.y+20" width="20" height="20"
-                        href="https://flyclipart.com/thumb2/delete-icon-327000.png"></image>
+                        [attr.y]="table.y+20" width="20" height="20" href="assets/delete-icon.png"></image>
                 </g>
 
                 <circle tableType="new" *ngFor="let e of [].constructor(maxNumberOfTables-tables.length)" cx="640"

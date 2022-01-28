@@ -11,6 +11,7 @@ import { UsersService } from '../../services/users-service/users.service';
 import { UserUpdate } from '../../../root/models/user-update';
 import { ProfileViewComponent } from 'src/modules/root/components/common/profile-view/profile-view.component';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
+import { UtilService } from 'src/modules/shared/services/util/util.service';
 
 @Component({
   selector: 'app-users-search-page',
@@ -19,9 +20,7 @@ import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 })
 export class UsersSearchPageComponent implements OnInit, AfterViewInit {
 
-  //todo proveriti jos paginaciju i te sitnice da nema bagova, isto i za sortiranje - dodaj brdo korisnika pa ces videti dal valja
-
-  //todo sredi da i ono za getall vraca i admina, glupo je da jedno vraca a drugo ne lol
+  public adminId: number;
 
   //table
   public usersList: UserTableView[] = [];
@@ -40,7 +39,9 @@ export class UsersSearchPageComponent implements OnInit, AfterViewInit {
   //sort
   @ViewChild(MatSort) sort: MatSort | undefined;
 
-  constructor(private fb: FormBuilder, private usersService: UsersService, public dialog: MatDialog, private snackBarService: SnackBarService) {
+  constructor(private fb: FormBuilder, private usersService: UsersService, public dialog: MatDialog, private snackBarService: SnackBarService,
+    private utilService: UtilService) {
+    this.adminId = utilService.getLoggedUserId();
     this.searchFormGroup = this.fb.group({
       searchField: [''],
       userType: ['']
@@ -57,12 +58,14 @@ export class UsersSearchPageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.usersService.getUsers(0, this.pageSize, '', '').subscribe((res) => {
+    this.usersService.searchUsers('', '', 0, this.pageSize, '', '').subscribe((res) => {
       if (res.body != null) {
         this.dataSource.data = res.body;
         this.setPagination(res.headers.get('total-elements'), res.headers.get('current-page'));
       }
-      //todo error
+    }, (err) => {
+      if (err.error)
+        this.snackBarService.openSnackBar(String(err.console));
     });
 
     this.onChanges();
@@ -83,8 +86,10 @@ export class UsersSearchPageComponent implements OnInit, AfterViewInit {
             this.pagination.setActivePage(1);
           }
         }
-        //todo error
       });
+    }, (err) => {
+      if (err.error)
+        this.snackBarService.openSnackBar(String(err.console));
     });
   }
 
@@ -98,7 +103,9 @@ export class UsersSearchPageComponent implements OnInit, AfterViewInit {
             this.pagination.setActivePage(this.currentPage + 1); //current page je za server, krece od 0
           }
         }
-        //todo error
+      }, (err) => {
+        if (err.error)
+          this.snackBarService.openSnackBar(String(err.console));
       });
   }
 
@@ -108,9 +115,10 @@ export class UsersSearchPageComponent implements OnInit, AfterViewInit {
         if (res.body != null) {
           this.dataSource.data = res.body;
           //ovde se radi samo sortiranje, nema menjanja sadrzaja
-          //this.setPagination(res.headers.get('total-elements'), res.headers.get('current-page'));
         }
-        //todo error
+      }, (err) => {
+        if (err.error)
+          this.snackBarService.openSnackBar(String(err.console));
       });
   }
 
@@ -152,7 +160,9 @@ export class UsersSearchPageComponent implements OnInit, AfterViewInit {
         this.deleteUserLocaly(id);
         this.snackBarService.openSnackBar("User deactivated!");
       }
-      //todo toast za error
+    }, (err) => {
+      if (err.error)
+        this.snackBarService.openSnackBar(String(err.console));
     });
   }
 
@@ -160,7 +170,7 @@ export class UsersSearchPageComponent implements OnInit, AfterViewInit {
     this.usersService.getUserInfo(user.id).subscribe((res) => {
       if (res.body != null) {
         const dialogRef = this.dialog.open(ProfileViewComponent, {
-          data: res.body,
+          data: { user: res.body, isAdmin: true, isWorker: user.userType !== 'ADMINISTRATOR' && user.userType !== 'MANAGER' },
           width: '600px',
           height: '80vh'
         });
@@ -170,7 +180,9 @@ export class UsersSearchPageComponent implements OnInit, AfterViewInit {
           }
         });
       }
-      //todo error
+    }, (err) => {
+      if (err.error)
+        this.snackBarService.openSnackBar(String(err.console));
     });
   }
 
@@ -182,23 +194,15 @@ export class UsersSearchPageComponent implements OnInit, AfterViewInit {
   }
 
   changePage(newPage: number) {
-    // if (this.allFieldsEmpty()){
-    //   this.usersService.getUsers(newPage-1, this.pageSize, this.dataSource.sort?.active, this.dataSource.sort?.direction).subscribe((res) => {
-    //     if(res.body != null){
-    //       this.dataSource.data = res.body;
-    //       this.setPagination(res.headers.get('total-elements'), res.headers.get('current-page'));
-    //     }
-    //     //todo error
-    //   });
-    // }else{
     this.usersService.searchUsers(this.searchFormGroup.value.searchField, this.searchFormGroup.value.userType, newPage - 1, this.pageSize, this.dataSource.sort?.active, this.dataSource.sort?.direction).subscribe((res) => {
       if (res.body != null) {
         this.dataSource.data = res.body;
         this.setPagination(res.headers.get('total-elements'), res.headers.get('current-page'));
       }
-      //todo error
+    }, (err) => {
+      if (err.error)
+        this.snackBarService.openSnackBar(String(err.console));
     });
-    //}
   }
 
 }

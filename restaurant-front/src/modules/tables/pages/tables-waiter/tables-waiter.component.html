@@ -15,7 +15,7 @@
                         [attr.href]="determineImage(table.orderStatus)">
                     </image>
                     <image *ngIf="table.occupied" [attr.x]=" table.x-30" [attr.y]="table.y+5" width="20" height="20"
-                        href="https://www.clipartmax.com/png/full/4-44407_person-icon-clipart-green-people-icon-png.png">
+                        href="assets/people.png">
                     </image>
                 </g>
             </svg>
@@ -23,7 +23,7 @@
 
         <div class="row d-flex d-flex justify-content-center p-4">
             <div class="col-2 d-flex justify-content-center">
-                <button type="button" class="btn btn-primary" [disabled]="currentFloor == 0" (click)="previousFloor()">
+                <button type="button" class="btn btn-primary" [disabled]="currentFloor === 0" (click)="previousFloor()">
                     <i class="fa fa-backward"></i>
                 </button>
             </div>
@@ -31,7 +31,7 @@
                 Floor: {{currentFloor}}
             </div>
             <div class="col-2 d-flex justify-content-center">
-                <button type="button" class="btn btn-primary" [disabled]="currentFloor == numberOfFloors-1"
+                <button type="button" class="btn btn-primary" [disabled]="currentFloor === numberOfFloors-1"
                     (click)="nextFloor()">
                     <i class="fa fa-forward"></i>
                 </button>

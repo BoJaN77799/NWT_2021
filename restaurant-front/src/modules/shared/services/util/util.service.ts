@@ -23,6 +23,17 @@ export class UtilService {
     return "";
   }
 
+  public isUserWorker(): boolean {
+    const item = localStorage.getItem("user");
+
+    if (item) {
+      const jwt: JwtHelperService = new JwtHelperService();
+      let role = jwt.decodeToken(item).role;
+      return role !== 'ADMINISTRATOR' && role !== 'MANAGER';
+    }
+    return false;
+  }
+
   public getLoggedUserEmail(): string {
     const item = localStorage.getItem("user");
 
