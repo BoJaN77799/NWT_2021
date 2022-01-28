@@ -34,7 +34,6 @@ export class EmployeesViewComponent implements AfterViewInit {
   }
 
   changePage(newPage: number) {
-    this.socketService.sendMessage({ content: "Nova poruka" })
     this.employeesService.findAllEmployees(newPage - 1, this.pageSize)
       .subscribe((response) => {
         this.employees = response.body as EmployeeDTO[];

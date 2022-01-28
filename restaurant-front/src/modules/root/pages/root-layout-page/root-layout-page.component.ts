@@ -23,7 +23,8 @@ export class RootLayoutPageComponent {
     if (item) {
       const jwt: JwtHelperService = new JwtHelperService();
       this.role = jwt.decodeToken(item).role;
-      this.socketService.connect(jwt.decodeToken(item).userId);
+      if (!(this.role === 'ADMIN' || this.role === 'MANAGER'))
+        this.socketService.connect(jwt.decodeToken(item).userId);
     }
   }
 
