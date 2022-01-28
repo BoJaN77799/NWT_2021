@@ -58,7 +58,16 @@ export class OrdersPageComponent implements AfterViewInit {
       });
     this.notificationService.notificationMessage$.subscribe((notification) => {
       if (notification.type === NotificationType.CREATE_ORDER) {
-        this.changePage(this.currentPage);
+        this.ordersService
+          .getAll(this.currentPage, this.pageSize)
+          .subscribe((res) => {
+            if (res.body) {
+              this.ordersList = res.body as Order[]; // refreshing content on current page when notification occured
+              this.dataSource = new MatTableDataSource(this.ordersList);
+              this.dataSource.sort = this.sort;
+              this.totalSize = Number(res.headers.get("total-elements"));
+            }
+          });
       }
     })
   }
