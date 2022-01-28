@@ -12,7 +12,7 @@
 </div>
 <div class="row">
     <div class="col-8">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table" matSort
+        <table id='order-items' mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table" matSort
             (matSortChange)="announceSortChange($event)">
 
             <ng-container matColumnDef="itemType">
@@ -45,7 +45,7 @@
 
             <ng-container matColumnDef="button">
                 <th mat-header-cell *matHeaderCellDef [hidden]="!tempRoute.includes('my')"></th>
-                <td mat-cell *matCellDef="let element" [hidden]="!tempRoute.includes('my')">
+                <td id='finish-cell' mat-cell *matCellDef="let element" [hidden]="!tempRoute.includes('my')">
                     <button mat-button (click)="finishOrderItem(element)"
                         [disabled]="element.status === 'FINISHED'">{{element.status === 'FINISHED' ? 'Served' : 'Finish'
                         }}</button>
@@ -53,7 +53,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="cursor: initial;"
                 [ngStyle]="{'background-color': (row.status === 'FINISHED') ? 'rgba(0,255,0,0.3)' : 'none'}"></tr>
         </table>
     </div>
