@@ -111,7 +111,7 @@
     </div>
 
     <div class="row d-flex justify-content-center">
-        <mat-form-field class="example-form-field  m-2" appearance="fill" style="width: 45%;">
+        <mat-form-field class="example-form-field m-2" appearance="fill" style="width: 45%;">
             <mat-label>Email</mat-label>
             <input matInput type="text" formControlName="email" readonly>
         </mat-form-field>
@@ -128,9 +128,14 @@
             <input matInput type="text" formControlName="userType" readonly>
         </mat-form-field>
 
-        <mat-form-field class="example-form-field  m-2" appearance="fill" style="width: 45%;">
+        <mat-form-field *ngIf="isAdmin" class="example-form-field  m-2" appearance="fill" style="width: 45%;">
             <mat-label>User status</mat-label>
             <input matInput type="text" formControlName="status" readonly>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="isWorker" class="example-form-field  m-2" appearance="fill" style="width: 45%;">
+            <mat-label>Salary</mat-label>
+            <input matInput type="text" formControlName="salary" readonly>
         </mat-form-field>
     </div>
 
@@ -138,8 +143,8 @@
         <div class="col d-flex justify-content-center">
             <button mat-flat-button color="primary" class="m-3" style="width: 30%;" (click)="saveChanges()">Save
                 changes</button>
-            <!-- <button mat-flat-button color="primary" class="m-3" style="width: 30%;" (click)="deleteUser()">Delete
-                user</button> -->
+            <button *ngIf="!isAdmin" mat-flat-button color="primary" class="m-3" style="width: 30%;"
+                (click)="changePassword()">Change password </button>
         </div>
     </div>
 

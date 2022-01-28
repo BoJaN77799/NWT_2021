@@ -33,6 +33,20 @@ export class UserProfileService {
     return this.http.put<HttpResponse<String>>("restaurant/api/users", formData, queryParams);
   }
 
+  changePassword(id: number, oldPw: string, newPw: string): Observable<HttpResponse<String>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: 'response',
+      responseType: 'text'
+    };
+
+    let param = { oldPassword: oldPw, newPassword: newPw };
+
+    return this.http.put<HttpResponse<String>>("restaurant/api/users/change_password/" + id, param, queryParams);
+  }
+
   getUserInfo(id: number): Observable<HttpResponse<UserInfoView>> {
     let queryParams = {};
 

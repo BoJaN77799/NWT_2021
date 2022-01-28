@@ -6,6 +6,7 @@ import { telephoneValidator } from 'src/modules/shared/directives/custom-validat
 import { UserInfoView } from 'src/modules/shared/models/user-info-view';
 import { UserProfileService } from 'src/modules/root/service/user-profile.service';
 import { UserUpdate } from 'src/modules/root/models/user-update';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 
 @Component({
   selector: 'app-profile-view',
@@ -15,26 +16,31 @@ import { UserUpdate } from 'src/modules/root/models/user-update';
 export class ProfileViewComponent implements OnInit {
 
   private userId: number;
+  public user: UserInfoView;
 
-  @Input() isAdmin: boolean;
+  isAdmin: boolean;
+  isWorker: boolean;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public user: UserInfoView,
+  constructor(@Inject(MAT_DIALOG_DATA) public passedData: { user: UserInfoView, isAdmin: boolean, isWorker: boolean },
     private userService: UserProfileService,
     private fb: FormBuilder,
     public dialog: MatDialog, public dialogRef: MatDialogRef<ProfileViewComponent>,
     private snackBarService: SnackBarService
   ) {
-    this.userId = user.id;
-    this.isAdmin = false;
+    this.userId = passedData.user.id;
+    this.user = passedData.user;
+    this.isAdmin = passedData.isAdmin;
+    this.isWorker = passedData.isWorker;
     this.updateUserFormGroup = this.fb.group({
-      firstName: [user.firstName, Validators.required],
-      lastName: [user.lastName, Validators.required],
-      email: [user.email],
-      gender: [user.gender],
-      telephone: [user.telephone, [Validators.required, Validators.minLength(5), Validators.maxLength(12), telephoneValidator()]],
-      address: [user.address, Validators.required],
-      userType: [user.userType],
-      status: [user.active ? 'active' : 'deleted']
+      firstName: [this.user.firstName, Validators.required],
+      lastName: [this.user.lastName, Validators.required],
+      email: [this.user.email],
+      gender: [this.user.gender],
+      telephone: [this.user.telephone, [Validators.required, Validators.minLength(5), Validators.maxLength(12), telephoneValidator()]],
+      address: [this.user.address, Validators.required],
+      userType: [this.user.userType],
+      status: [this.user.active ? 'active' : 'deleted'],
+      salary: [this.user.salary ? this.user.salary : 0]
     });
   }
 
@@ -48,6 +54,14 @@ export class ProfileViewComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  public changePassword() {
+    const dialogRef = this.dialog.open(ChangePasswordComponent, {
+      data: this.user.id,
+      width: '500px',
+      height: '50vh'
+    });
   }
 
   public selectImage(event: any) {

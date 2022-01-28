@@ -56,13 +56,12 @@ export class HeaderCommonComponent implements AfterViewInit {
     this.userService.getUserInfo(this.employeeId).subscribe((res) => {
       if (res.body != null) {
         const dialogRef = this.dialog.open(ProfileViewComponent, {
-          data: res.body,
+          data: { user: res.body, isAdmin: false, isWorker: this.utilService.isUserWorker() },
           width: '600px',
           height: '80vh'
         });
       }
-      //todo error
-    });
+    }, (err) => { this.snackBarService.openSnackBar(err.error) });
   }
 
   notificationModal(): void {
@@ -81,7 +80,7 @@ export class HeaderCommonComponent implements AfterViewInit {
               if (condition) {
                 this.notifications = [];
                 this.notificationsSize = 0;
-              } 
+              }
             });
           }
           else {

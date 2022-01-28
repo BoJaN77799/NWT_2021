@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/modules/shared/services/notification.service';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { OrderDTO } from '../../models/order-dto';
 import { OrderItemDTO } from '../../models/order-item-dto';
@@ -13,8 +14,6 @@ import { TablesService } from '../../services/tables-service/tables.service';
 })
 export class TablesWaiterComponent implements OnInit {
 
-  //todo naci manje slike za konobara
-
   public maxNumberOfTables: number = 12;
   public numberOfFloors: number = 3;
   public currentFloor: number = 0;
@@ -23,7 +22,7 @@ export class TablesWaiterComponent implements OnInit {
   public selectedOrder: OrderDTO | undefined;
   public selectedTable: TableWaiterDTO | undefined;
 
-  constructor(private tablesService: TablesService, private snackBarService: SnackBarService, private router: Router) { }
+  constructor(private tablesService: TablesService, private snackBarService: SnackBarService, private router: Router, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.tablesService.getAllFromFloorWaiter(0).subscribe((res) => {
@@ -37,6 +36,31 @@ export class TablesWaiterComponent implements OnInit {
         this.numberOfFloors = res.numberOfFloors;
       }
     });
+
+    this.notificationService.notificationMessage$.subscribe((notification) => {
+      //todo srediti malo kod, mozda u posebnu fju
+      let found: boolean = false;
+      for (let table of this.tables) {
+        if (table.id === notification.tableId) {
+          found = true;
+          break;
+        }
+      }
+
+      if (!found)
+        return;
+
+      this.tablesService.getTableOrderInfoWaiter(notification.tableId).subscribe((res) => {
+        if (res.body != null) {
+          for (let i = 0; i < this.tables.length; i++) {
+            if (this.tables[i].id === notification.tableId) {
+              this.tables[i] = res.body;
+              return;
+            }
+          }
+        }
+      }, (err) => this.snackBarService.openSnackBar("Error with geting table info!"));
+    })
   }
 
   public tableClick(table: TableWaiterDTO) {
@@ -51,8 +75,10 @@ export class TablesWaiterComponent implements OnInit {
       if (res.body != null) {
         this.selectedOrder = res.body;
         this.selectedTable = table;
-        //todo err
       }
+    }, (err) => {
+      if (err.error)
+        this.snackBarService.openSnackBar(String(err.console));
     });
   }
 
@@ -74,8 +100,10 @@ export class TablesWaiterComponent implements OnInit {
 
         if (res.body != null)
           this.snackBarService.openSnackBar(res.body);
-        //todo err
       }
+    }, (err) => {
+      if (err.error)
+        this.snackBarService.openSnackBar(String(err.console));
     });
   }
 
@@ -94,12 +122,16 @@ export class TablesWaiterComponent implements OnInit {
       if (res.body != null) {
         this.snackBarService.openSnackBar(res.body);
 
+        //todo srediti da se samo na frontu menja kad se zavrsi porudzbina, ne da salje na back, i da se zatvori onaj prozorcic
         this.tablesService.getAllFromFloorWaiter(this.currentFloor).subscribe((res) => {
           if (res != null) {
             this.tables = res;
           }
         });
       }
+    }, (err) => {
+      if (err.error)
+        this.snackBarService.openSnackBar(String(err.console));
     });
   }
 
@@ -131,14 +163,12 @@ export class TablesWaiterComponent implements OnInit {
   }
 
   public determineImage(status: string): string {
-    if (status === "IN PROGRESS") {
-      return "https://www.clipartmax.com/png/full/13-132525_acquisitions-divestitures-hourglass.png";
-    } else if (status === "READY") {
-      return "https://www.clipartmax.com/png/full/5-50571_school-bell-clip-art-3-clipartbarn-clipart-notification-bell-icon.png";
-    } else if (status === "FINISHABLE") {
-      return "https://www.clipartmax.com/png/full/177-1778827_green-tick-clipart-big-green-green-checkmark-transparent-background.png";
-    } else if (status === "NEW") {
-      return "https://www.clipartmax.com/png/full/443-4437782_mail-clipart-sent-mail-email-sent-png.png";
+    if (status === "READY") {
+      return "assets/bell.png";
+    } else if (status === "DELIVERED") {
+      return "assets/checkmark.png";
+    } else if (status === "CREATED") {
+      return "assets/new-order.png";
     } else {
       return "";
     }
