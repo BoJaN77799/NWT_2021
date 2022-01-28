@@ -72,7 +72,7 @@ export class TablesService {
       observe: 'response'
     };
 
-    return this.http.get<HttpResponse<TableWaiterDTO>>("restaurant/api/tables/tableInfo/{id}", queryParams);
+    return this.http.get<HttpResponse<TableWaiterDTO>>("restaurant/api/tables/tableInfo/" + id, queryParams);
   }
 
   addTable(table: TableAdminDTO): Observable<HttpResponse<TableAdminDTO>> {

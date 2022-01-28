@@ -54,7 +54,17 @@ export class SocketService {
   subscribeToLocalSocket(userId: any): void {
     this.stompClient.subscribe("/socket-publisher/" + userId, (message: { body: string; }) => {
       this.showMessage(message);
-      this.notificationService.sendNotification(JSON.parse(message.body) as NotificationWithType);
+      let notif = JSON.parse(message.body);
+      if (notif.hasOwnProperty('tableId')) {
+        notif.tableId = parseInt(notif.tableId);
+      }
+      if (notif.hasOwnProperty('id')) {
+        notif.id = parseInt(notif.id);
+      }
+      if (notif.hasOwnProperty('orderId')) {
+        notif.orderId = parseInt(notif.orderId);
+      }
+      this.notificationService.sendNotification(notif as NotificationWithType);
     });
   }
 

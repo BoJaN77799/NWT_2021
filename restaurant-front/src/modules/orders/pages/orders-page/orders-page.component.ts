@@ -108,7 +108,7 @@ export class OrdersPageComponent implements AfterViewInit {
         if (res.body) {
           this.snackBarService.openSnackBar(res.body as string);
         }
-        const index = this.dataSource.data.indexOf(element.id);
+        const index = this.dataSource.data.indexOf(element);
         this.dataSource.data.splice(index, 1);
         this.dataSource._updateChangeSubscription();
       }
