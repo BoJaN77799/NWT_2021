@@ -7,14 +7,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="'/rest-app/employees/employees-manager'" 
+          <a id="home" class="nav-link active" aria-current="page" [routerLink]="'/rest-app/employees/employees-manager'" 
           routerLinkActive="active">Home</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Reports
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul id="reports-navlist" class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" [routerLink]="'/rest-app/reports/reports-manager/sales-table'" 
               routerLinkActive="active" 
               >Sales (Table)</a></li>
@@ -30,12 +30,12 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" 
+          <a id="employees" class="nav-link active" aria-current="page" 
           [routerLink]="'/rest-app/employees/employees-manager'" 
           routerLinkActive="active">Employees</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" 
+          <a id="menus" class="nav-link active" aria-current="page" 
           [routerLink]="'/rest-app/menus/menus-manager'" 
           routerLinkActive="active">Menus</a>
         </li>

@@ -19,6 +19,7 @@ export class HeaderCommonComponent implements AfterViewInit {
   notifications: Notification[];
   notificationsSize: number;
   employeeId: number;
+  role: string;
 
   constructor(
     private authService: AuthService,
@@ -31,20 +32,24 @@ export class HeaderCommonComponent implements AfterViewInit {
     this.notifications = [];
     this.notificationsSize = 0;
     this.employeeId = -1;
+    this.role = '';
   }
 
   ngAfterViewInit() {
-    this.employeeId = this.utilService.getLoggedUserId();
-    this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
-      if (res.body) {
-        this.notifications = res.body;
-        this.notificationsSize = this.notifications.length;
-      }
-    })
+    this.role = this.utilService.getLoggedUserRole();
+    if (this.role !== 'ADMINISTRATOR' && this.role !== 'MANAGER'){
+      this.employeeId = this.utilService.getLoggedUserId();
+      this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
+        if (res.body) {
+          this.notifications = res.body;
+          this.notificationsSize = this.notifications.length;
+        }
+      })
 
-    this.notificationService.notificationMessage$.subscribe((notification) => {
-      this.notificationsSize += 1;
-    })
+      this.notificationService.notificationMessage$.subscribe((notification) => {
+        this.notificationsSize += 1;
+      }) 
+    }
   }
 
 
