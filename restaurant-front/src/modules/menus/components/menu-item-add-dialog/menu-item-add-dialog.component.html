@@ -3,7 +3,7 @@
   <p>Choose menu</p>
   <mat-form-field appearance="fill" style="margin-left: 15px;">
     <mat-label>Menus names</mat-label>
-    <mat-select [(ngModel)]="menuItemDTO.menuName" ngModel>
+    <mat-select id='select-menu-item-add' [(ngModel)]="menuItemDTO.menuName" ngModel>
       <mat-option *ngFor="let menu of menus" [value]="menu.name">
         {{menu.name}}
       </mat-option>
@@ -11,6 +11,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="dialogRef.close(false)">Cancel</button>
-  <button mat-button (click)="check()">Add</button>
+  <button id='cancel-menu-item-add' mat-button (click)="dialogRef.close(false)">Cancel</button>
+  <button id='add-menu-item-add' mat-button (click)="check()">Add</button>
 </div>
