@@ -90,14 +90,16 @@ export class OrdersPageComponent implements AfterViewInit {
   }
 
   openDialog(row: any): void {
-    const dialogRef = this.dialog.open(OrderViewComponent, {
-      data: row,
-      width: '60%',
-    });
+    this.ordersService.getOneWitOrderItems(row.id).subscribe((res) => {
+      const dialogRef = this.dialog.open(OrderViewComponent, {
+        data: res.body,
+        width: '60%',
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+      });
+    })
   }
 
   acceptOrder(element: any): void {

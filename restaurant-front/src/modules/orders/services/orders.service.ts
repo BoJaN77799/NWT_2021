@@ -115,4 +115,19 @@ export class OrdersService {
     };
     return this.http.put<HttpResponse<string>>("restaurant/api/orderItems/changeStatus", { id: id, status: status }, queryParams);
   }
+
+
+  getOneWitOrderItems(id: any): Observable<HttpResponse<Order>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: "response"
+    };
+
+    let role = this.utilService.getLoggedUserRole();
+    role = role.includes("COOK") ? "Cook" : "Barman";
+
+    return this.http.get<HttpResponse<Order>>("restaurant/api/orders/for" + role + "/" + id, queryParams);
+  }
 }
