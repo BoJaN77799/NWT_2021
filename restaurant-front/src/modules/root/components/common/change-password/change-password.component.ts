@@ -48,37 +48,4 @@ export class ChangePasswordComponent implements OnInit {
       });
   }
 
-
-  // private getUserToUpdate(): UserUpdate {
-  //   let firstname = this.updateUserFormGroup.controls['firstName'].value;
-  //   let lastname = this.updateUserFormGroup.controls['lastName'].value;
-  //   let telephone = this.updateUserFormGroup.controls['telephone'].value;
-  //   let address = this.updateUserFormGroup.controls['address'].value;
-
-  //   let userToUpdate: UserUpdate = { id: this.userId, firstName: firstname, lastName: lastname, telephone: telephone, address: address };
-  //   return userToUpdate;
-  // }
-
-  // public saveChanges() {
-  //   if (!this.updateUserFormGroup.valid) {
-  //     this.snackBarService.openSnackBar("Can't save changes, user info invalid!");
-  //     return;
-  //   }
-
-  //   let userToUpdate: UserUpdate = this.getUserToUpdate();
-
-  //   this.loadVisible = true;
-
-  //   this.userService.updateUser(userToUpdate, this.selectedImg).subscribe((res) => {
-  //     if (res.body != null) {
-  //       this.loadVisible = false;
-  //       this.dialogRef.close(userToUpdate);
-  //       this.snackBarService.openSnackBar("User info updated!");
-  //     }
-  //   },
-  //     (err) => {
-  //       this.snackBarService.openSnackBar(err.error);
-  //       this.loadVisible = false;
-  //     });
-  // }
 }

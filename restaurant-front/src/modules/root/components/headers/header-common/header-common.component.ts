@@ -64,7 +64,7 @@ export class HeaderCommonComponent implements AfterViewInit {
   }
 
   profile() {
-    this.userService.getUserInfo(this.employeeId).subscribe((res) => {
+    this.userService.getUserInfo(this.utilService.getLoggedUserId()).subscribe((res) => {
       if (res.body != null) {
         const dialogRef = this.dialog.open(ProfileViewComponent, {
           data: { user: res.body, isAdmin: false, isWorker: this.utilService.isUserWorker() },
