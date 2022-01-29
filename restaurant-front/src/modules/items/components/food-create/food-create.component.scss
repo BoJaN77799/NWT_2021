@@ -46,9 +46,22 @@ th {
     width: 10%; 
     background-color: red;
     color: white;
+    margin-bottom: 10px;
 }
 
-#submit:hover, #clear-btn:hover {
+#upload-food {
+    width: 30%; 
+    background-color: red;
+    color: white;
+    position: relative;
+    transform: translate(240%, 300%);
+}
+
+#upload-food:focus {
+    box-shadow: none;
+}
+
+#submit:hover, #clear-btn:hover, #upload-food:hover {
     background-color: rgba(0,0,0,.2);
     color: black;
 }

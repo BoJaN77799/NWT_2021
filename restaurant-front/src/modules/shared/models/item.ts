@@ -1,3 +1,5 @@
+import { Category } from "./category";
+
 export interface Item {
     id: number,
     name: string,
@@ -6,9 +8,4 @@ export interface Item {
     category: Category,
     imgSrc: string,
     itemType: string
-}
-
-export interface Category {
-    id: number,
-    name: string
 }

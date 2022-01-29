@@ -20,7 +20,9 @@ export class FoodCreateComponent {
   foodIngredientsToShow: Ingredient[];
   selected: Ingredient;
   selectedType: string;
-  //number: number;
+
+  previewImg: string | undefined;
+  selectedImg: File | undefined;
 
   constructor(
     private fb: FormBuilder,
@@ -61,23 +63,22 @@ export class FoodCreateComponent {
   }
 
   onSubmit() {
-    let choosenIngredients = this.food.ingredients;
-    this.food = this.foodForm.value;
-    // category is object
-    this.food.category = {
-      id: -1,
-      name: this.foodForm.value['category']
-    }
-    this.food.itemType = ItemType.FOOD;
-    this.food.image = "slicica"; // TODO za sliku
-    this.food.deleted = false;
-    this.food.currentPrice = -1;
-    this.food.type = this.getFoodType();
-    this.food.ingredients = choosenIngredients;
-    this.foodService.add(this.food).subscribe((toastMessage) => {
-      this.snackBarService.openSnackBar(toastMessage);
-      this.router.navigate(["/rest-app/orders/orders-page"]);
+    this.food.ingredients
+    let foodType = this.getFoodType();
+    this.foodService.add(this.foodForm.value, foodType, this.selectedImg).subscribe((toastMessage) => {
+      console.log(toastMessage);
+      if (toastMessage.body) {
+        let foodId = Number(toastMessage.headers.get("food-id"));
+        if (foodId >= 1)
+          this.foodService.saveIngredients({ foodId: foodId, ingredients: this.food.ingredients }).subscribe((res) => {
+            if (res.status === 200)
+              this.router.navigate(["/rest-app/orders/orders-page"]);
+            if (toastMessage.body)
+              this.snackBarService.openSnackBar(toastMessage.body)
+          })
+      }
     });
+
   }
 
   getFoodType(): FoodType {
@@ -130,6 +131,24 @@ export class FoodCreateComponent {
 
   checkSubmit() {
     return !(this.foodForm.valid && this.selectedType !== "" && this.food.ingredients.length != 0);
+  }
+
+  public selectImage(event: any) {
+    let selectedFiles = event.target.files;
+
+
+    if (selectedFiles && selectedFiles[0]) {
+      this.selectedImg = selectedFiles[0];
+      if (this.selectedImg)
+        this.food.image = this.selectedImg.name;
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewImg = e.target.result;
+
+      }
+      reader.readAsDataURL(selectedFiles[0]);
+    }
   }
 }
 

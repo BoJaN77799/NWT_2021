@@ -17,3 +17,8 @@ export interface Food {
     timeToMake: number;
     deleted: boolean
 }
+
+export interface FoodWithIngredients {
+    foodId: number,
+    ingredients: Ingredient[]
+}

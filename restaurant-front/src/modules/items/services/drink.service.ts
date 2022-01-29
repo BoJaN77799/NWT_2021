@@ -2,7 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ItemType } from 'src/modules/shared/models/enums/item-type';
-import { Category } from 'src/modules/shared/models/item';
+import { Category } from 'src/modules/shared/models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +17,18 @@ export class DrinkService {
     formData.append("name", newDrink.name);
     formData.append("cost", newDrink.cost);
     formData.append("description", newDrink.description);
-    formData.append("image", "");
     let category: Category = { 'id': 1, 'name': newDrink.category };
     formData.append("category", category.name);
     formData.append("itemType", ItemType.DRINK);
     formData.append("deleted", false);
     formData.append("volume", newDrink.volume);
 
-    if (img)
+    if (img) {
       formData.append("multipartImageFile", img);
+      formData.append("image", newDrink.image);
+    }
+    else
+      formData.append("image", 'drink_photos/default_drink.jpg');
 
     let queryParams = {};
 

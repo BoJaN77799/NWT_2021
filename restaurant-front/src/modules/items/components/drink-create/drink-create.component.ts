@@ -68,7 +68,7 @@ export class DrinkCreateComponent {
     }
 
     checkSubmit() {
-        return !this.drinkForm.valid || !this.selectedImg;
+        return !this.drinkForm.valid;
     }
 
     public selectImage(event: any) {

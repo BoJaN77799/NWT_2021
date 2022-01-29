@@ -21,6 +21,7 @@
     width: 10%; 
     background-color: red;
     color: white;
+    margin-bottom: 20px;
 }
 
 #upload-drink {
@@ -28,7 +29,7 @@
     background-color: red;
     color: white;
     position: relative;
-    transform: translate(0%, 669%);
+    transform: translate(-20%, 300%);
 }
 
 #submit:hover, #clear-btn:hover, #upload-drink:hover {
