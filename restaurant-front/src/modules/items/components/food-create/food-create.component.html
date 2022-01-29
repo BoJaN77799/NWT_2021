@@ -81,7 +81,7 @@
                     <div class="col-6">
                         <mat-form-field appearance="fill" style="width: 100%;">
                             <mat-label>Select a type</mat-label>
-                            <mat-select [(value)]="selectedType">
+                            <mat-select id='food-type' [(value)]="selectedType">
                                 <mat-option *ngFor="let fType of ['APPETIZER','MAIN_DISH','DESERT']" [value]="fType">
                                     {{fType}}</mat-option>
                             </mat-select>
@@ -95,7 +95,8 @@
                         style="padding-top: calc(0.375rem + 10px);">Ingredients:</label>
                     <mat-form-field appearance="fill" class="col-6">
                         <mat-label>Select an ingredient</mat-label>
-                        <mat-select [(value)]="selected" (selectionChange)="addChoosenIngredient($event.value);">
+                        <mat-select id='ingredient-select' [(value)]="selected"
+                            (selectionChange)="addChoosenIngredient($event.value);">
                             <mat-option *ngFor="let ingredient of foodIngredientsToShow" [value]="ingredient">
                                 {{ingredient.name}} ({{ingredient.allergen ? "allergen": "not allergen"}})
                             </mat-option>
@@ -103,15 +104,19 @@
                     </mat-form-field>
                     <span class="col-9">
                         <span [ngStyle]="{'visibility': (food.ingredients.length === 0) ? 'hidden' : 'visible'}">
-                            <table style="width:100%; margin-top:10px">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Is allergen</th>
-                                </tr>
-                                <tr *ngFor="let ingredient of food['ingredients']">
-                                    <td>{{ingredient.name}}</td>
-                                    <td>{{ingredient.allergen ? "allergen": "not allergen"}}</td>
-                                </tr>
+                            <table id='ingredients-table' style="width:100%; margin-top:10px">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Is allergen</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let ingredient of food['ingredients']">
+                                        <td>{{ingredient.name}}</td>
+                                        <td>{{ingredient.allergen ? "allergen": "not allergen"}}</td>
+                                    </tr>
+                                </tbody>
                             </table>
                             <button id="clear-btn" type="button" class="btn" (click)="reset()">Clear</button>
                         </span>
