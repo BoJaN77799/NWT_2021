@@ -29,6 +29,7 @@ export class EmployeesViewComponent implements AfterViewInit {
     this.employeesService.findAllEmployees(this.currentPage - 1, this.pageSize)
       .subscribe((response) => {
         this.employees = response.body as EmployeeDTO[];
+        console.log(this.employees);
         this.totalSize = Number(response.headers.get("total-elements"));
       });
   }
