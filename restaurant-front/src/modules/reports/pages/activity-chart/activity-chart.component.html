@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col">
+    <div class="example-button-container" style="padding-bottom: 25px; padding-left: 100px;">
+        <button id="reports-button" mat-mini-fab color="warn" aria-label="Bar chart icon." (click)="getAcivity()">
+          <mat-icon>bar_chart</mat-icon>
+        </button>
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <div>
+      <p style="text-align: center; font-weight: bold; color:red">Graph of employees' activity per month</p>
+      <app-bar-chart [barChartData]="barChartData" [barChartOptions]="barChartOptions"></app-bar-chart>
+  </div>
+</div>

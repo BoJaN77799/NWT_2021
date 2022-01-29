@@ -1,0 +1,88 @@
+<div class="drink-creation-label">drink creation</div>
+<div class="row">
+    <div class="col-10">
+        <div class="row">
+            <div class="col-3">
+                <img *ngIf="previewImg" [src]="previewImg" height="250" width="250" style="border: 1px solid black;">
+                <img *ngIf="!previewImg" src="restaurant/drink_photos/default_drink.jpg" class="rounded" width="250"
+                    style="border: 1px solid black;" height="250"
+                    onerror="this.src='restaurant/drink_photos/default_drink.jpg'">
+            </div>
+            <div class="col-8">
+                <button id="upload-drink" class="btn" (click)="imgInput.click()">Upload drink image</button>
+                <input #imgInput hidden="true" type="file" id="fileInput" name="fileInput" accept="image/*"
+                    onclick="this.value = null" (change)="selectImage($event)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<form class="reactiveForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="form-group row my_margin">
+                <label for="name" class="col-3 col-form-label">Name</label>
+                <div class="col-6">
+                    <input class="form-control" type="text" id="name" placeholder="Enter name" formControlName="name" />
+                    <small class="text-danger"
+                        *ngIf="f['name'].touched && f['name'].errors && f['name'].errors['required']">
+                        Name is required.</small>
+                </div>
+            </div>
+
+            <div class="form-group row my_margin">
+                <label for="cost" class="col-3 col-form-label">Cost</label>
+                <div class="col-6">
+                    <input class="form-control" type="number" id="cost" step="100" min="0" placeholder="Fill cost"
+                        formControlName="cost" />
+                    <small class="text-danger"
+                        *ngIf="f['cost'].touched && f['cost'].errors && f['cost'].errors['required']">
+                        Cost is required.</small>
+                    <small class="text-danger" *ngIf="f['cost'].touched && f['cost'].errors && f['cost'].errors['min']">
+                        Cost is too low.</small>
+                </div>
+            </div>
+
+            <div class="form-group row my_margin">
+                <label for="category" class="col-3 col-form-label">Category name</label>
+                <div class="col-6">
+                    <input class="form-control" type="text" id="category" placeholder="Enter category"
+                        formControlName="category" />
+                    <small class="text-danger"
+                        *ngIf="f['category'].touched && f['category'].errors && f['category'].errors['required']">
+                        Category is required.</small>
+                </div>
+            </div>
+
+            <div class="form-group row my_margin">
+                <label for="description" class="col-3 col-form-label">Description</label>
+                <div class="col-6">
+                    <textarea rows=2 class="form-control" type="text" id="description" placeholder="Description"
+                        formControlName="description"></textarea>
+                    <small class="text-danger"
+                        *ngIf="f['description'].touched && f['description'].errors && f['description'].errors['required']">
+                        Description is required.</small>
+                    <small class="text-danger"
+                        *ngIf="f['description'].touched && f['description'].errors && f['description'].errors['maxLength']">
+                        Descripton is too long.</small>
+                </div>
+            </div>
+
+            <div class="form-group row my_margin">
+                <label for="volume" class="col-3 col-form-label">Volume</label>
+                <div class="col-6">
+                    <input rows=3 class="form-control" type="number" step="0.5" min="0" id="volume" placeholder="Volume"
+                        formControlName="volume" />
+                    <small class="text-danger"
+                        *ngIf="f['volume'].touched && f['volume'].errors && f['volume'].errors['required']">
+                        Volume is required.</small>
+                    <small class="text-danger"
+                        *ngIf="f['volume'].touched && f['volume'].errors && f['volume'].errors['min']">
+                        Volume is too low.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button id="submit" class="btn" type="submit" [disabled]='checkSubmit()'>Submit</button>
+</form>

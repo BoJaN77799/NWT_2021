@@ -1,0 +1,32 @@
+<mat-tab-group mat-align-tabs="center" animationDuration="0ms">
+    <mat-tab label="Food">
+        <div class="row">
+            <div class="col-12">
+                <app-search-input-btn id="foodSearch" (searchBtnClicked)="foodSearchBtnClicked($event)"></app-search-input-btn>
+            </div>
+            <app-select-custom-text id="foodSortSelect" class="col-3" placeholder="Sort" defaultOption="Default" [options]=sortTypes (optionSelected)=foodSortChanged($event)></app-select-custom-text>
+            <app-select-custom-text id="foodMenuSelect" class="col-3" placeholder="Stalni meni" defaultOption="Stalni meni" [options]=menus (optionSelected)=foodMenuChanged($event)></app-select-custom-text>
+            <app-select-custom-text id="foodCategorySelect" class="col-3" placeholder="Category" defaultOption="All categories" [options]=foodCategories (optionSelected)=foodCategoryChanged($event)></app-select-custom-text>
+            <app-select-custom-text id="foodTypeSelect" class="col-3" placeholder="Type" defaultOption="All types" [options]=foodTypes (optionSelected)=foodTypeChanged($event)></app-select-custom-text>
+        </div>
+        <app-cards-container [cards]="foodItems"></app-cards-container>
+        <div class="pagination">
+            <app-pagination id="foodPagination" [totalItems]="totalItemsFood" [pageSize]="pageSize" (pageSelected)="getPageFood($event)"></app-pagination>
+        </div>
+    </mat-tab>
+    <mat-tab label="Drink">
+        <div class="row">
+            <div class="col-12">
+                <app-search-input-btn id="drinkSearch" (searchBtnClicked)="drinkSearchBtnClicked($event)" ></app-search-input-btn>
+            </div>
+            <app-select-custom-text id="drinkSortSelect" class="col-4" placeholder="Sort" [options]=sortTypes defaultOption="Default" (optionSelected)=drinkSortChanged($event)></app-select-custom-text>    
+            <app-select-custom-text id="drinkMenuSelect" class="col-4" placeholder="Stalni meni" defaultOption="Stalni meni" [options]=menus (optionSelected)=drinkMenuChanged($event)></app-select-custom-text>
+            <app-select-custom-text id="drinkCategorySelect" class="col-4" placeholder="Category" defaultOption="All categories" [options]=drinkCategories (optionSelected)=drinkCategoryChanged($event)></app-select-custom-text>
+        </div>
+        <app-cards-container [cards]="drinkItems"></app-cards-container>
+        <div class="pagination">
+            <app-pagination id="drinkPagination" [totalItems]="totalItemsDrink" [pageSize]="pageSize" (pageSelected)="getPageDrink($event)"></app-pagination>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+

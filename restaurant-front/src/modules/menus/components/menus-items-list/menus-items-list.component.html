@@ -1,0 +1,5 @@
+<div class="row" style="margin-top: 30px; margin-left: 40px;">
+    <div *ngFor="let item of items" class="col">
+        <app-menus-item-card (renderList)="renderList()" [selectedName]="selectedName" [item]="item"></app-menus-item-card>
+    </div>
+</div>

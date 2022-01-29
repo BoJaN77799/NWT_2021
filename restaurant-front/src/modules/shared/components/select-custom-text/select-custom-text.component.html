@@ -1,0 +1,4 @@
+<mat-select placeholder="{{placeholder}}" ngModel (ngModelChange)="optionChanged($event)" class="form-select form-select-lg mb-3">
+    <mat-option>{{defaultOption}}</mat-option>
+    <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+</mat-select>

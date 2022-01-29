@@ -1,0 +1,14 @@
+<div class="card" style="width: 16rem;">
+    <div (click)=openDialog()>
+        <img width="400px" height="225px" src="restaurant/{{item.image}}" class="card-img-top" alt="Picture not loaded correctly">
+    </div>
+    
+    <div class="card-body">
+      <h2 (click)=openDialog() class="card-title">{{item.name}}</h2>
+      <p class="card-text">{{item.description}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{item.category.name}}</li>
+      <li class="list-group-item">Price: {{item.price}}</li>
+    </ul>
+</div>

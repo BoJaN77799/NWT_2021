@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Creating Menu</h1>
+<div mat-dialog-content>
+  <p>Create a new menu.</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Name for menu</mat-label>
+    <input id='input-name-menu' matInput [(ngModel)]="newValue">
+  </mat-form-field>
+</div>
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Active Menus</mat-label>
+    <select matNativeControl required>
+      <option *ngFor="let menu of menus" [value]="menu.name">
+        {{menu.name}}
+      </option>
+    </select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button id='create-menu' mat-button (click)="createMenu()">Create</button>
+  <button id='cancel-create-menu' mat-button (click)="onNoClick()">Cancel</button>
+</div>

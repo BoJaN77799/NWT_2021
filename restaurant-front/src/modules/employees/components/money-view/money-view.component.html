@@ -1,0 +1,14 @@
+<h1 mat-dialog-title style="text-align: center;">{{title}}</h1>
+<div mat-dialog-content>
+    <p>{{header}}</p>
+    <mat-form-field appearance="fill">
+      <mat-label>{{label}}</mat-label>
+      <input id='money-view-input' matInput type="number" [(ngModel)]="value">
+    </mat-form-field>
+    <button id='money-view-button' mat-stroked-button color="warn" style="margin-left: 40px;" (click)="createContent()">Add</button>
+    <button id='money-view-cancel-button' mat-raised-button
+                        (click)="onNoClick()">Cancel</button> 
+</div>
+<div>
+    <p *ngFor="let line of content">{{line}}</p>
+</div>

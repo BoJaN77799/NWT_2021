@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" style="color: red;" onclick="return false;">Manager Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a id="home" class="nav-link active" aria-current="page" [routerLink]="'/rest-app/employees/employees-manager'" 
+          routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Reports
+          </a>
+          <ul id="reports-navlist" class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" [routerLink]="'/rest-app/reports/reports-manager/sales-table'" 
+              routerLinkActive="active" 
+              >Sales (Table)</a></li>
+            <li><a class="dropdown-item" [routerLink]="'/rest-app/reports/reports-manager/sales-chart'" 
+              routerLinkActive="active">Sales (Chart)</a></li>
+            <li><a class="dropdown-item" 
+              [routerLink]="'/rest-app/reports/reports-manager/income-expenses-chart'" 
+              routerLinkActive="active" >Income and Expenses (Chart)</a></li>
+            <li><a class="dropdown-item" [routerLink]="'/rest-app/reports/reports-manager/activity-table'" 
+              routerLinkActive="active">Acitvity (Table)</a></li>
+            <li><a class="dropdown-item" [routerLink]="'/rest-app/reports/reports-manager/activity-chart'" 
+              routerLinkActive="active">Acitvity (Chart)</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a id="employees" class="nav-link active" aria-current="page" 
+          [routerLink]="'/rest-app/employees/employees-manager'" 
+          routerLinkActive="active">Employees</a>
+        </li>
+        <li class="nav-item">
+          <a id="menus" class="nav-link active" aria-current="page" 
+          [routerLink]="'/rest-app/menus/menus-manager'" 
+          routerLinkActive="active">Menus</a>
+        </li>
+      </ul>
+      <app-header-common></app-header-common>
+    </div>
+  </div>
+</nav> 

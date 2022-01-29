@@ -1,0 +1,5 @@
+export enum NotificationType {
+    CREATE_ORDER = 'CREATE_ORDER',
+    UPDATE_ORDER = 'UPDATE_ORDER',
+    FINISH_ORDER_ITEM = 'FINISH_ORDER_ITEM'
+}

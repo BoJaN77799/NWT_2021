@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="'/rest-app/orders/orders-page'" style="color: red;">
+      <mat-icon style="transform: scale(1.5);">home</mat-icon>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false"
+            style="cursor: pointer;">
+            Options
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a id='new-orders' class="dropdown-item" [routerLink]="'/rest-app/orders/orders-page'"
+                routerLinkActive="active">New
+                orders</a></li>
+            <li><a id='my-orders' class="dropdown-item" [routerLink]="'/rest-app/orders/my-orders-page/' + userId"
+                routerLinkActive="active">My
+                orders</a></li>
+            <li [hidden]="userRole === 'COOK'"><a id='create-food' class="dropdown-item"
+                [routerLink]="'/rest-app/items/items-page/food-create'" routerLinkActive="active">Create new food</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <app-header-common></app-header-common>
+    </div>
+  </div>
+</nav>
