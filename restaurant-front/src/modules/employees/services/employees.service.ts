@@ -88,4 +88,21 @@ export class EmployeesService {
     }
     return content;
   }
+
+  searchEmployees(searchFieldVal: string, userTypeVal: string, pageNum: number, pageSize: number): 
+  Observable<HttpResponse<EmployeeDTO[]>> {
+    let queryParams = {};
+
+      queryParams = {
+        headers: this.headers,
+        params: {
+          searchField: searchFieldVal,
+          userType: userTypeVal,
+          size: pageSize,
+          page: pageNum
+        },
+        observe: 'response'
+      };
+    return this.http.get<HttpResponse<EmployeeDTO[]>>("restaurant/api/employees/search_employees", queryParams);
+  }
 }

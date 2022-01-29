@@ -10,7 +10,7 @@ import { EmployeesViewComponent } from './pages/employees-view/employees-view.co
 import { EmployeeCardComponent } from './components/employee-card/employee-card.component';
 import { EmployeeProfileComponent } from './components/employee-profile/employee-profile.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MoneyViewComponent } from './components/money-view/money-view.component';
 
 @NgModule({
@@ -26,6 +26,7 @@ import { MoneyViewComponent } from './components/money-view/money-view.component
     RouterModule.forChild(EmployeesRoutes),
     MaterialExampleModule,
     FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class EmployeesModule { }

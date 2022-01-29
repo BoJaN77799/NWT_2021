@@ -1,3 +1,28 @@
+<form class="row p-4 align-items-center justify-content-center" [formGroup]="searchFormGroup"
+        (keydown.enter)="$event.preventDefault()">
+        <div class="col-4 align-items-center justify-content-center">
+            <mat-form-field class="example-form-field" appearance="fill" style="width: 100%;">
+                <mat-label>Search users</mat-label>
+                <input id="searchFieldInput" matInput type="text" formControlName="searchField">
+                <button id="clearSearchField" *ngIf="searchFormGroup.controls['searchField'].value" matSuffix
+                    mat-icon-button aria-label="Clear" (click)="searchFormGroup.controls['searchField'].setValue('')">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="col-2">
+            <mat-form-field appearance="fill">
+                <mat-label>User type</mat-label>
+                <mat-select formControlName="userType" id="userTypeSelect">
+                    <mat-option value="all" selected>Any</mat-option>
+                    <mat-option value="WAITER">Waiter</mat-option>
+                    <mat-option value="COOK">Cook</mat-option>
+                    <mat-option value="HEAD_COOK">Head cook</mat-option>
+                    <mat-option value="BARMAN">Barman</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+</form>
 <div class="row" style="margin-top: 50px; margin-left: 40px;">
     <div *ngFor="let employee of employees" class="col">
         <app-employee-card [employee]="employee"></app-employee-card>
