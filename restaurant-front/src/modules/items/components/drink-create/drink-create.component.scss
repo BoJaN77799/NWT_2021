@@ -23,7 +23,19 @@
     color: white;
 }
 
-#submit:hover, #clear-btn:hover {
+#upload-drink {
+    width: 25%; 
+    background-color: red;
+    color: white;
+    position: relative;
+    transform: translate(0%, 669%);
+}
+
+#submit:hover, #clear-btn:hover, #upload-drink:hover {
     background-color: rgba(0,0,0,.2);
     color: black;
+}
+
+#upload-drink:focus {
+    box-shadow: none;
 }

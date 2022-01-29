@@ -1,4 +1,21 @@
 <div class="drink-creation-label">drink creation</div>
+<div class="row">
+    <div class="col-10">
+        <div class="row">
+            <div class="col-3">
+                <img *ngIf="previewImg" [src]="previewImg" height="300" width="300">
+                <img *ngIf="!previewImg" src="restaurant/drink_photos/default_drink.jpg" class="rounded" width="300"
+                    height="300" onerror="this.src='restaurant/drink_photos/default_drink.jpg'">
+            </div>
+            <div class="col-8">
+                <button id="upload-drink" class="btn" (click)="imgInput.click()">Upload drink image</button>
+                <input #imgInput hidden="true" type="file" id="fileInput" name="fileInput" accept="image/*"
+                    onclick="this.value = null" (change)="selectImage($event)" />
+            </div>
+        </div>
+    </div>
+</div>
+
 <form class="reactiveForm" [formGroup]="drinkForm" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col-6">

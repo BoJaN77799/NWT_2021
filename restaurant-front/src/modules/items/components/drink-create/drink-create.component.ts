@@ -16,6 +16,9 @@ export class DrinkCreateComponent {
     drink: Drink;
     drinkForm: FormGroup;
 
+    previewImg: string | undefined;
+    selectedImg: File | undefined;
+
     constructor(
         private fb: FormBuilder,
         private router: Router,
@@ -40,18 +43,9 @@ export class DrinkCreateComponent {
     }
 
     onSubmit() {
-        this.drink = this.drinkForm.value;
-        // category is object
-        this.drink.category = {
-            id: -1,
-            name: this.drinkForm.value['category']
-        }
-        this.drink.itemType = ItemType.DRINK;
-        this.drink.image = "slicica"; // TODO za sliku
-        this.drink.deleted = false;
-        this.drink.currentPrice = -1;
-        this.drinkService.add(this.drink).subscribe((toastMessage) => {
-            this.snackBarService.openSnackBar(toastMessage);
+        this.drinkService.add(this.drinkForm.value, this.selectedImg).subscribe((toastMessage) => {
+            if (toastMessage.body)
+                this.snackBarService.openSnackBar(toastMessage.body);
             this.router.navigate(["/rest-app/orders/orders-page"]);
         });
     }
@@ -59,7 +53,7 @@ export class DrinkCreateComponent {
     createEmptyDrink(): Drink {
         return {
             name: "",
-            image: "putanjica/drink",
+            image: "",
             cost: 0,
             category: {
                 id: -1,
@@ -74,6 +68,24 @@ export class DrinkCreateComponent {
     }
 
     checkSubmit() {
-        return !this.drinkForm.valid;
+        return !this.drinkForm.valid || !this.selectedImg;
+    }
+
+    public selectImage(event: any) {
+        let selectedFiles = event.target.files;
+
+
+        if (selectedFiles && selectedFiles[0]) {
+            this.selectedImg = selectedFiles[0];
+            if (this.selectedImg)
+                this.drink.image = this.selectedImg.name;
+
+            const reader = new FileReader();
+            reader.onload = (e: any) => {
+                this.previewImg = e.target.result;
+
+            }
+            reader.readAsDataURL(selectedFiles[0]);
+        }
     }
 }
