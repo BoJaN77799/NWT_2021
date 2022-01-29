@@ -37,7 +37,7 @@ export class HeaderCommonComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.role = this.utilService.getLoggedUserRole();
-    if (this.role !== 'ADMINISTRATOR' && this.role !== 'MANAGER'){
+    if (this.role !== 'ADMINISTRATOR' && this.role !== 'MANAGER') {
       this.employeeId = this.utilService.getLoggedUserId();
       this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
         if (res.body) {
@@ -46,15 +46,15 @@ export class HeaderCommonComponent implements AfterViewInit {
         }
       })
 
-    this.notificationService.notificationMessage$.subscribe((notification) => {
-      this.notificationsSize += 1;
-      this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
-        if (res.body) {
-          this.notifications = res.body;
-          this.notificationsSize = this.notifications.length;
-        }
+      this.notificationService.notificationMessage$.subscribe((notification) => {
+        this.notificationsSize += 1;
+        this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
+          if (res.body) {
+            this.notifications = res.body;
+            this.notificationsSize = this.notifications.length;
+          }
+        })
       })
-    })
     }
   }
 
@@ -64,7 +64,7 @@ export class HeaderCommonComponent implements AfterViewInit {
   }
 
   profile() {
-    this.userService.getUserInfo(this.employeeId).subscribe((res) => {
+    this.userService.getUserInfo(this.utilService.getLoggedUserId()).subscribe((res) => {
       if (res.body != null) {
         const dialogRef = this.dialog.open(ProfileViewComponent, {
           data: { user: res.body, isAdmin: false, isWorker: this.utilService.isUserWorker() },
