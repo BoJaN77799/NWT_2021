@@ -26,7 +26,7 @@
     <div class="row d-flex justify-content-center">
         <mat-form-field class="example-form-field m-2" appearance="fill" style="width: 45%;">
             <mat-label>First name</mat-label>
-            <input matInput type="text" formControlName="firstName">
+            <input matInput type="text" formControlName="firstName" id="profileViewFN">
             <button *ngIf="updateUserFormGroup.controls['firstName'].value" matSuffix mat-icon-button aria-label="Clear"
                 (click)="updateUserFormGroup.controls['firstName'].setValue('')">
                 <mat-icon>close</mat-icon>
@@ -42,7 +42,7 @@
 
         <mat-form-field class="example-form-field  m-2" appearance="fill" style="width: 45%;">
             <mat-label>Last name</mat-label>
-            <input matInput type="text" formControlName="lastName">
+            <input matInput type="text" formControlName="lastName" id="profileViewLN">
             <button *ngIf="updateUserFormGroup.controls['lastName'].value" matSuffix mat-icon-button aria-label="Clear"
                 (click)="updateUserFormGroup.controls['lastName'].setValue('')">
                 <mat-icon>close</mat-icon>
@@ -61,7 +61,7 @@
     <div class="row d-flex justify-content-center">
         <mat-form-field class="example-form-field  m-2" appearance="fill" style="width: 45%;">
             <mat-label>Address</mat-label>
-            <input matInput type="text" formControlName="address">
+            <input matInput type="text" formControlName="address" id="profileViewAddress">
             <button *ngIf="updateUserFormGroup.controls['address'].value" matSuffix mat-icon-button aria-label="Clear"
                 (click)="updateUserFormGroup.controls['address'].setValue('')">
                 <mat-icon>close</mat-icon>
@@ -77,7 +77,7 @@
 
         <mat-form-field class="example-form-field  m-2" appearance="fill" style="width: 45%;">
             <mat-label>Telephone</mat-label>
-            <input matInput type="text" formControlName="telephone">
+            <input matInput type="text" formControlName="telephone" id="profileViewTelephone">
             <button *ngIf="updateUserFormGroup.controls['telephone'].value" matSuffix mat-icon-button aria-label="Clear"
                 (click)="updateUserFormGroup.controls['telephone'].setValue('')">
                 <mat-icon>close</mat-icon>
@@ -141,7 +141,8 @@
 
     <div class="row d-flex justify-content-center">
         <div class="col d-flex justify-content-center">
-            <button mat-flat-button color="primary" class="m-3" style="width: 30%;" (click)="saveChanges()">Save
+            <button mat-flat-button color="primary" class="m-3" style="width: 30%;" id="saveChangesBtn"
+                (click)="saveChanges()">Save
                 changes</button>
             <button *ngIf="!isAdmin" mat-flat-button color="primary" class="m-3" style="width: 30%;"
                 (click)="changePassword()">Change password </button>
