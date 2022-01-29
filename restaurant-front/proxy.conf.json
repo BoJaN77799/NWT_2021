@@ -1,7 +1,8 @@
 {
 	"/restaurant":{
-		"target": "https://restoran-app-kts.herokuapp.com/",
+		"target": "https://restoran-app-kts.herokuapp.com",
 		"secure": false,
+		"debug": true,
 		"pathRewrite": {"^/restaurant" : ""}
 	}
 }
