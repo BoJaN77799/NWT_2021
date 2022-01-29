@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   templateUrl: './select-custom-text.component.html',
   styleUrls: ['./select-custom-text.component.scss']
 })
-export class SelectCustomTextComponent implements OnInit {
+export class SelectCustomTextComponent {
 
   @Input()
   options: string[];
@@ -14,22 +14,19 @@ export class SelectCustomTextComponent implements OnInit {
   placeholder: string;
 
   @Input()
-  defaultOption: string;  
+  defaultOption: string;
 
   @Output()
   optionSelected: EventEmitter<string>;
 
-  constructor() { 
+  constructor() {
     this.options = [];
     this.placeholder = '';
     this.defaultOption = '';
     this.optionSelected = new EventEmitter();
   }
 
-  optionChanged(event: string):void {
+  optionChanged(event: string): void {
     this.optionSelected.emit(event);
   }
-
-  ngOnInit(): void {}
-
 }

@@ -5,23 +5,20 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   templateUrl: './search-input-btn.component.html',
   styleUrls: ['./search-input-btn.component.scss']
 })
-export class SearchInputBtnComponent implements OnInit {
-  
+export class SearchInputBtnComponent {
+
   searchText: string;
 
   @Output()
   searchBtnClicked: EventEmitter<string>;
 
-  constructor() { 
+  constructor() {
     this.searchText = "";
     this.searchBtnClicked = new EventEmitter();
   }
 
   btnClicked(): void {
     this.searchBtnClicked.emit(this.searchText);
-  }
-
-  ngOnInit(): void {
   }
 
 }

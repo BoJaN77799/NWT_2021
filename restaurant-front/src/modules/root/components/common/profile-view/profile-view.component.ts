@@ -13,7 +13,7 @@ import { ChangePasswordComponent } from '../change-password/change-password.comp
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss']
 })
-export class ProfileViewComponent implements OnInit {
+export class ProfileViewComponent {
 
   private userId: number;
   public user: UserInfoView;
@@ -51,10 +51,6 @@ export class ProfileViewComponent implements OnInit {
 
   public updateUserFormGroup: FormGroup;
 
-
-  ngOnInit(): void {
-
-  }
 
   public changePassword() {
     const dialogRef = this.dialog.open(ChangePasswordComponent, {

@@ -5,11 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './header-waiter.component.html',
   styleUrls: ['./header-waiter.component.scss']
 })
-export class HeaderWaiterComponent implements OnInit {
+export class HeaderWaiterComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

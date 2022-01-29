@@ -59,7 +59,7 @@
                 <h1 class="card-title"><b>TableID: {{selectedTable?.id}} -> OrderID: {{selectedOrder.id}}</b></h1>
 
                 <div *ngFor="let orderItem of selectedOrder.orderItems">
-                    <div style="border-bottom: 5px;border-color: rgb(255, 0, 0);border-style: solid;">
+                    <div style="border-bottom: 1px;border-color: rgb(255, 0, 0);border-style: solid;">
                         <h3 class="text-center">{{orderItem.name}}</h3>
                         <p class="text-center">Quantity: {{orderItem.quantity}}, price: {{orderItem.price}} din, status:
                             {{orderItem.status}}
