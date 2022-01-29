@@ -41,7 +41,7 @@ export class MenusService {
       observe: "response",
       responseType: "text"
     };
-    return this.http.post<HttpResponse<string>>(
+    return this.http.put<HttpResponse<string>>(
       "restaurant/api/menus/updateMenu", menuName, queryParams);
   }
 
