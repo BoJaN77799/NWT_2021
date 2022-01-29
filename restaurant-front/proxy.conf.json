@@ -1,6 +1,6 @@
 {
 	"/restaurant":{
-		"target": "http://localhost:8080/",
+		"target": "https://restoran-app-kts.herokuapp.com/",
 		"secure": false,
 		"pathRewrite": {"^/restaurant" : ""}
 	}
