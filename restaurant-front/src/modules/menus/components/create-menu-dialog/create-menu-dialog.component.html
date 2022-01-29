@@ -3,7 +3,7 @@
   <p>Create a new menu.</p>
   <mat-form-field appearance="fill">
     <mat-label>Name for menu</mat-label>
-    <input matInput [(ngModel)]="newValue">
+    <input id='input-name-menu' matInput [(ngModel)]="newValue">
   </mat-form-field>
 </div>
 <div>
@@ -17,6 +17,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="createMenu()">Create</button>
-  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button id='create-menu' mat-button (click)="createMenu()">Create</button>
+  <button id='cancel-create-menu' mat-button (click)="onNoClick()">Cancel</button>
 </div>

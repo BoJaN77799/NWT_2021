@@ -1,6 +1,6 @@
 <mat-form-field appearance="fill">
     <mat-label>Menus</mat-label>
-    <mat-select [(ngModel)]="selected" name="food">
+    <mat-select id='select-for-update-menu' [(ngModel)]="selected" name="food">
       <mat-option *ngFor="let menu of menus" [value]="menu.name">
         {{menu.name}}
       </mat-option>
@@ -8,6 +8,6 @@
   </mat-form-field>
   <p> Selected menu: {{selected}} </p>
   <div mat-dialog-actions>
-    <button mat-button (click)="updateMenu()">{{nameButton}}</button>
-    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button id='update-menu' mat-button (click)="updateMenu()">{{nameButton}}</button>
+    <button id='cancel-update-menu' mat-button (click)="onNoClick()">Cancel</button>
   </div>
