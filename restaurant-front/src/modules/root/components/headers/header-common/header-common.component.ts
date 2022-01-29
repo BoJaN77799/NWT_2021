@@ -37,7 +37,7 @@ export class HeaderCommonComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.role = this.utilService.getLoggedUserRole();
-    if (this.role !== 'ADMINISTRATOR' && this.role !== 'MANAGER'){
+    if (this.role !== 'ADMINISTRATOR' && this.role !== 'MANAGER') {
       this.employeeId = this.utilService.getLoggedUserId();
       this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
         if (res.body) {
@@ -46,15 +46,15 @@ export class HeaderCommonComponent implements AfterViewInit {
         }
       })
 
-    this.notificationService.notificationMessage$.subscribe((notification) => {
-      this.notificationsSize += 1;
-      this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
-        if (res.body) {
-          this.notifications = res.body;
-          this.notificationsSize = this.notifications.length;
-        }
+      this.notificationService.notificationMessage$.subscribe((notification) => {
+        this.notificationsSize += 1;
+        this.notificationService.getAllNotifications(this.employeeId).subscribe((res) => {
+          if (res.body) {
+            this.notifications = res.body;
+            this.notificationsSize = this.notifications.length;
+          }
+        })
       })
-    })
     }
   }
 
@@ -85,12 +85,13 @@ export class HeaderCommonComponent implements AfterViewInit {
         width: '60%',
       });
 
-      dialogRef.afterClosed().subscribe((condition = false) => {
-        if (condition) {
-          this.notifications = [];
-          this.notificationsSize = 0;
-        } else {
-          this.notificationsSize = this.notifications.length
+      dialogRef.componentInstance.notificationSizeEvent.subscribe((newSize: number) => {
+        this.notificationsSize = newSize;
+      });
+
+      dialogRef.afterClosed().subscribe((notifications: Notification[]) => {
+        if (notifications) {
+          this.notifications = notifications;
         }
       });
     }

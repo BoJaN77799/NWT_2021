@@ -5,7 +5,7 @@
       <div class="form-group row">
         <div id="email-div" class="col-md">
           <input type="text" class="form-control" id="email" name="email" placeholder="Email" formControlName="email" />
-          <small class="text-danger danger-label" *ngIf="
+          <small id='danger-label-email' class="text-danger danger-label" *ngIf="
           form.controls['email'].touched &&
           form.controls['email'].errors?.['required']
         ">
@@ -18,7 +18,7 @@
         <div id="pass-div" class="col-md">
           <input type="password" class="form-control" id="password" name="password" placeholder="Password"
             formControlName="password" />
-          <small class="text-danger" *ngIf="
+          <small id='danger-label-pass' class="text-danger" *ngIf="
           form.controls['password'].touched &&
           form.controls['password'].errors?.['required']
         ">

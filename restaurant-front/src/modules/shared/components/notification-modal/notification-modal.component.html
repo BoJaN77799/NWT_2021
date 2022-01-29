@@ -1,7 +1,7 @@
 <div id="modalWindow">
     <p class="title">Notifications</p>
     <div class="row">
-        <button class="btn clear-all-btn" (click)="seenAll()" [hidden]="notifications.length === 0">Seen
+        <button id='seen-all' class="btn clear-all-btn" (click)="seenAll()" [hidden]="notifications.length === 0">Seen
             all</button>
     </div>
     <div class="scroll-area">
@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col">
                     <p class="table-label">Table {{notification.tableId}}</p>
-                    <div class="box"><button id="seenOne" class="btn" (click)="seenOne(notification)">Seen</button>
+                    <div class="box"><button id="seenOne" class="btn" (click)="seenOne(notification);">Seen</button>
                         <p class="box-message">{{notification.message}}</p>
                     </div>
                 </div>

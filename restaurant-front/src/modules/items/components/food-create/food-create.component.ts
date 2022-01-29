@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FoodType } from 'src/modules/shared/models/enums/food-type';
 import { ItemType } from 'src/modules/shared/models/enums/item-type';
 import { Ingredient } from 'src/modules/shared/models/ingredient';
+import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { Food } from '../../model/food';
 import { FoodService } from '../../services/food.service';
 
@@ -25,6 +26,7 @@ export class FoodCreateComponent {
     private fb: FormBuilder,
     private router: Router,
     private foodService: FoodService,
+    private snackBarService: SnackBarService
   ) {
     this.food = this.createEmptyFood();
     this.foodIngredientsToShow = [];
@@ -73,7 +75,7 @@ export class FoodCreateComponent {
     this.food.type = this.getFoodType();
     this.food.ingredients = choosenIngredients;
     this.foodService.add(this.food).subscribe((toastMessage) => {
-      alert(toastMessage);   // this.toastr.success(toastMessage); TODO: toast
+      this.snackBarService.openSnackBar(toastMessage);
       this.router.navigate(["/rest-app/orders/orders-page"]);
     });
   }

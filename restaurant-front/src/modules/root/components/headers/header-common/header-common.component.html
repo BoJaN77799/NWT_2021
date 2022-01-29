@@ -1,6 +1,6 @@
 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
     <li *ngIf="role !== 'ADMINISTRATOR' && role !== 'MANAGER'" class="nav-item">
-        <a class="nav-link" style="cursor: pointer;" (click)="notificationModal()">
+        <a id='notifications-modal' class=" nav-link" style="cursor: pointer;" (click)="notificationModal()">
             <mat-icon [matBadge]="notificationsSize" style="transform: scale(1);"
                 [matBadgeHidden]="notificationsSize === 0">notifications</mat-icon>
         </a>

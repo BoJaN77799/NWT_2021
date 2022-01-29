@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Notification } from '../../models/notification';
 import { NotificationService } from '../../services/notification.service';
@@ -13,6 +13,7 @@ import { UtilService } from '../../services/util/util.service';
 export class NotificationModalComponent {
 
   notifications: Notification[];
+  @Output() notificationSizeEvent = new EventEmitter<number>();
 
   constructor(public dialogRef: MatDialogRef<NotificationModalComponent>,
     @Inject(MAT_DIALOG_DATA) private _notifications: Notification[],
@@ -27,18 +28,30 @@ export class NotificationModalComponent {
     this.notificationService.seenAllNotifications(employeeId).subscribe((res) => {
       if (res.body) {
         this.snackBarService.openSnackBar(res.body);
-        this.dialogRef.close(true);
+        this.dialogRef.close([]);
+        this.setNotificationsSize(0);
       }
     });
   }
+
   seenOne(notification: Notification) {
     this.notificationService.seenOneNotifications(notification.id).subscribe((res) => {
       if (res.body) {
         let index = this.notifications.indexOf(notification);
         this.notifications.splice(index, 1);
         this.snackBarService.openSnackBar(res.body);
-        if (this.notifications.length === 0) this.dialogRef.close(true);
+        if (this.notifications.length === 0) {
+          this.dialogRef.close(this.notifications);
+          this.setNotificationsSize(0);
+        }
+        else {
+          this.setNotificationsSize(this.notifications.length);
+        }
       }
     })
+  }
+
+  setNotificationsSize(value: number) {
+    this.notificationSizeEvent.emit(value);
   }
 }
