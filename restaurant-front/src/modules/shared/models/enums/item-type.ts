@@ -1,4 +1,4 @@
 export enum ItemType {
-    FOOD,
-    DRINK
+    FOOD = "FOOD",
+    DRINK = "DRINK"
 }

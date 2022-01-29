@@ -1,5 +1,23 @@
 <div class="food-creation-label">food creation</div>
 <div class="reactiveFormDiv">
+    <div class="row">
+        <div class="col-10">
+            <div class="row">
+                <div class="col-6">
+                    <button id="upload-food" class="btn" (click)="imgInput.click()">Upload food image</button>
+                    <input #imgInput hidden="true" type="file" id="fileInput" name="fileInput" accept="image/*"
+                        onclick="this.value = null" (change)="selectImage($event)" />
+                </div>
+                <div class="col-3" style="margin-bottom: 10px;">
+                    <img *ngIf="previewImg" [src]="previewImg" height="250" width="250"
+                        style="border: 1px solid black;">
+                    <img *ngIf="!previewImg" src="restaurant/food_photos/default_food.jpg" class="rounded" width="250"
+                        style="border: 1px solid black;" height="250"
+                        onerror="this.src='restaurant/food_photos/default_food.jpg'">
+                </div>
+            </div>
+        </div>
+    </div>
     <form class="reactiveForm" [formGroup]="foodForm" (ngSubmit)="onSubmit()">
         <div class="row">
             <div class="col-1"></div>
