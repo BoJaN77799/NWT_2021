@@ -18,7 +18,7 @@ export class ItemCardComponent {
 
   constructor(public dialog: MatDialog, private snackBarService : SnackBarService,
               private addNewItemService : AddNewItemService) {
-    this.item = { id: -1,  name: '', description: '', price: -1, category: {id: -1, name: ''}, imgSrc: '', itemType: ''};
+    this.item = { id: -1,  name: '', description: '', price: -1, category: {id: -1, name: ''}, image: '', itemType: ''};
   }
 
   openDialog(): void {
