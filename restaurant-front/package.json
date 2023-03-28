@@ -27,7 +27,7 @@
     "chart.js": "^3.7.0",
     "chartjs-plugin-datalabels": "^2.0.0",
     "jquery": "^3.6.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "net": "^1.0.2",
     "ng2-charts": "^3.0.6",
     "ngx-toastr": "^14.2.1",
